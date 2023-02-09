@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link id="favicon" rel="shortcut icon" type="image/png" href="data:image/png;base64,....==" />
+    <meta name="viewport" content="width=device-width">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css"> 
+    <title>EquipIt</title>
+    <style>
+
+    /* styles here */
+   
+    h1 {
+      color: #bebebe;
+      padding: 20px;
+      font-family: sans-serif;
+    }
+
+    h2{
+      color: #bebebe;
+      padding: 20px;
+      font-family: sans-serif;
+    }
+    h3 {
+      color: #bebebe;
+      text-align: center;
+      padding: 20px;
+      font-family: sans-serif;
+    }
+    
+    label{
+    color: rgb(192, 192, 192);
+	  display: block;
+	  padding: 10px;
+	  margin: 3px;
+    }
+
+    body {
+      background-color:#293640;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+  
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+          
+<!-- NAVBAR-->
+<nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm" >
+  <div class="container">
+    <a href="#" class="navbar-brand">
+      <!-- Logo Image -->
+      <img src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo-black.svg" width="45" style="background-color: rgb(137, 145, 147);" class="d-inline-block align-middle mr-2">
+      <!-- Logo Text -->
+      <span class="text-uppercase font-weight-bold">EquipIt</span>
+    </a>
+
+    <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
+
+    <div id="navbarSupportedContent" class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active"><a href="#" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+
+  <h1 class="text-center">Your orders</h1>
+  
+  <div id="app"> 
+    <h2 class="container my-3">Create</h2>
+    <form @submit.prevent="create_item" data-action="user_id"></form>
+    <div class="container my-3">
+    <label class="col-sm-1">Username: </label>
+    <input v-model="item.user_id" name="user_id" placeholder="Enter User ID"> <br>
+    </div>
+    <div class="container my-3">
+    <label class="col-sm-1">Latitude: </label>
+    <input v-model="item.lat" name="lat" placeholder="0"> <br>
+    </div>
+    <div class="container my-3">
+    <label class="col-sm-1">Longitude: </label>
+    <input v-model="item.lon" name="lon" placeholder="0"> <br>
+    </div>
+    <div class="container my-3">
+    <label class="col-sm-1">Image: </label>
+    <input v-model="item.image" name="image" type="url" placeholder="Image"> <br>
+    </div>
+    <div class="container my-3">
+    <label class="col-sm-1">Keywords: </label>
+    <input v-model="item.keywords" name="keywords" placeholder="Keywords"> <br>
+    </div>
+    <div class="container my-3">
+    <label class="col-sm-1">Description: </label>
+    <input v-model="item.description" textarea name="description" placeholder="Description"></textarea> <br>
+    </div>
+    <div class="container my-3">
+    <button data-action="create_item" @click="create_item" class="btn btn-primary"  type="submit">Create Item</button> <br>
+    </div>
+
+  
+          </form>
+          <h3 class="text-center my-5">Items</h3>
+          <ul>
+            <div class="col-sm-1">
+            <li v-for="item in items">
+                <!-- https://getbootstrap.com/docs/5.2/components/card/#example -->
+                <div class="card" style="width: 18rem;">
+
+                    <img 
+                      :src="item.image" 
+                      alt="placeholder" 
+                      style="width: 280px;height: 200px;" 
+                      card="card-img-top">
+                    <div class="container my-3">
+                    <div class="card-body">
+                      <p>ID: <span data-field="id">{{item.id}}</span> <br> </p>
+                      <p>User ID: <span data-field="User_id">{{item.user_id}}</span> <br> </p>
+                      <p>Latitude: <span data-field="Latitude">{{item.lat}}</span> <br> </p>
+                      <p>Longitude: <span data-field="Longitude">{{item.lon}}</span> <br> </p>
+                      <p>Keywords: <span data-field="Keywords">{{item.keywords}}</span> <br> </p>
+                      <p>Description: <span data-field="Description">{{item.description}}</span> <br> </p>
+              <button data-action="deleteItem" @click="deleteItem(item.id)" class=" btn btn-primary">Delete item</button>
+             </ul>
+          </li>
+       </div>
+    </div>
+</div>
+</div>
+      
+    
+    
+<script type="module">
+
+  // javascript here
+  const { createApp } = Vue
+  const DEFAULT_API = '/api/v1';
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlAPI = (urlParams.get('api') || '/api/v1').replace(/\/$/, '');
+ // https://8001-omarshivji-frameworksan-rzzl8kp72gm.ws-eu78.gitpod.io?api=https://8000-omarshivji-frameworksan-rzzl8kp72gm.ws-eu78.gitpod.io
+
+ const url = 'https://8000-omarshivji-frameworksan-rzzl8kp72gm.ws-eu78.gitpod.io'
+
+  createApp({
+      data() {
+        return {
+          item: {
+            id:'',
+            user_id:'',
+            keywords:'',
+            description:'',
+            image:'',
+            lat:'',
+            lon:'',
+            date_from:'',
+            date_to:'',
+          },
+          items:[],
+        }
+      },
+      created() {
+        this.clear_ITEM()
+        this.get_ITEMS()
+      },
+    methods:{
+      // Clears all forms
+      clear_ITEM(){
+        this.item= { ...this.item, ...{
+            user_id:'',
+            keywords:'',
+            description:'',
+            image:'',
+            lat:'',
+            lon:'',
+        }}
+      },
+      get_ITEMS() {
+         fetch(`${url}/items`, {
+            method: 'GET',
+          })
+          .then(response => response.json())
+          .then(data => this.items = data)
+          .catch(err => console.error(err));
+        },
+
+        
+        create_item() {
+         fetch(`${url}/item`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(this.item),
+          })
+          .then(response => response.json())
+          .then(json => console.log('create_item()', json))
+          .then(this.clear_ITEM)
+          .then(this.get_ITEMS)
+        .catch(err => console.error(err));
+        },
+
+        // Deletes items by item's ID
+        deleteItem(item_id){
+            fetch(`${url}/item/${item_id}`,{
+                method: 'DELETE',
+            })
+            .then(json => console.log('deleteItem()', json))
+            .then(this.get_ITEMS)
+            .catch(err => console.error(err));
+        }
+      },
+    
+    }).mount('#app')
+      
+// References
+// https://getbootstrap.com/docs/5.2/layout/grid/
+
+</script>
+</body>
+</html>
+
+<!-- References
+ https://getbootstrap.com/docs/5.2/layout/grid/
+ https://bootstrapious.com/p/bootstrap-navbar-with-logo
+ https://github.com/calaldees/frameworks_and_languages_module
+ https://vuejs.org/tutorial
+ https://github.com/NathanSmallcalder/frameworks_and_languages_module
+ https://getbootstrap.com/docs/5.2/about/brand/#logo
+ https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
+-->
+
