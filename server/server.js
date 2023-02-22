@@ -1,120 +1,151 @@
 const express = require('express');
-const mysql = require('mysql');
 const bodyParser = require('body-parser');
+const mysql = require('mysql');
 
 const app = express();
-const port = 3000;
+app.use(bodyParser.json());
 
-// Create MySQL connection
+// create a MySQL connection
 const connection = mysql.createConnection({
-  type: 'mysql',
-  host: 'localhost',
-  user: 'root',
-  port: "3306",
-  password: 'password',
-  database: 'equipit',
+  host: 'database-2.clq4hvzpxxdf.eu-west-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'equipit123',
+  port: '3306'
 });
 
-// Connect to MySQL database
-connection.connect((err) => {
+// connect to the database
+connection.connect(err => {
   if (err) {
-    console.error('Error connecting to MySQL database: ' + err.stack);
+    console.error('Error connecting to database: ' + err.stack);
     return;
   }
-  console.log('Connected to MySQL database!');
+  console.log('Connected to database as id ' + connection.threadId);
 });
 
-// Use body-parser middleware to parse request bodies
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// Define routes for customers
+// GET /customers: Retrieve a list of all customers in the database.
 app.get('/customers', (req, res) => {
-  const sql = 'SELECT * FROM customers';
-  connection.query(sql, (err, results) => {
-    if (err) {
-      console.error('Error executing query: ' + err.stack);
-      res.status(500).send('Error retrieving customers from database');
-      return;
-    }
+  connection.query('SELECT * FROM customers', (error, results, fields) => {
+    if (error) throw error;
     res.send(results);
   });
 });
 
-app.get('/customers/:id', (req, res) => {
-  const sql = `SELECT * FROM customers WHERE customer_id = ${req.params.id}`;
-  connection.query(sql, (err, result) => {
-    if (err) {
-      console.error('Error executing query: ' + err.stack);
-      res.status(500).send('Error retrieving customer from database');
-      return;
-    }
-    if (result.length === 0) {
-      res.status(404).send('Customer not found');
-    } else {
-      res.send(result);
-    }
+// GET /customers/{id}: Retrieve a specific customer by their ID.
+app.get('/customers/:customers_id', (req, res) => {
+  const customerId = req.params.id;
+  connection.query('SELECT * FROM customers WHERE customers_id = ?', [customerId], (error, results, fields) => {
+    if (error) throw error;
+    res.send(results[0]);
   });
 });
 
+// POST /customers: Create a new customer in the database.
 app.post('/customers', (req, res) => {
-  const sql = 'INSERT INTO customers SET ?';
-  connection.query(sql, req.body, (err, result) => {
-    if (err) {
-      console.error('Error executing query: ' + err.stack);
-      res.status(500).send('Error adding customer to database');
-      return;
-    }
-    res.send('Customer added to database!');
+  const newCustomer = req.body;
+  connection.query('INSERT INTO customers SET ?', newCustomer, (error, results, fields) => {
+    if (error) throw error;
+    res.send(results);
   });
 });
 
-app.put('/customers/:id', (req, res) => {
-  const sql = `UPDATE customers SET ? WHERE customer_id = ${req.params.id}`;
-  connection.query(sql, req.body, (err, result) => {
-    if (err) {
-      console.error('Error executing query: ' + err.stack);
-      res.status(500).send('Error updating customer in database');
-      return;
-    }
-    if (result.affectedRows === 0) {
-      res.status(404).send('Customer not found');
-    } else {
-      res.send('Customer updated in database!');
-    }
+// PUT /customers/{id}: Update an existing customer by their ID.
+app.put('/customers/:customers_id', (req, res) => {
+  const customerId = req.params.id;
+  const updatedCustomer = req.body;
+  connection.query('UPDATE customers SET ? WHERE customers_id = ?', [updatedCustomer, customerId], (error, results, fields) => {
+    if (error) throw error;
+    res.send(results);
   });
 });
 
-app.delete('/customers/:id', (req, res) => {
-  const sql = `DELETE FROM customers WHERE customer_id = ${req.params.id}`;
-  connection.query(sql, (err, result) => {
-    if (err) {
-      console.error('Error executing query: ' + err.stack);
-      res.status(500).send('Error deleting customer from database');
-      return;
-    }
-    if (result.affectedRows === 0) {
-      res.status(404).send('Customer not found');
-    } else {
-      res.send('Customer deleted from database!');
-    }
+// DELETE /customers/{id}: Delete a customer from the database by their ID.
+app.delete('/customers/:customers_id', (req, res) => {
+  const customerId = req.params.id;
+  connection.query('DELETE FROM customers WHERE id = ?', [customerId], (error, results, fields) => {
+    if (error) throw error;
+    res.send(results);
   });
 });
 
-// Define routes for orders, products, delivery drivers, delivery records, and payment transactions (similar to routes for customers)
-
-// Handle 404 errors
-app.use((req, res, next) => {
-  res.status(404).send('Resource not found');
+// GET /orders: Retrieve a list of all orders in the database.
+app.get('/Orders', (req, res) => {
+  connection.query('SELECT * FROM Orders', (error, results, fields) => {
+    if (error) throw error;
+    res.send(results);
+  });
 });
 
-// Handle errors that occur during route processing
-app.use((err, req, res, next) => {
-console.error(err.stack);
-res.status(500).send('An error occurred while processing your request');
+// GET /orders/{id}: Retrieve a specific order by its ID.
+app.get('/Orders/:order_id', (req, res) => {
+  const orderId = req.params.id;
+  connection.query('SELECT * FROM Orders WHERE order_id = ?', [orderId], (error, results, fields) => {
+    if (error) throw error;
+    res.send(results[0]);
+  });
 });
 
-// Start the server
-app.listen(port, () => {
-console.log('EquipIt API listening at http://localhost:${port}');
+// POST /orders: Create a new order in the database.
+app.post('/Orders', (req, res) => {
+  const newOrder = req.body;
+  connection.query('INSERT INTO Orders SET ?', newOrder, (error, results, fields) => {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
+// PUT /orders/{id}: Update an existing order by its ID.
+app.put('/Orders/:order_id', (req, res) => {
+  const orderId = req.params.id;
+  const updatedOrder = req.body;
+connection.query('UPDATE Orders SET ? WHERE order_id = ?', [updatedOrder, orderId], (error, results, fields) => {
+if (error) throw error;
+res.send(results);
+});
+});
+
+// DELETE /orders/{id}: Delete an order from the database by its ID.
+app.delete('/orders/:order_id', (req, res) => {
+const orderId = req.params.id;
+connection.query('DELETE FROM Orders WHERE order_id = ?', [orderId], (error, results, fields) => {
+if (error) throw error;
+res.send(results);
+});
+});
+
+// start the server
+app.listen(3000, () => {
+console.log('Server started on port 3000');
+});
+
+// close the MySQL connection when the app is terminated
+process.on('SIGINT', () => {
+connection.end(err => {
+if (err) console.error(err);
+console.log('MySQL connection closed.');
+process.exit();
+});
+});
+
+// handle uncaught exceptions
+process.on('uncaughtException', err => {
+console.error('Uncaught exception: ' + err);
+process.exit(1);
+});
+
+// handle unhandled promise rejections
+process.on('unhandledRejection', (reason, promise) => {
+console.error('Unhandled rejection at ' + promise + ', reason: ' + reason);
+process.exit(1);
+});
+
+// handle app termination
+server.close(() => {
+console.log('Server closed.');
+connection.end(err => {
+if (err) console.error(err);
+console.log('MySQL connection closed.');
+process.exit();
+
+process.on('SIGINT', function() {process.exit()});
+});
 });
