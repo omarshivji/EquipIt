@@ -1,113 +1,120 @@
-const express = require('express')
-const app = express()
-const port = 8000
-var cors = require('cors')
+const express = require('express');
+const mysql = require('mysql');
+const bodyParser = require('body-parser');
 
-app.use(express.json()); 
+const app = express();
+const port = 3000;
 
-app.use(cors({
-  methods: ['GET','POST','DELETE','OPTIONS']
-}))
+// Create MySQL connection
+const connection = mysql.createConnection({
+  type: 'mysql',
+  host: 'localhost',
+  user: 'root',
+  port: "3306",
+  password: 'password',
+  database: 'equipit',
+});
 
-
-var ITEMS = {
-  0: {
-      "id": 1,
-      "user_id": "user1234",
-      "keywords": ["hammer", "nails", "tools"],
-      "description": "A hammer and nails set",
-      "image": "http://placekitten.com/200/100",
-      "lat": 51.2798438,
-      "lon": 1.0830275,
-      "date_from": "2021-11-22T08:22:39.067408",
-  },
- /* 1: {
-      "id": 2,
-      "user_id": "user1546",
-      "keywords": ["hammer", "nails", "tools"],
-      "description": "A hammer and nails set",
-      "image": "http://placekitten.com/200/100",
-      "lat": 1,
-      "lon": 1,
-      "date_from": "2021-11-22T08:22:39.067408",
-      
-  }
-  */
-}
-
-// POST
-app.post('/item', (req, res) => {
-  const itemID = Object.keys(ITEMS).length +1
-  const newDate = new Date().toJSON().slice(0,10)  
-  if(ITEMS.hasOwnProperty(itemID)){ 
-    itemID = itemID + 1
-  }
-  if (req.body.user_id && req.body.keywords && req.body.description && req.body.lat && req.body.lon !==""){ 
-    ITEMS[itemID] = { 
-      id: itemID,
-      user_id: req.body.user_id,
-      keywords: req.body.keywords,
-      description: req.body.description,
-      lat: req.body.lat,
-      lon: req.body.lon,
-      date_from: newDate,
-      date_to: newDate
-    }
-    res.status(201).json(ITEMS[itemID]) 
-  }
-  else {
-    res.status(405).json('Field is missing')
-  }
-})
-  
-// GET
-app.get('/', (req, res) => {
-    res.send('<html><body>Your Items</body></html>')
-  })
-
-app.get('/item/:id', (req,res) => {
-  if(ITEMS[req.params.id] === undefined){ 
-    res.status(404).json('This item does not exist')
-  } else{
-    res.status(200).json(ITEMS[req.params.id])
-  }
-})
-
-// Filtering username 
-app.get('/items', (req,res)=> {
-  if (req.query.user_id){
-    res.status(200).json(Object.values(ITEMS).filter(o => o.user_id == req.query.user_id)) 
+// Connect to MySQL database
+connection.connect((err) => {
+  if (err) {
+    console.error('Error connecting to MySQL database: ' + err.stack);
     return;
   }
-  res.status(200).json(Object.values(ITEMS))
-})
-  
-app.get('/items', (req, res) => {
-    res.send(ITEMS)
-})
-  
-//DELETE
-app.delete('/item/:id', (req, res) => {
-  let idITEMS = parseInt(req.params.id) 
-  if(ITEMS.hasOwnProperty(idITEMS)) 
-{
-  delete ITEMS[idITEMS]
-  res.status(204).send('Deleted')
-}  
-else {
-  res.status(404).send('This item cannot be found')
-}
-})
+  console.log('Connected to MySQL database!');
+});
 
-//CORS 
-app.use(cors({
-  origin: "http://localhost:8000/",
-  methods: ['POST','GET','OPTIONS','DELETE'],
-}));
+// Use body-parser middleware to parse request bodies
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
+// Define routes for customers
+app.get('/customers', (req, res) => {
+  const sql = 'SELECT * FROM customers';
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error executing query: ' + err.stack);
+      res.status(500).send('Error retrieving customers from database');
+      return;
+    }
+    res.send(results);
+  });
+});
+
+app.get('/customers/:id', (req, res) => {
+  const sql = `SELECT * FROM customers WHERE customer_id = ${req.params.id}`;
+  connection.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error executing query: ' + err.stack);
+      res.status(500).send('Error retrieving customer from database');
+      return;
+    }
+    if (result.length === 0) {
+      res.status(404).send('Customer not found');
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.post('/customers', (req, res) => {
+  const sql = 'INSERT INTO customers SET ?';
+  connection.query(sql, req.body, (err, result) => {
+    if (err) {
+      console.error('Error executing query: ' + err.stack);
+      res.status(500).send('Error adding customer to database');
+      return;
+    }
+    res.send('Customer added to database!');
+  });
+});
+
+app.put('/customers/:id', (req, res) => {
+  const sql = `UPDATE customers SET ? WHERE customer_id = ${req.params.id}`;
+  connection.query(sql, req.body, (err, result) => {
+    if (err) {
+      console.error('Error executing query: ' + err.stack);
+      res.status(500).send('Error updating customer in database');
+      return;
+    }
+    if (result.affectedRows === 0) {
+      res.status(404).send('Customer not found');
+    } else {
+      res.send('Customer updated in database!');
+    }
+  });
+});
+
+app.delete('/customers/:id', (req, res) => {
+  const sql = `DELETE FROM customers WHERE customer_id = ${req.params.id}`;
+  connection.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error executing query: ' + err.stack);
+      res.status(500).send('Error deleting customer from database');
+      return;
+    }
+    if (result.affectedRows === 0) {
+      res.status(404).send('Customer not found');
+    } else {
+      res.send('Customer deleted from database!');
+    }
+  });
+});
+
+// Define routes for orders, products, delivery drivers, delivery records, and payment transactions (similar to routes for customers)
+
+// Handle 404 errors
+app.use((req, res, next) => {
+  res.status(404).send('Resource not found');
+});
+
+// Handle errors that occur during route processing
+app.use((err, req, res, next) => {
+console.error(err.stack);
+res.status(500).send('An error occurred while processing your request');
+});
+
+// Start the server
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
-  // Exit with CTRL + C
-process.on('SIGINT', function() {process.exit()})
-
+console.log('EquipIt API listening at http://localhost:${port}');
+});
