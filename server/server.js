@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+// const port = '8000';
 
 const app = express();
 app.use(bodyParser.json());
@@ -10,8 +11,10 @@ const connection = mysql.createConnection({
   host: 'database-2.clq4hvzpxxdf.eu-west-2.rds.amazonaws.com',
   user: 'admin',
   password: 'equipit123',
-  port: '3306'
+  port: '3306',
+  database: 'equipit'
 });
+
 
 // connect to the database
 connection.connect(err => {
@@ -21,6 +24,7 @@ connection.connect(err => {
   }
   console.log('Connected to database as id ' + connection.threadId);
 });
+
 
 // GET /customers: Retrieve a list of all customers in the database.
 app.get('/customers', (req, res) => {
@@ -113,8 +117,8 @@ res.send(results);
 });
 
 // start the server
-app.listen(3000, () => {
-console.log('Server started on port 3000');
+app.listen(8000, () => {
+console.log('Server started on port 8000');
 });
 
 // close the MySQL connection when the app is terminated
@@ -138,8 +142,7 @@ console.error('Unhandled rejection at ' + promise + ', reason: ' + reason);
 process.exit(1);
 });
 
-// handle app termination
-server.close(() => {
+// handle app termination server.close(() => {
 console.log('Server closed.');
 connection.end(err => {
 if (err) console.error(err);
@@ -147,5 +150,6 @@ console.log('MySQL connection closed.');
 process.exit();
 
 process.on('SIGINT', function() {process.exit()});
-});
-});
+
+})
+
