@@ -141,15 +141,16 @@ process.on('unhandledRejection', (reason, promise) => {
 console.error('Unhandled rejection at ' + promise + ', reason: ' + reason);
 process.exit(1);
 });
-
+/*
 // handle app termination server.close(() => {
 console.log('Server closed.');
 connection.end(err => {
 if (err) console.error(err);
 console.log('MySQL connection closed.');
 process.exit();
-
+*/
 process.on('SIGINT', function() {process.exit()});
 
-})
+
+
 
