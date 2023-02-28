@@ -1,7 +1,7 @@
 import requests
 import pytest
 
-BASE_URL = 'http://localhost:3000'
+BASE_URL = 'http://localhost:8000'
 CUSTOMERS_URL = BASE_URL + '/customers'
 
 # Define test data

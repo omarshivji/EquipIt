@@ -15,6 +15,10 @@ const connection = mysql.createConnection({
   database: 'equipit'
 });
 
+// curl -X POST -H "Content-Type: application/json" -d '{"name":"John Doe", "email":"johndoe@example.com", "address":"123 Main St", "phone":"555-1234"}' http://localhost:8000/customers
+// curl http://localhost:8000/customers/1
+// curl -X DELETE http://localhost:8000/customers/1
+
 
 // connect to the database
 connection.connect(err => {
@@ -72,7 +76,7 @@ app.delete('/customers/:customers_id', (req, res) => {
 });
 
 // GET /orders: Retrieve a list of all orders in the database.
-app.get('/Orders', (req, res) => {
+app.get('/orders', (req, res) => {
   connection.query('SELECT * FROM Orders', (error, results, fields) => {
     if (error) throw error;
     res.send(results);
@@ -80,7 +84,7 @@ app.get('/Orders', (req, res) => {
 });
 
 // GET /orders/{id}: Retrieve a specific order by its ID.
-app.get('/Orders/:order_id', (req, res) => {
+app.get('/orders/:order_id', (req, res) => {
   const orderId = req.params.id;
   connection.query('SELECT * FROM Orders WHERE order_id = ?', [orderId], (error, results, fields) => {
     if (error) throw error;
@@ -89,7 +93,7 @@ app.get('/Orders/:order_id', (req, res) => {
 });
 
 // POST /orders: Create a new order in the database.
-app.post('/Orders', (req, res) => {
+app.post('/orders', (req, res) => {
   const newOrder = req.body;
   connection.query('INSERT INTO Orders SET ?', newOrder, (error, results, fields) => {
     if (error) throw error;
@@ -98,7 +102,7 @@ app.post('/Orders', (req, res) => {
 });
 
 // PUT /orders/{id}: Update an existing order by its ID.
-app.put('/Orders/:order_id', (req, res) => {
+app.put('/orders/:order_id', (req, res) => {
   const orderId = req.params.id;
   const updatedOrder = req.body;
 connection.query('UPDATE Orders SET ? WHERE order_id = ?', [updatedOrder, orderId], (error, results, fields) => {
