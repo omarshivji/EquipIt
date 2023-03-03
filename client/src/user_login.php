@@ -8,7 +8,7 @@ $phone = "customers/phone";
 $dbname = "equipit";
 
 // Create connection
-$conn = new mysqli($servername, $name, $email, $password, $phone, $dbname);
+$conn = new mysql($servername, $name, $email, $password, $phone, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 }
 
 // Prepare and bind the INSERT statement
-$stmt = $conn->prepare("INSERT INTO customers (name, email, password, phone) VALUES (?, ?)");
+$stmt = $conn->prepare("INSERT INTO customers (name, email, password, phone) VALUES (?, ?, ?, ?)");
 $stmt->bind_param("ss", $name, $email, $password, $phone);
 
 // Retrieve the email and password values from the POST request
