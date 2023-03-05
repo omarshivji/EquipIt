@@ -74,12 +74,13 @@
   </div>
 </nav>
   
-
-  <h1 class="text-center">Login</h1>
+<!-- CUSTOMER LOGIN CODE -->
+  <h1> </h1>
+  <h1 class="text-left">Customer Login</h1>
   
   <div id="app"> 
     <h2 class="container my-3"></h2>
-    <form @submit.prevent="checkUser"></form>
+    <form @submit.prevent="addUser"></form>
     <div class="container my-3">
     <div class="container my-3">
     <label class="col-sm-1">Email: </label>
@@ -91,9 +92,30 @@
     </div>
     
     <div class="container my-3">
-    <button data-action="checkUser" @click="checkUser" class="btn btn-primary"  type="submit">Login</button> <br>
+    <button data-action="addUser" @click="addUser" class="btn btn-primary"  type="submit">Login</button> <br>
     </div>
 
+    <!-- ADMIN LOGIN CODE -->
+
+    <h1> </h1>
+    <h1 class="text-right">Admin Login</h1>
+    
+    <div id="app"> 
+      <h2 class="container my-3"></h2>
+      <form @submit.prevent="checkUser"></form>
+      <div class="container my-3">
+      <div class="container my-3">
+      <label class="col-sm-1">Email: </label>
+      <input v-model="customer.email" id="customer.email" placeholder="Enter your email"> <br>
+      </div>
+      <div class="container my-3">
+      <label class="col-sm-1">Password: </label>
+      <input v-model="customer.password" name="customer.password" placeholder="Enter your password"> <br>
+      </div>
+      
+      <div class="container my-3">
+      <button data-action="checkUser" @click="checkUser" class="btn btn-primary"  type="submit">Login</button> <br>
+      </div>
           
 </div>
 </div>
