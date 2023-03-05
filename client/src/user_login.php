@@ -1,39 +1,41 @@
 <?php
-// Replace these with your actual MySQL credentials
-$servername = "localhostdatabase-2.clq4hvzpxxdf.eu-west-2.rds.amazonaws.com";
-$name = "customers/name";
-$email = "customers/email";
-$password = "customers/password";
-$phone = "customers/phone";
-$dbname = "equipit";
 
-// Create connection
-$conn = new mysql($servername, $name, $email, $password, $phone, $dbname);
+// Database configuration
+$hostname = "localhostdatabase-2.clq4hvzpxxdf.eu-west-2.rds.amazonaws.com"; 
+$username = "admin"; 
+$password = "equipit123"; 
+$database = "equipit"; 
 
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+// Establishing a connection with the database
+$connection = mysqli_connect($hostname, $username, $password, $database);
+if(!$connection){
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-// Prepare and bind the INSERT statement
-$stmt = $conn->prepare("INSERT INTO customers (name, email, password, phone) VALUES (?, ?, ?, ?)");
-$stmt->bind_param("ss", $name, $email, $password, $phone);
+// Retrieving login details from the customer
+$email = $_POST['email'];
+$password = $_POST['password'];
 
-// Retrieve the email and password values from the POST request
-$name = $_POST["name"];
-$email = $_POST["email"];
-$password = $_POST["password"];
-$phone = $_POST["phone"];
+// Query to check if the customer exists in the database
+$query = "SELECT * FROM customers WHERE email='$email' AND password='$password'";
+$result = mysqli_query($connection, $query);
 
-// Execute the INSERT statement and return a JSON response
-if ($stmt->execute() === TRUE) {
-  $response = array("success" => true);
-} else {
-  $response = array("success" => false);
+// If a customer with the given email and password exists
+if(mysqli_num_rows($result) > 0){
+    // Start a session for the logged in customer
+    session_start();
+    $_SESSION['email'] = $email;
+    $_SESSION['password'] = $password;
+
+    // Redirect the customer to the dashboard page
+    header('Location: dashboard.php');
 }
-echo json_encode($response);
+else{
+    // If the customer doesn't exist in the database
+    echo "Invalid email or password!";
+}
 
-// Close the prepared statement and database connection
-$stmt->close();
-$conn->close();
+// Closing the database connection
+mysqli_close($connection);
+
 ?>
