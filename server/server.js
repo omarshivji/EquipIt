@@ -250,6 +250,233 @@ app.put('/delivery_drivers/:driver_id', (req, res) => {
 });
 
 // DELETE /delivery_drivers/{id}: Delete a delivery driver from the database by their ID.
+app.delete('/delivery_drivers/:driver_id', function (req, res) {
+  const driverId = req.params.driver_id;
+  connection.query('DELETE FROM delivery_drivers WHERE driver_id = ?', [driverId], function (error, results, fields) {
+    if (error) throw error;
+    res.send('Delivery driver deleted successfully');
+  });
+});
+
+
+// GET /delivery_records: Retrieve a list of all delivery records in the database.
+app.get('/delivery_records', (req, res) => {
+  const sql = 'SELECT * FROM delivery_records';
+  connection.query(sql, (error, results) => {
+      if (error) throw error;
+      res.send(results);
+  });
+});
+
+// GET /delivery_records/{id}: Retrieve a specific delivery record by its ID.
+app.get('/delivery_records/:delivery_id', (req, res) => {
+  const deliveryId = req.params.delivery_id;
+  const query = `SELECT * FROM delivery_records WHERE delivery_id = ${deliveryId}`;
+  connection.query(query, (error, results, fields) => {
+    if (error) {
+      console.error('Error retrieving delivery record:', error);
+      res.status(500).send('Error retrieving delivery record');
+    } else if (results.length === 0) {
+      res.status(404).send('Delivery record not found');
+    } else {
+      res.json(results[0]);
+    }
+  });
+});
+
+// POST /delivery_records: Create a new delivery record in the database.
+app.post('/delivery_records', (req, res) => {
+  const { order_id, driver_id, delivery_date, customer_id, delivery_address } = req.body; // assuming request body contains order_id, driver_id and delivery_date
+  const query = 'INSERT INTO delivery_records (order_id, driver_id, delivery_date) VALUES (?, ?, ?, ?, ?)';
+  connection.query(query, [order_id, driver_id, delivery_date, customer_id, delivery_address], (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send('Error creating delivery record');
+    } else {
+      res.send(`Delivery record with ID ${results.insertId} created`);
+    }
+  });
+});
+
+// PUT /delivery_records/{id}: Update an existing delivery record by its ID.
+app.put('/delivery_records/:delivery_id', (req, res) => {
+  const deliveryId = req.params.delivery_id;
+  const { order_id, driver_id, delivery_date, customer_id, delivery_address } = req.body;
+  const query = `UPDATE delivery_records SET order_id = ?, driver_id = ?, delivery_date = ?, customer_id = ?, delivery_address = ? WHERE delivery_id = ?`;
+
+  connection.query(query, [order_id, driver_id, delivery_date, customer_id, delivery_address, deliveryId], (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send('Error updating delivery record');
+    } else {
+      res.status(200).send(`Delivery record with ID ${deliveryId} updated successfully`);
+    }
+  });
+});
+
+// DELETE /delivery_records/{id}: Delete a delivery record from the database by its ID.
+app.delete('/delivery_records/:delivery_id', (req, res) => {
+  const deliveryId = req.params.delivery_id;
+  const sql = 'DELETE FROM delivery_records WHERE delivery_id = ?';
+  connection.query(sql, [deliveryId], (error, results, fields) => {
+    if (error) throw error;
+    res.send(`Delivery record with ID ${deliveryId} has been deleted.`);
+  });
+});
+
+// GET /payment_transactions: Retrieve a list of all payment transactions in the database.
+app.get('/payment_transactions', (req, res) => {
+  const query = 'SELECT * FROM payment_transactions';
+  connection.query(query, (error, results) => {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
+// GET /payment_transactions/{id}: Retrieve a specific payment transaction by its ID.
+app.get('/payment_transactions/:transaction_id', function(req, res) {
+  const transaction_id = req.params.transaction_id;
+  const query = 'SELECT * FROM payment_transactions WHERE transaction_id = ?';
+
+  connection.query(query, [transaction_id], function(error, results) {
+    if (error) {
+      console.error(error);
+      res.status(500).send('Internal server error');
+    } else if (results.length === 0) {
+      res.status(404).send('Payment transaction not found');
+    } else {
+      res.json(results[0]);
+    }
+  });
+});
+
+//POST /payment_transactions: Create a new payment transaction in the database.
+app.post('/payment_transactions', (req, res) => {
+  const { transaction_id, orders_orders_id, amount, payment_date, customer_idx } = req.body;
+  connection.query(
+    'INSERT INTO payment_transactions (transaction_id, orders_orders_id, amount, payment_date, customer_idx) VALUES (?, ?, ?, ?, ?)',
+    [transaction_id, orders_orders_id, amount, payment_date, customer_idx],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+      } else {
+        res.status(201).json({ message: 'Payment transaction created successfully' });
+      }
+    }
+  );
+});
+
+//PUT /payment_transactions/{id}: Update an existing payment transaction by its ID.
+app.put('/payment_transactions/:transaction_id', (req, res) => {
+  const transactionId = req.params.transaction_id;
+  const updatedTransaction = req.body;
+  if (!updatedTransaction.orders_orders_id || !updatedTransaction.amount || !updatedTransaction.payment_date || !updatedTransaction.customer_idx) {
+    return res.status(400).json({ error: 'orders_orders_id, amount, payment_date, and customer_idx are required fields' });
+  }
+  const query = `UPDATE payment_transactions SET orders_orders_id = ?, amount = ?, payment_date = ?, customer_idx = ? WHERE transaction_id = ?`;
+  const values = [updatedTransaction.orders_orders_id, updatedTransaction.amount, updatedTransaction.payment_date, updatedTransaction.customer_idx, transactionId];
+
+  connection.query(query, values, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Failed to update payment transaction' });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Payment transaction not found' });
+    }
+    res.json({ message: 'Payment transaction updated successfully' });
+  });
+});
+
+// DELETE /payment_transactions/{id}: Delete a payment transaction from the database by its ID.
+app.delete('/payment_transactions/:transaction_id', (req, res) => {
+  const transactionId = req.params.transaction_id;
+  const sql = 'DELETE FROM payment_transactions WHERE transaction_id = ?';
+  connection.query(sql, [transactionId], (error, results, fields) => {
+    if (error) {
+      console.error('An error occurred while deleting the payment transaction:', error);
+      res.status(500).send('An error occurred while deleting the payment transaction.');
+      return;
+    }
+    console.log(`Deleted payment transaction with ID ${transactionId}.`);
+    res.sendStatus(204);
+  });
+});
+
+// GET /store: Retrieve a list of all stores in the database.
+app.get('/store', (req, res) => {
+  connection.query('SELECT * FROM store', (err, results) => {
+    if (err) throw err;
+    res.send(results);
+  });
+});
+
+// GET /store/{id}: Retrieve a specific store its ID.
+app.get('/store/:store_id', (req, res) => {
+  const store_id = req.params.store_id;
+  const sql = `SELECT * FROM store WHERE store_id = ?`;
+  connection.query(sql, [store_id], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: 'Error retrieving store from database.' });
+    } else {
+      if (results.length === 0) {
+        res.status(404).json({ error: 'Store not found.' });
+      } else {
+        const store = results[0];
+        res.json(store);
+      }
+    }
+  });
+});
+
+// POST /store: Create a new store in the database.
+app.post('/store', (req, res) => {
+  const { store_id, name, location, admin_id } = req.body;
+  const values = [store_id ,name, location, admin_id];
+  connection.query('INSERT INTO store (store_id, name, location, admin_id]) VALUES (?, ?, ? )', values, (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Error creating new store');
+    } else {
+      res.status(200).send(`New store with ID ${results.insertId} created successfully`);
+    }
+  });
+});
+
+// PUT /store/{id}: Update an existing store by its ID.
+app.put('/store/:store_id', (req, res) => {
+  const id = req.params.store_id;
+  const newStore = req.body;
+
+  connection.query(
+    'UPDATE store SET ? WHERE store_id = ?',
+    [newStore, id],
+    (error, results, fields) => {
+      if (error) throw error;
+
+      res.send('Store updated successfully.');
+    }
+  );
+});
+
+// DELETE /store/{id}: Delete a store from the database by its ID.
+app.delete('/store/:store_id', (req, res) => {
+  const storeId = req.params.store_id;
+
+  const query = 'DELETE FROM store WHERE store_id = ?';
+  connection.query(query, [storeId], (error, result) => {
+    if (error) {
+      res.status(500).send({ error: 'Failed to delete store.' });
+    } else if (result.affectedRows === 0) {
+      res.status(404).send({ error: 'Store not found.' });
+    } else {
+      res.status(204).send();
+    }
+  });
+});
+
 
 
 
