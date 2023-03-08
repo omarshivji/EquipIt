@@ -352,10 +352,10 @@ app.get('/payment_transactions/:transaction_id', function(req, res) {
 
 //POST /payment_transactions: Create a new payment transaction in the database.
 app.post('/payment_transactions', (req, res) => {
-  const { transaction_id, orders_orders_id, amount, payment_date, customer_idx } = req.body;
+  const { transaction_id, orders_idx, amount, payment_date, customer_idx } = req.body;
   connection.query(
-    'INSERT INTO payment_transactions (transaction_id, orders_orders_id, amount, payment_date, customer_idx) VALUES (?, ?, ?, ?, ?)',
-    [transaction_id, orders_orders_id, amount, payment_date, customer_idx],
+    'INSERT INTO payment_transactions (transaction_id, orders_idx, amount, payment_date, customer_idx) VALUES (?, ?, ?, ?, ?)',
+    [transaction_id, orders_idx, amount, payment_date, customer_idx],
     (error, results) => {
       if (error) {
         console.error(error);
@@ -371,11 +371,11 @@ app.post('/payment_transactions', (req, res) => {
 app.put('/payment_transactions/:transaction_id', (req, res) => {
   const transactionId = req.params.transaction_id;
   const updatedTransaction = req.body;
-  if (!updatedTransaction.orders_orders_id || !updatedTransaction.amount || !updatedTransaction.payment_date || !updatedTransaction.customer_idx) {
-    return res.status(400).json({ error: 'orders_orders_id, amount, payment_date, and customer_idx are required fields' });
+  if (!updatedTransaction.orders_idx || !updatedTransaction.amount || !updatedTransaction.payment_date || !updatedTransaction.customer_idx) {
+    return res.status(400).json({ error: 'orders_idx, amount, payment_date, and customer_idx are required fields' });
   }
-  const query = `UPDATE payment_transactions SET orders_orders_id = ?, amount = ?, payment_date = ?, customer_idx = ? WHERE transaction_id = ?`;
-  const values = [updatedTransaction.orders_orders_id, updatedTransaction.amount, updatedTransaction.payment_date, updatedTransaction.customer_idx, transactionId];
+  const query = `UPDATE payment_transactions SET orders_idx = ?, amount = ?, payment_date = ?, customer_idx = ? WHERE transaction_id = ?`;
+  const values = [updatedTransaction.orders_idx, updatedTransaction.amount, updatedTransaction.payment_date, updatedTransaction.customer_idx, transactionId];
 
   connection.query(query, values, (err, result) => {
     if (err) {
