@@ -1,19 +1,28 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-// const port = '8000';
+const dotenv = require('dotenv');
+dotenv.config();
+
 
 const app = express();
 app.use(bodyParser.json());
 
 // create a MySQL connection
 const connection = mysql.createConnection({
-  host: 'database-2.clq4hvzpxxdf.eu-west-2.rds.amazonaws.com',
-  user: 'admin',
-  password: 'equipit123',
-  port: '3306',
-  database: 'equipit'
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  port: process.env.PORT,
+  database: process.env.DATABASE
 });
+
+let host = process.env.HOST;
+let user = process.env.USER;
+let password = process.env.PASSWORD;
+let port = process.env.PORT;
+let database = process.env.DATABASE;
+
 
 // curl -X POST -H "Content-Type: application/json" -d '{"name":"John Doe", "email":"johndoe@example.com", "address":"123 Main St", "phone":"555-1234"}' http://localhost:8000/customers
 // curl http://localhost:8000/customers/1
@@ -449,9 +458,7 @@ app.post('/store', (req, res) => {
 app.put('/store/:store_id', (req, res) => {
   const id = req.params.store_id;
   const newStore = req.body;
-
   connection.query(
-    'UPDATE store SET ? WHERE store_id = ?',
     [newStore, id],
     (error, results, fields) => {
       if (error) throw error;
@@ -464,7 +471,6 @@ app.put('/store/:store_id', (req, res) => {
 // DELETE /store/{id}: Delete a store from the database by its ID.
 app.delete('/store/:store_id', (req, res) => {
   const storeId = req.params.store_id;
-
   const query = 'DELETE FROM store WHERE store_id = ?';
   connection.query(query, [storeId], (error, result) => {
     if (error) {
@@ -481,9 +487,10 @@ app.delete('/store/:store_id', (req, res) => {
 
 
 // start the server
-app.listen(8000, () => {
-console.log('Server started on port 8000');
+app.listen(port, host, () => {
+console.log('Server started ${port}:${host}');
 });
+
 
 // close the MySQL connection when the app is terminated
 process.on('SIGINT', () => {
