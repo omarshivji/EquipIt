@@ -10,18 +10,27 @@ app.use(bodyParser.json());
 
 // create a MySQL connection
 const connection = mysql.createConnection({
+  host: 'database-2.clq4hvzpxxdf.eu-west-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'equipit123',
+  port: '3306',
+  database: 'equipit'
+});
+
+
+/* const connection = mysql.createConnection({
   host: process.env.HOST,
   user: process.env.USER,
   password: process.env.PASSWORD,
   port: process.env.PORT,
-  database: process.env.DATABASE
-});
+  database: process.env.DATABASE,
 
-let host = process.env.HOST;
-let user = process.env.USER;
-let password = process.env.PASSWORD;
-let port = process.env.PORT;
-let database = process.env.DATABASE;
+})
+*/
+
+// let host = process.env.HOST;
+// let port = process.env.PORT;
+
 
 
 // curl -X POST -H "Content-Type: application/json" -d '{"name":"John Doe", "email":"johndoe@example.com", "address":"123 Main St", "phone":"555-1234"}' http://localhost:8000/customers
@@ -38,6 +47,12 @@ connection.connect(err => {
   console.log('Connected to database as id ' + connection.threadId);
 });
 
+// app.use(cors())
+
+app.get('/', (req, res) => {
+  res.json('Succesfully logged into EquipItDelivers.')
+  console.log('EquipItDelivers is now live!')
+})
 
 // GET /customers: Retrieve a list of all customers in the database.
 app.get('/customers', (req, res) => {
@@ -58,12 +73,20 @@ app.get('/customers/:customers_id', (req, res) => {
 
 // POST /customers: Create a new customer in the database.
 app.post('/customers', (req, res) => {
-  const newCustomer = req.body;
-  connection.query('INSERT INTO customers SET ?', newCustomer, (error, results, fields) => {
-    if (error) throw error;
-    res.send(results);
+  const { name, email, address, phone, DOB, password } = req.body;
+  const sql = 'INSERT INTO customers (name, email, address, phone, DOB, password) VALUES (?, ?, ?, ?, ?, ?)';
+  const values = [name, email, address, phone, DOB, password];
+  connection.query(sql, values, (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Error creating customer' });
+    } else {
+      res.json({ customers_id, name, email, address, phone, DOB, password });
+    }
   });
 });
+
+
 
 // PUT /customers/{id}: Update an existing customer by their ID.
 app.put('/customers/:customers_id', (req, res) => {
@@ -151,16 +174,16 @@ app.get('/products/:product_id', (req, res) => {
 
 // POST /products: Create a new product in the database.
 app.post('/products', (req, res) => {
-  const { store_store_id, name, description, price, quantity } = req.body;
+  const { store_idx, name, description, price, quantity } = req.body;
   // Insert new product into MySQL database
-  const sql = 'INSERT INTO products (store_store_id, name, description, price, quantity) VALUES (?, ?, ?, ?, ?)';
-  const values = [store_store_id, name, description, price, quantity];
+  const sql = 'INSERT INTO products (store_idx, name, description, price, quantity) VALUES (?, ?, ?, ?, ?)';
+  const values = [store_idx, name, description, price, quantity];
   connection.query(sql, values, (err, result) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: 'Error creating product' });
     } else {
-      res.json({ product_id: result.insertId, store_store_id, name, description, price, quantity });
+      res.json({ product_id: result.insertId, store_idx, name, description, price, quantity });
     }
   });
 });
@@ -168,9 +191,9 @@ app.post('/products', (req, res) => {
 // PUT /products/{id}: Update an existing product by its ID.
 app.put('/products/:product_id', function(req, res) {
   const productId = req.params.product_id;
-  const { store_store_id, name, description, price, quantity } = req.body;
-  const query = `UPDATE products SET store_store_id =?, name=?, description=?, price=?, quantity=? WHERE product_id=?`;
-  connection.query(query, [store_store_id, name, description, price, quantity, productId], function(error, results, fields) {
+  const { store_idx, name, description, price, quantity } = req.body;
+  const query = `UPDATE products SET store_idx =?, name=?, description=?, price=?, quantity=? WHERE product_id=?`;
+  connection.query(query, [store_idx, name, description, price, quantity, productId], function(error, results, fields) {
     if (error) throw error;
     res.status(200).send(`Product ${productId} updated successfully`);
   });
@@ -444,7 +467,7 @@ app.get('/store/:store_id', (req, res) => {
 app.post('/store', (req, res) => {
   const { store_id, name, location, admin_id } = req.body;
   const values = [store_id ,name, location, admin_id];
-  connection.query('INSERT INTO store (store_id, name, location, admin_id]) VALUES (?, ?, ? )', values, (err, results) => {
+  connection.query('INSERT INTO store (store_id, name, location, admin_id]) VALUES (?, ?, ?, ? )', values, (err, results) => {
     if (err) {
       console.log(err);
       res.status(500).send('Error creating new store');
@@ -487,8 +510,8 @@ app.delete('/store/:store_id', (req, res) => {
 
 
 // start the server
-app.listen(port, host, () => {
-console.log('Server started ${port}:${host}');
+app.listen(8000, () => {
+console.log('Server started on port 8000');
 });
 
 
@@ -512,13 +535,14 @@ process.on('unhandledRejection', (reason, promise) => {
 console.error('Unhandled rejection at ' + promise + ', reason: ' + reason);
 process.exit(1);
 });
-/*
-// handle app termination server.close(() => {
+
+/* handle app termination server.close(() => {
 console.log('Server closed.');
 connection.end(err => {
 if (err) console.error(err);
 console.log('MySQL connection closed.');
 process.exit();
+});
 */
 process.on('SIGINT', function() {process.exit()});
 
