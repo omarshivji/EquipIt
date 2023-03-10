@@ -1,11 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const app = express();
 const mysql = require('mysql');
 const dotenv = require('dotenv');
 dotenv.config();
 
 
-const app = express();
+
 app.use(bodyParser.json());
 
 // create a MySQL connection
@@ -72,9 +73,9 @@ app.get('/customers/:customers_id', (req, res) => {
 });
 
 // POST /customers: Create a new customer in the database.
-app.post('/customers', (req, res) => {
+app.post('/customers/', (req, res) => {
   const { name, email, address, phone, DOB, password } = req.body;
-  const sql = 'INSERT INTO customers (name, email, address, phone, DOB, password) VALUES (?, ?, ?, ?, ?, ?)';
+  const sql = "INSERT INTO customers (name, email, address, phone, DOB, password) VALUES (?, ?, ?, ?, ?, ?)";
   const values = [name, email, address, phone, DOB, password];
   connection.query(sql, values, (err, result) => {
     if (err) {
