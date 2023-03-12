@@ -1,8 +1,17 @@
 {
-    "dependencies": {
-        "cors": "^2.8.5",
-        "dotenv": "^16.0.3",
-        "express": "^4.18.2",
-        "mysql": "^2.18.1"
-    }
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Backend server for equipit",
+  "main": "app.js",
+  "author": "Omar Shivji",
+  "license": "ISC"
 }
