@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Customers</title>
+</head>
+<body>
+  <h1>Customers</h1>
+  <ul>
+    <% customers.forEach(function(customer) { %>
+      <li><a href="/customers/<%= customer.customer_id %>"><%= customer.name %></a></li>
+    <% }); %>
+  </ul>
+  <form method="POST" action="/customers">
+    <h2>Add a new customer:</h2>
+    <div>
+      <label>Name:</label>
+      <input type="text" name="name" required>
+    </div>
+    <div>
+      <label>Email:</label>
+      <input type="email" name="email" required>
+    </div>
+    <div>
+      <label>Address:</label>
+      <input type="text" name="address" required>
+    </div>
+    <div>
+      <label>Phone:</label>
+      <input type="tel" name="phone" required>
+    </div>
+    <div>
+      <label>Date of Birth:</label>
+      <input type="date" name="DOB" required>
+    </div>
+    <div>
+      <label>Password:</label>
+      <input type="password" name="password" required>
+    </div>
+    <button type="submit">Add Customer</button>
+  </form>
+</body>
+</html>

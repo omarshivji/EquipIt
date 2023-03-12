@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+  </head>
+  <body>
+    <h1>Order <%= order.order_id %></h1>
+    <ul>
+      <li>Customer ID: <%= order.customer_id %></li>
+      <li>Store ID: <%= order.store_id %></li>
+      <li>Product ID: <%= order.product_id %></li>
+      <li>Product Name: <%= order.product_name %></li>
+      <li>Quantity: <%= order.quantity %></li>
+      <li>Price: <%= order.price %></li>
+      <li>Order Date: <%= order.order_date %></li>
+    </ul>
+    <a href="/orders">Back to Orders</a>
+    <a href="/orders/<%= order.order_id %>/edit">Edit Order</a>
+    <form method="POST" action="/orders/<%= order.order_id %>?_method=DELETE">
+      <button type="submit">Delete Order</button>
+    </form>
+  </body

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Equipit Delivery Service - Drivers</title>
+  </head>
+  <body>
+    <h1>Drivers</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Vehicle Make</th>
+          <th>Vehicle Model</th>
+          <th>Vehicle Color</th>
+          <th>DOB</th>
+          <th>Password</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% drivers.forEach(function(driver) { %>
+          <tr>
+            <td><%= driver.driver_id %></td>
+            <td><%= driver.name %></td>
+            <td><%= driver.email %></td>
+            <td><%= driver.phone %></td>
+            <td><%= driver.vehicle_make %></td>
+            <td><%= driver.vehicle_model %></td>
+            <td><%= driver.vehicle_color %></td>
+            <td><%= driver.DOB %></td>
+            <td><%= driver.password %></td>
+            <td>
+              <a href="/drivers/<%= driver.driver_id %>">View</a>
+              <a href="/drivers/<%= driver.driver_id %>/edit">Edit</a>
+              <form method="post" action="/drivers/<%= driver.driver_id %>?_method=DELETE">
+                <button type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <a href="/drivers/new">New Driver</a>
+  </body>
+</html>

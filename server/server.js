@@ -48,7 +48,7 @@ connection.connect(err => {
   console.log('Connected to database as id ' + connection.threadId);
 });
 
-// app.use(cors())
+app.use(cors())
 
 app.get('/', (req, res) => {
   res.json('Succesfully logged into EquipItDelivers.')

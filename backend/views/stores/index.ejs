@@ -1,0 +1,22 @@
+<h1>All Stores</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Admin ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% stores.forEach((store) => { %>
+      <tr>
+        <td><a href="/stores/<%= store.store_id %>"><%= store.store_id %></a></td>
+        <td><%= store.name %></td>
+        <td><%= store.location %></td>
+        <td><%= store.admin_id %></td>
+      </tr>
+    <% }); %>
+  </tbody>
+</table>

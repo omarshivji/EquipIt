@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+  </head>
+  <body>
+    <h1>Orders</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer ID</th>
+          <th>Store ID</th>
+          <th>Product ID</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Order Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% orders.forEach(order => { %>
+          <tr>
+            <td><%= order.order_id %></td>
+            <td><%= order.customer_id %></td>
+            <td><%= order.store_id %></td>
+            <td><%= order.product_id %></td>
+            <td><%= order.product_name %></td>
+            <td><%= order.quantity %></td>
+            <td><%= order.price %></td>
+            <td><%= order.order_date %></td>
+            <td>
+              <a href="/orders/<%= order.order_id %>">View</a>
+              <a href="/orders/<%= order.order_id %>/edit">Edit</a>
+              <form method="POST" action="/orders/<%= order.order_id %>?_method=DELETE">
+                <button type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <a href="/orders/new">New Order</a>
+  </body>
+</html>
