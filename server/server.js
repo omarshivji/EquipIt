@@ -1,15 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const mysql = require('mysql');
+// const mysql = require('mysql');
 const dotenv = require('dotenv');
+const cors = require('cors')
+const connection = require('./routes/dbconnection')
 dotenv.config();
 
 
 
 app.use(bodyParser.json());
 
-// create a MySQL connection
+/* create a MySQL connection
 const connection = mysql.createConnection({
   host: 'database-2.clq4hvzpxxdf.eu-west-2.rds.amazonaws.com',
   user: 'admin',
@@ -17,6 +19,7 @@ const connection = mysql.createConnection({
   port: '3306',
   database: 'equipit'
 });
+*/
 
 
 /* const connection = mysql.createConnection({
@@ -28,12 +31,8 @@ const connection = mysql.createConnection({
 
 })
 */
-
 // let host = process.env.HOST;
 // let port = process.env.PORT;
-
-
-
 // curl -X POST -H "Content-Type: application/json" -d '{"name":"John Doe", "email":"johndoe@example.com", "address":"123 Main St", "phone":"555-1234"}' http://localhost:8000/customers
 // curl http://localhost:8000/customers/1
 // curl -X DELETE http://localhost:8000/customers/1
@@ -48,7 +47,9 @@ connection.connect(err => {
   console.log('Connected to database as id ' + connection.threadId);
 });
 
-app.use(cors())
+app.use(cors({
+  methods: ['GET','POST','DELETE','PUT']
+}))
 
 app.get('/', (req, res) => {
   res.json('Succesfully logged into EquipItDelivers.')
@@ -73,7 +74,7 @@ app.get('/customers/:customers_id', (req, res) => {
 });
 
 // POST /customers: Create a new customer in the database.
-app.post('/customers/', (req, res) => {
+app.post('/customers', (req, res) => {
   const { name, email, address, phone, DOB, password } = req.body;
   const sql = "INSERT INTO customers (name, email, address, phone, DOB, password) VALUES (?, ?, ?, ?, ?, ?)";
   const values = [name, email, address, phone, DOB, password];
@@ -86,8 +87,6 @@ app.post('/customers/', (req, res) => {
     }
   });
 });
-
-
 
 // PUT /customers/{id}: Update an existing customer by their ID.
 app.put('/customers/:customers_id', (req, res) => {

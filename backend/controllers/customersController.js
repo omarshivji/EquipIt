@@ -1,84 +1,45 @@
-const express = require('express');
-const router = express.Router();
+const { getCustomers, getCustomerById, createCustomer, updateCustomer, deleteCustomer } = require('./models/customersModel');
 
-const customersModel = require('../models/customersModel');
+exports.getAllCustomers = (req, res) => {
+  getCustomers((error, results) => {
+    if (error) throw error;
+    res.send(results);
+  });
+};
 
-// Get all customers
-router.get('/', (req, res) => {
-  customersModel.getAllCustomers((err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error retrieving customers from database');
+exports.getCustomer = (req, res) => {
+  const customerId = req.params.customers_id;
+  getCustomerById(customerId, (error, results) => {
+    if (error) throw error;
+    res.send(results[0]);
+  });
+};
+
+exports.createCustomer = (req, res) => {
+  const { name, email, address, phone, DOB, password } = req.body;
+  createCustomer(name, email, address, phone, DOB, password, (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error creating customer' });
     } else {
-      res.render('customers', { customers: result });
+      res.json({ customers_id: results.insertId, name, email, address, phone, DOB, password });
     }
   });
-});
+};
 
-// Get a customer by ID
-router.get('/:id', (req, res) => {
-  customersModel.getCustomerById(req.params.id, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error retrieving customer from database');
-    } else if (result.length == 0) {
-      res.status(404).send('Customer not found');
-    } else {
-      res.render('customer-details', { customer: result[0] });
-    }
+exports.updateCustomer = (req, res) => {
+  const customerId = req.params.customers_id;
+  const updatedCustomer = req.body;
+  updateCustomer(customerId, updatedCustomer, (error, results) => {
+    if (error) throw error;
+    res.send(results);
   });
-});
+};
 
-// Create a new customer
-router.post('/', (req, res) => {
-  const customer = {
-    name: req.body.name,
-    email: req.body.email,
-    address: req.body.address,
-    phone: req.body.phone,
-    DOB: req.body.DOB,
-    password: req.body.password
-  };
-  customersModel.createCustomer(customer, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error creating new customer');
-    } else {
-      res.redirect('/customers');
-    }
+exports.deleteCustomer = (req, res) => {
+  const customerId = req.params.customers_id;
+  deleteCustomer(customerId, (error, results) => {
+    if (error) throw error;
+    res.send(results);
   });
-});
-
-// Update a customer by ID
-router.put('/:id', (req, res) => {
-  const customer = {
-    name: req.body.name,
-    email: req.body.email,
-    address: req.body.address,
-    phone: req.body.phone,
-    DOB: req.body.DOB,
-    password: req.body.password
-  };
-  customersModel.updateCustomer(req.params.id, customer, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error updating customer');
-    } else {
-      res.redirect(`/customers/${req.params.id}`);
-    }
-  });
-});
-
-// Delete a customer by ID
-router.delete('/:id', (req, res) => {
-  customersModel.deleteCustomer(req.params.id, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error deleting customer');
-    } else {
-      res.redirect('/customers');
-    }
-  });
-});
-
-module.exports = router;
+};

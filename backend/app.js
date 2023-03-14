@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const router = express.Router();
 
 // Set up middleware to parse request body as JSON
 app.use(express.json());
@@ -15,12 +16,12 @@ app.set('view engine', 'ejs');
 
 // Import and use the routes
 const customersRoutes = require('./routes/customers');
-/*
+
 const ordersRoutes = require('./routes/orders');
 const driversRoutes = require('./routes/drivers');
 const productsRoutes = require('./routes/products');
 const storesRoutes = require('./routes/stores');
-*/
+
 
 
 app.use('/customers', customersRoutes);
