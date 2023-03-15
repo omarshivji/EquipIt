@@ -1,15 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { getAllCustomers, getCustomer, createCustomer, updateCustomer, deleteCustomer } = require('../controllers/customersController');
+const { getAllCustomers, getCustomerById, createCustomer, updateCustomer, deleteCustomer } = require('../controllers/customers');
+const { logRequest } = require('../middleware/logger');
 
-router.get('/', getAllCustomers);
-
-router.get('/:customers_id', getCustomer);
-
-router.post('/', createCustomer);
-
-router.put('/:customers_id', updateCustomer);
-
-router.delete('/:customers_id', deleteCustomer);
+// Routes for the customers endpoint
+router.get('/', logRequest, getAllCustomers);
+router.get('/:customers_id', logRequest, getCustomerById);
+router.post('/', logRequest, createCustomer);
+router.put('/:customers_id', logRequest, updateCustomer);
+router.delete('/:customers_id', logRequest, deleteCustomer);
 
 module.exports = router;
