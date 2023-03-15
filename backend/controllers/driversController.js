@@ -75,7 +75,7 @@ function updateDriver(req, res){
 }
 
 // Delete a driver by ID from database
-function deleteDriver(req, res) => {
+function deleteDriver(req, res) {
   connection.query('DELETE FROM delivery_drivers WHERE driver_id = ?', [req.params.id], (err, result) => {
     if (err) {
       console.log(err);

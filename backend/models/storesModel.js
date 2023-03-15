@@ -1,26 +1,36 @@
-const db = require('../config/db');
+const express = require('express')
+const connection = require ('./dbconnection')
+const mysql = ('mysql')
 
-exports.getAllStores = (callback) => {
+function getAllStores  (callback) {
   const sql = 'SELECT * FROM store';
-  db.query(sql, callback);
+  connection.query(sql, callback);
 };
 
-exports.getStoreById = (id, callback) => {
+function getStoreById (id, callback) {
   const sql = 'SELECT * FROM store WHERE store_id = ?';
-  db.query(sql, [id], callback);
+  connection.query(sql, [id], callback);
 };
 
-exports.createStore = (store, callback) => {
+function createStore (store, callback) {
   const sql = 'INSERT INTO store SET ?';
-  db.query(sql, [store], callback);
+  connection.query(sql, [store], callback);
 };
 
-exports.updateStore = (id, store, callback) => {
+function updateStore  (id, store, callback) {
   const sql = 'UPDATE store SET ? WHERE store_id = ?';
-  db.query(sql, [store, id], callback);
+  connection.query(sql, [store, id], callback);
 };
 
-exports.deleteStore = (id, callback) => {
+function deleteStore (id, callback) {
   const sql = 'DELETE FROM store WHERE store_id = ?';
-  db.query(sql, [id], callback);
+  connection.query(sql, [id], callback);
 };
+
+module.exports = {
+  getAllStores,
+  getStoreById,
+  createStore,
+  updateStore,
+  deleteStore
+}

@@ -16,22 +16,19 @@ app.set('view engine', 'ejs');
 
 // Import and use the routes
 const customersRoutes = require('./routes/customers.js');
-
 const ordersRoutes = require('./routes/orders.js');
-//const driversRoutes = require('./routes/drivers');
-//const productsRoutes = require('./routes/products');
-//const storesRoutes = require('./routes/stores');
+const driversRoutes = require('./routes/drivers');
+const productsRoutes = require('./routes/products');
+const storesRoutes = require('./routes/stores');
 
 
 
 app.use('/customers', customersRoutes);
-
 app.use('/orders', ordersRoutes);
-/* 
 app.use('/drivers', driversRoutes);
 app.use('/products', productsRoutes);
 app.use('/stores', storesRoutes);
-*/
+
 
 
 // Set up a default route for handling invalid requests

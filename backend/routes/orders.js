@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const ordersController = require('../controllers/ordersController');
+const { getAllOrders, getOrderById, createOrder, updateOrder, deleteOrder } = require('../controllers/ordersController');
+const { logRequest } = require('../middleware/logger');
 
-router.get('/', ordersController.getAllOrders);
-router.get('/:id', ordersController.getOrderById);
-router.post('/', ordersController.createOrder);
-router.put('/:id', ordersController.updateOrder);
-router.delete('/:id', ordersController.deleteOrder);
+router.get('/', logRequest, getAllOrders);
+router.get('/:order_id', logRequest, getOrderById);
+router.post('/', logRequest, createOrder);
+router.put('/:order_id', logRequest, updateOrder);
+router.delete('/:order_id', logRequest, deleteOrder);
 
 module.exports = router;

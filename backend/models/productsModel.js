@@ -2,27 +2,35 @@ const express = require('express')
 const db = require('mysql');
 const connection = require('./dbconnection')
 
-exports.getAllProducts = (callback) => {
+function getAllProducts (callback)  {
   const sql = 'SELECT * FROM products';
-  db.query(sql, callback);
+  connection.query(sql, callback);
 };
 
-exports.getProductById = (id, callback) => {
+function getProductById (id, callback)  {
   const sql = 'SELECT * FROM products WHERE product_id = ?';
-  db.query(sql, [id], callback);
+  connection.query(sql, [id], callback);
 };
 
-exports.createProduct = (product, callback) => {
+function createProduct (product, callback)  {
   const sql = 'INSERT INTO products SET ?';
-  db.query(sql, [product], callback);
+  connection.query(sql, [product], callback);
 };
 
-exports.updateProduct = (id, product, callback) => {
+function updateProduct  (id, product, callback)  {
   const sql = 'UPDATE products SET ? WHERE product_id = ?';
-  db.query(sql, [product, id], callback);
+  connection.query(sql, [product, id], callback);
 };
 
-exports.deleteProduct = (id, callback) => {
+function deleteProduct (id, callback)  {
   const sql = 'DELETE FROM products WHERE product_id = ?';
-  db.query(sql, [id], callback);
+  connection.query(sql, [id], callback);
 };
+
+module.exports = {
+  getAllProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct
+}
