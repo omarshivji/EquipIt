@@ -1,79 +1,67 @@
-const productsModel = require('../models/productsModel');
+const express = require('express')
+const mysql = require('mysql');
+const connection = require('../models/dbconnection')
 const router = express.Router();
 
-exports.getAllProducts = (req, res) => {
-  productsModel.getAllProducts((err, products) => {
+function getAllProducts (req, res) {
+  const query = 'SELECT * FROM products';
+  connection.query(query, (error, results, fields) => {
+    if (error) throw error;
+    res.send(results);
+  });
+}
+
+function getProductById (req, res) {
+  const productId = req.params.product_id;
+  const sql = 'SELECT * FROM products WHERE product_id = ?';
+  connection.query(sql, [productId], (err, result) => {
+    if (err) throw err;
+    res.json(result);
+  });
+}
+
+function createProduct (req, res) {
+const { store_idx, name, description, price, quantity } = req.body;
+  // Insert new product into MySQL database
+  const sql = 'INSERT INTO products (store_idx, name, description, price, quantity) VALUES (?, ?, ?, ?, ?)';
+  const values = [store_idx, name, description, price, quantity];
+  connection.query(sql, values, (err, result) => {
     if (err) {
-      console.log(err);
-      res.status(500).send('Error retrieving products from database');
+      console.error(err);
+      res.status(500).json({ error: 'Error creating product' });
     } else {
-      res.render('products/index', { products });
+      res.json({ product_id: result.insertId, store_idx, name, description, price, quantity });
+    }
+  });
+}
+
+function updateProduct (req, res){
+   const productId = req.params.product_id;
+  const { store_idx, name, description, price, quantity } = req.body;
+  const query = `UPDATE products SET store_idx =?, name=?, description=?, price=?, quantity=? WHERE product_id=?`;
+  connection.query(query, [store_idx, name, description, price, quantity, productId], function(error, results, fields) {
+    if (error) throw error;
+    res.status(200).send(`Product ${productId} updated successfully`);
+  });
+};
+
+function deleteProduct (req, res){
+ const productId = req.params.product_id;
+  connection.query('DELETE FROM products WHERE product_id = ?', [productId], (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send('Error deleting product from database.');
+    } else {
+      console.log(`Deleted product with ID ${productId} from database.`);
+      res.sendStatus(204); 
     }
   });
 };
 
-exports.getProductById = (req, res) => {
-  productsModel.getProductById(req.params.id, (err, product) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error retrieving product from database');
-    } else if (product.length === 0) {
-      res.status(404).send('Product not found');
-    } else {
-      res.render('products/show', { product });
-    }
-  });
+module.exports = {
+  getAllProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
 };
-
-exports.createProduct = (req, res) => {
-  const product = {
-    store_id: req.body.store_id,
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    quantity: req.body.quantity
-  };
-  productsModel.createProduct(product, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error creating new product');
-    } else {
-      res.status(201).send(`Product with ID: ${result.insertId} created`);
-    }
-  });
-};
-
-exports.updateProduct = (req, res) => {
-  const product = {
-    store_id: req.body.store_id,
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    quantity: req.body.quantity
-  };
-  productsModel.updateProduct(req.params.id, product, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error updating product');
-    } else if (result.affectedRows === 0) {
-      res.status(404).send('Product not found');
-    } else {
-      res.status(200).send(`Product with ID: ${req.params.id} updated`);
-    }
-  });
-};
-
-exports.deleteProduct = (req, res) => {
-  productsModel.deleteProduct(req.params.id, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error deleting product');
-    } else if (result.affectedRows === 0) {
-      res.status(404).send('Product not found');
-    } else {
-      res.status(200).send(`Product with ID: ${req.params.id} deleted`);
-    }
-    });
-    };
-
-module.exports = router;

@@ -1,26 +1,9 @@
+const express = require('express')
 const mysql = require('mysql');
-
-// create a MySQL connection
-const connection = mysql.createConnection({
-  host: 'database-2.clq4hvzpxxdf.eu-west-2.rds.amazonaws.com',
-  user: 'admin',
-  password: 'equipit123',
-  port: '3306',
-  database: 'equipit'
-});
-
-
-connection.connect(err => {
-  if (err) {
-    console.error('Error connecting to database: ', err);
-  } else {
-    console.log('Connected to database');
-  }
-});
-
+const connection = require('../models/dbconnection')
 
 // Get all drivers from database
-app.get('/drivers', (req, res) => {
+function getDrivers (req, res) {
 connection.query('SELECT * FROM delivery_drivers', (err, result) => {
     if (err) {
       console.log(err);
@@ -29,10 +12,10 @@ connection.query('SELECT * FROM delivery_drivers', (err, result) => {
       res.render('drivers/index', { drivers: result });
     }
   });
-});
+}
 
 // Get a driver by ID from database
-app.get('/drivers/:id', (req, res) => {
+function getDriverById (req, res){
   connection.query('SELECT * FROM delivery_drivers WHERE driver_id = ?', [req.params.id], (err, result) => {
     if (err) {
       console.log(err);
@@ -43,10 +26,10 @@ app.get('/drivers/:id', (req, res) => {
       res.render('drivers/show', { driver: result[0] });
     }
   });
-});
+}
 
 // Create a new driver in database
-app.post('/drivers', (req, res) => {
+function createDriver (req, res) {
   const driver = {
     name: req.body.name,
     email: req.body.email,
@@ -65,10 +48,10 @@ app.post('/drivers', (req, res) => {
       res.redirect('/drivers');
     }
   });
-});
+}
 
 // Update a driver by ID in database
-app.put('/drivers/:id', (req, res) => {
+function updateDriver(req, res){
   const driver = {
     name: req.body.name,
     email: req.body.email,
@@ -89,10 +72,10 @@ app.put('/drivers/:id', (req, res) => {
       res.redirect('/drivers/' + req.params.id);
     }
   });
-});
+}
 
 // Delete a driver by ID from database
-app.delete('/drivers/:id', (req, res) => {
+function deleteDriver(req, res) => {
   connection.query('DELETE FROM delivery_drivers WHERE driver_id = ?', [req.params.id], (err, result) => {
     if (err) {
       console.log(err);
@@ -103,4 +86,12 @@ app.delete('/drivers/:id', (req, res) => {
       res.status(200).send(`Driver with ID: ${req.params.id} deleted`);
     }
   });
-});
+}
+
+module.exports = {
+  getDrivers,
+  getDriverById,
+  createDriver,
+  updateDriver,
+  deleteDriver
+};

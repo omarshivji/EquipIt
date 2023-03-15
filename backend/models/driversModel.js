@@ -1,15 +1,10 @@
+const express = require('express')
 const mysql = require('mysql');
+const connection = require('./dbconnection')
 
-const connection = mysql.createConnection({
-host: 'database-2.clq4hvzpxxdf.eu-west-2.rds.amazonaws.com',
-user: 'admin',
-password: 'equipit123',
-port: '3306',
-database: 'equipit'
-});
 
 // Get all drivers from database
-module.exports.getAllDrivers = (callback) => {
+module.exports.getDrivers = (callback) => {
 connection.query('SELECT * FROM delivery_drivers', callback);
 };
 

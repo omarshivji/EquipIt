@@ -1,4 +1,7 @@
+const express = require('express');
 const connection = require('../models/dbconnection');
+const mysql = require('mysql')
+
 
 // Controller function to retrieve a list of all customers
 function getAllCustomers(req, res) {

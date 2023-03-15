@@ -1,79 +1,51 @@
-const ordersModel = require('../models/ordersModel.js');
-const router = express.Router();
+const express = require('express');
+const connection = require('../models/dbconnection');
+const mysql = require('mysql')
 
-exports.getAllOrders = (req, res) => {
-  ordersModel.getAllOrders((err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error retrieving orders from database');
-    } else {
-      res.render('orders', { orders: result });
-    }
+function getAllOrders(req, res) {
+  connection.query('SELECT * FROM orders', (error, results, fields) => {
+    if (error) throw error;
+    res.send(results);
   });
-};
+}
 
-exports.getOrderById = (req, res) => {
-  ordersModel.getOrderById(req.params.id, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error retrieving order from database');
-    } else if (result.length == 0) {
-      res.status(404).send('Order not found');
-    } else {
-      res.render('order-details', { order: result[0] });
-    }
+function getOrderById (req, res){
+  const orderId = req.params.order_id;
+  connection.query('SELECT * FROM orders WHERE order_id = ?', [orderId], (error, results, fields) => {
+    if (error) throw error;
+    res.send(results[0]);
   });
-};
+}
 
-exports.createOrder = (req, res) => {
-  const order = {
-    customer_id: req.body.customer_id,
-    store_id: req.body.store_id,
-    product_id: req.body.product_id,
-    product_name: req.body.product_name,
-    quantity: req.body.quantity,
-    price: req.body.price,
-    order_date: req.body.order_date
-  };
-  ordersModel.createOrder(order, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error creating new order');
-    } else {
-      res.redirect('/orders');
-    }
+function createOrder  (req, res) {
+  const newOrder = req.body;
+  connection.query('INSERT INTO orders SET ?', newOrder, (error, results, fields) => {
+    if (error) throw error;
+    res.send(results);
   });
-};
+}
 
-exports.updateOrder = (req, res) => {
-  const order = {
-    customer_id: req.body.customer_id,
-    store_id: req.body.store_id,
-    product_id: req.body.product_id,
-    product_name: req.body.product_name,
-    quantity: req.body.quantity,
-    price: req.body.price,
-    order_date: req.body.order_date
-  };
-  ordersModel.updateOrder(req.params.id, order, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error updating order');
-    } else {
-      res.redirect(`/orders/${req.params.id}`);
-    }
-  });
-};
+function updateOrder (req, res){
+  const orderId = req.params.order_id;
+  const updatedOrder = req.body;
+connection.query('UPDATE orders SET ? WHERE order_id = ?', [updatedOrder, orderId], (error, results, fields) => {
+if (error) throw error;
+res.send(results);
+});
+}
 
-exports.deleteOrder = (req, res) => {
-  ordersModel.deleteOrder(req.params.id, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error deleting order');
-    } else {
-      res.redirect('/orders');
-    }
-  });
-};
+function deleteOrder (req, res){
+const orderId = req.params.order_id;
+connection.query('DELETE FROM orders WHERE order_id = ?', [orderId], (error, results, fields) => {
+if (error) throw error;
+res.send(results);
+});
+}
 
-module.exports = router;
+module.exports = {
+  getAllOrders,
+  getOrderById,
+  createOrder,
+  updateOrder,
+  deleteOrder
+};

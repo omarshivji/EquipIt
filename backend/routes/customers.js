@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAllCustomers, getCustomerById, createCustomer, updateCustomer, deleteCustomer } = require('../controllers/customers');
+const { getAllCustomers, getCustomerById, createCustomer, updateCustomer, deleteCustomer } = require('../controllers/customersController');
 const { logRequest } = require('../middleware/logger');
 
 // Routes for the customers endpoint

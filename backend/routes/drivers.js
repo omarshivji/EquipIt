@@ -1,20 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const driversController = require('../controllers/driversController');
+const { getDrivers, getDriverById, createDriver, updateDriver, deleteDriver } = require('../controllers/driversController');
+const { logRequest } = require('../middleware/logger');
 
-// Get all drivers
-router.get('/', driversController.getAllDrivers);
 
-// Get a driver by ID
-router.get('/:id', driversController.getDriverById);
-
-// Create a new driver
-router.post('/', driversController.createDriver);
-
-// Update a driver by ID
-router.put('/:id', driversController.updateDriver);
-
-// Delete a driver by ID
-router.delete('/:id', driversController.deleteDriver);
+router.get('/', logRequest, getDrivers);
+router.get('/:id', logRequest, getDriverById);
+router.post('/', logRequest, createDriver);
+router.put('/:id', logRequest, updateDriver);
+router.delete('/:id', logRequest, deleteDriver);
 
 module.exports = router;

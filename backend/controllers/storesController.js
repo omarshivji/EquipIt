@@ -1,7 +1,8 @@
+const express = require('express')
 const storesModel = require('../models/storesModel');
 const router = express.Router();
 
-exports.getAllStores = (req, res) => {
+function getAllStores  (req, res) => {
   storesModel.getAllStores((err, stores) => {
     if (err) {
       console.log(err);
@@ -12,7 +13,7 @@ exports.getAllStores = (req, res) => {
   });
 };
 
-exports.getStoreById = (req, res) => {
+function getStoreById (req, res) {
   storesModel.getStoreById(req.params.id, (err, store) => {
     if (err) {
       console.log(err);
@@ -25,7 +26,7 @@ exports.getStoreById = (req, res) => {
   });
 };
 
-exports.createStore = (req, res) => {
+function createStore (req, res) {
   const store = {
     name: req.body.name,
     location: req.body.location,
@@ -41,7 +42,7 @@ exports.createStore = (req, res) => {
   });
 };
 
-exports.updateStore = (req, res) => {
+function updateStore (req, res) {
   const store = {
     name: req.body.name,
     location: req.body.location,
@@ -59,7 +60,7 @@ exports.updateStore = (req, res) => {
   });
 };
 
-exports.deleteStore = (req, res) => {
+function deleteStore (req, res) {
   storesModel.deleteStore(req.params.id, (err, result) => {
     if (err) {
       console.log(err);
@@ -72,4 +73,10 @@ exports.deleteStore = (req, res) => {
   });
 };
 
-module.exports = router;
+module.exports = {
+  getAllStores,
+  getStoreById,
+  createStore,
+  updateStore,
+  deleteStore
+};

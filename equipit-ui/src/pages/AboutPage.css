@@ -1,0 +1,40 @@
+.aboutPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .aboutPage-header {
+    background-color: #007bff;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .aboutPage-content {
+    padding: 2rem;
+    width: 80%;
+  }
+  
+  .aboutPage-mission,
+  .aboutPage-history,
+  .aboutPage-values {
+    margin-bottom: 2rem;
+  }
+  
+  .aboutPage-mission p,
+  .aboutPage-history p {
+    line-height: 1.5;
+  }
+  
+  .aboutPage-values ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .aboutPage-values li {
+    margin-bottom: 0.5rem;
+  }
+  

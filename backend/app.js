@@ -15,18 +15,19 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 // Import and use the routes
-const customersRoutes = require('./routes/customers');
+const customersRoutes = require('./routes/customers.js');
 
-const ordersRoutes = require('./routes/orders');
-const driversRoutes = require('./routes/drivers');
-const productsRoutes = require('./routes/products');
-const storesRoutes = require('./routes/stores');
+const ordersRoutes = require('./routes/orders.js');
+//const driversRoutes = require('./routes/drivers');
+//const productsRoutes = require('./routes/products');
+//const storesRoutes = require('./routes/stores');
 
 
 
 app.use('/customers', customersRoutes);
-/* 
+
 app.use('/orders', ordersRoutes);
+/* 
 app.use('/drivers', driversRoutes);
 app.use('/products', productsRoutes);
 app.use('/stores', storesRoutes);
@@ -45,7 +46,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-const port = process.env.PORT || 8000;
+const port = 8000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
