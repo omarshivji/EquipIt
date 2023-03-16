@@ -39,11 +39,18 @@ function createCustomer(req, res) {
 function updateCustomer(req, res) {
   const customerId = req.params.customers_id;
   const updatedCustomer = req.body;
-  connection.query('UPDATE customers SET ? WHERE customers_id = ?', [updatedCustomer, customerId], (error, results, fields) => {
-    if (error) throw error;
-    res.send(results);
+  const sql = 'UPDATE customers SET name = ?, address = ?, phone = ? WHERE customers_id = ?';
+  const values = [updatedCustomer.name, updatedCustomer.address, updatedCustomer.phone, customerId];
+  connection.query(sql, values, (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error updating customer' });
+    } else {
+      res.json({ message: 'Customer updated successfully' });
+    }
   });
 }
+
 
 // Controller function to delete a customer by their ID
 function deleteCustomer(req, res) {
