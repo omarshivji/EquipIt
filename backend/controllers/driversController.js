@@ -4,87 +4,79 @@ const connection = require('../models/dbconnection')
 
 // Get all drivers from database
 function getDrivers (req, res) {
-connection.query('SELECT * FROM delivery_drivers', (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error retrieving drivers from database');
+  connection.query('SELECT * FROM delivery_drivers', (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error retrieving delivery drivers' });
     } else {
-      res.render('drivers/index', { drivers: result });
+      res.json(results);
     }
   });
 }
 
+
 // Get a driver by ID from database
 function getDriverById (req, res){
-  connection.query('SELECT * FROM delivery_drivers WHERE driver_id = ?', [req.params.id], (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error retrieving driver from database');
-    } else if (result.length === 0) {
-      res.status(404).send('Driver not found');
+  const driverId = req.params.driver_id;
+  const query = 'SELECT * FROM delivery_drivers WHERE id = ?';
+  connection.query(query, [driverId], (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
     } else {
-      res.render('drivers/show', { driver: result[0] });
+      if (results.length > 0) {
+        res.json(results[0]);
+      } else {
+        // Return a 404 Not Found error if no driver was found
+        res.status(404).json({ error: 'Driver not found' });
+      }
     }
   });
 }
 
 // Create a new driver in database
 function createDriver (req, res) {
-  const driver = {
-    name: req.body.name,
-    email: req.body.email,
-    phone: req.body.phone,
-    vehicle_make: req.body.vehicle_make,
-    vehicle_model: req.body.vehicle_model,
-    vehicle_color: req.body.vehicle_color,
-    DOB: req.body.DOB,
-    password: req.body.password
-  };
-  connection.query('INSERT INTO delivery_drivers SET ?', driver, (err, result) => {
+  const { name, email, phone, vehicle_make, vehicle_model, vehicle_color, DOB, password } = req.body;
+  const sql = 'INSERT INTO delivery_drivers SET ?';
+  const newDriver = { name, email, phone, vehicle_make, vehicle_model, vehicle_color, DOB, password };
+  connection.query(sql, newDriver, (err, result) => {
     if (err) {
       console.log(err);
-      res.status(500).send('Error creating new driver');
+      res.status(500).send('Error creating new delivery driver');
     } else {
-      res.redirect('/drivers');
+      console.log(result);
+      res.status(201).send('New delivery driver created!');
     }
   });
 }
 
 // Update a driver by ID in database
 function updateDriver(req, res){
-  const driver = {
-    name: req.body.name,
-    email: req.body.email,
-    phone: req.body.phone,
-    vehicle_make: req.body.vehicle_make,
-    vehicle_model: req.body.vehicle_model,
-    vehicle_color: req.body.vehicle_color,
-    DOB: req.body.DOB,
-    password: req.body.password
-  };
-  connection.query('UPDATE delivery_drivers SET ? WHERE driver_id = ?', [driver, req.params.id], (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error updating driver in database');
-    } else if (result.affectedRows === 0) {
-      res.status(404).send('Driver not found');
-    } else {
-      res.redirect('/drivers/' + req.params.id);
-    }
+  const driverId = req.params.driver_id;
+  const { name, email, phone, vehicle_make, vehicle_model, vehicle_color, DOB, password } = req.body;
+  const query = `
+      UPDATE delivery_drivers
+      SET name = ?, email = ?, phone = ?, vehicle_make = ?, vehicle_model = ?, vehicle_color = ?, DOB = ?, password = ?
+      WHERE driver_id = ?
+  `;
+  connection.query(query, [name, email, phone, vehicle_make, vehicle_model, vehicle_color, DOB, password, driverId], (error, results) => {
+      if (error) {
+          console.error(error);
+          res.status(500).send('Error updating delivery driver');
+      } else if (results.affectedRows === 0) {
+          res.status(404).send('Delivery driver not found');
+      } else {
+          res.send('Delivery driver updated successfully');
+      }
   });
 }
 
 // Delete a driver by ID from database
 function deleteDriver(req, res) {
-  connection.query('DELETE FROM delivery_drivers WHERE driver_id = ?', [req.params.id], (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error deleting driver from database');
-    } else if (result.affectedRows === 0) {
-      res.status(404).send('Driver not found');
-    } else {
-      res.status(200).send(`Driver with ID: ${req.params.id} deleted`);
-    }
+  const driverId = req.params.driver_id;
+  connection.query('DELETE FROM delivery_drivers WHERE driver_id = ?', [driverId], function (error, results, fields) {
+    if (error) throw error;
+    res.send('Delivery driver deleted successfully');
   });
 }
 
