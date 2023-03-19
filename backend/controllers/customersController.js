@@ -16,7 +16,7 @@ function getCustomerById(req, res) {
   const customerId = req.params.customers_id;
   connection.query('SELECT * FROM customers WHERE customers_id = ?', [customerId], (error, results, fields) => {
     if (error) throw error;
-    res.send(results[0]);
+    res.send(results);
   });
 }
 

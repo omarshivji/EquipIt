@@ -17,7 +17,7 @@ const LoginPage = () => {
     <Container>
       <Row className="justify-content-center mt-5">
         <Col xs={12} sm={8} md={6} lg={4} className="login-container">
-          <h1 className="text-center">Equipit Login </h1>
+          <h1 className="text-center">Customer Login </h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="email">
               <Form.Label>Email Address: </Form.Label>
