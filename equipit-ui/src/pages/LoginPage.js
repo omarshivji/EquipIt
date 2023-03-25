@@ -12,7 +12,7 @@ const LoginPage = () => {
     // Handle login logic here, e.g., call your authentication API
     console.log('Email:', email, 'Password:', password);
   };
-
+ 
   return (
     <Container>
       <Row className="justify-content-center mt-5">
