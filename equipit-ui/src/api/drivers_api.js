@@ -1,5 +1,4 @@
 import axios from 'axios';
-const express = require('express');
 
 const API_URL = 'http://localhost:8000';
 
@@ -24,4 +23,12 @@ export const updateDeliveryDriver = (id, data) =>
 
 export const deleteDeliveryDriver = (id) =>
   axios.delete(`${API_URL}/delivery_drivers/${id}`).catch(handleError);
+  
+export default {
+fetchDeliveryDriver,
+fetchDeliveryDrivers,
+createDeliveryDriver,
+updateDeliveryDriver,
+deleteDeliveryDriver
+};
 

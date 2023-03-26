@@ -1,51 +1,54 @@
+// LoginPage.js
 import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { login as apiLogin } from '../api/login_api'; // Import the login function from your API helper file
 import './LoginPage.css';
 
 
-const LoginPage = () => {
+const apiLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle login logic here, e.g., call your authentication API
-    console.log('Email:', email, 'Password:', password);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const token = await apiLogin({ email, password });
+      console.log('Login successful:', token);
+    } catch (err) {
+      setError(err.message || 'An error occurred while logging in.');
+    }
   };
- 
+
   return (
-    <Container>
-      <Row className="justify-content-center mt-5">
-        <Col xs={12} sm={8} md={6} lg={4} className="login-container">
-          <h1 className="text-center">Customer Login </h1>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="email">
-              <Form.Label>Email Address: </Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Button variant="primary" type="submit" className="w-100">
-              Login
-            </Button>
-          </Form>
-        </Col>
-      </Row>
-    </Container>
+    <div className="login-page">
+      <h1>Login</h1>
+      {error && <p className="error-message">{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">Login</button>
+        </form><Link className="btn btn-success" to={'/ProductsPage'} ></Link>
+        </div>
+      </form>
+    </div>
   );
 };
 

@@ -1,5 +1,4 @@
 import axios from 'axios';
-const express = require('express');
 
 const API_URL = 'http://localhost:8000';
 
@@ -24,4 +23,12 @@ export const updateStore = (id, data) =>
 
 export const deleteStore = (id) =>
   axios.delete(`${API_URL}/stores/${id}`).catch(handleError);
+
+export default {
+  fetchStore,
+  fetchStores,
+  createStore,
+  updateStore,
+  deleteStore
+};
 

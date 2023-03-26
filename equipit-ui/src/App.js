@@ -5,7 +5,7 @@ import Home from './pages/HomePage.jsx';
 import About from './pages/AboutPage.jsx';
 import LoginPage from './pages/LoginPage';
 import Contact from './pages/contact.jsx';
-import Customers from './api/customers_api'
+// import Customers from './api/customers_api'
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<LoginPage />} />
-          <Customers />
+         
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>

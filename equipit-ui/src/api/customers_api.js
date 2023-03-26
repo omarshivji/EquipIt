@@ -1,5 +1,5 @@
 import axios from 'axios';
-const express = require('express');
+
 
 const API_URL = 'http://localhost:8000';
 
@@ -10,10 +10,10 @@ const handleError = (error) => {
 };
 
 // Customers
-export const fetchCustomers = () =>
+export const getCustomers = () =>
   axios.get(`${API_URL}/customers`).then((response) => response.data).catch(handleError);
 
-export const fetchCustomer = (id) =>
+export const getCustomerId = (id) =>
   axios.get(`${API_URL}/customers/${id}`).then((response) => response.data).catch(handleError);
 
 export const createCustomer = (data) =>
@@ -25,3 +25,15 @@ export const updateCustomer = (id, data) =>
 export const deleteCustomer = (id) =>
   axios.delete(`${API_URL}/customers/${id}`).catch(handleError);
 
+export const login = () =>
+axios.get(`${API_URL}/login`).then((response) => response.data).catch(handleError);
+
+const customersAPI = {
+   getCustomers,
+   getCustomerId, 
+   createCustomer, 
+   updateCustomer, 
+   deleteCustomer, 
+   login};
+
+   export default customersAPI;
