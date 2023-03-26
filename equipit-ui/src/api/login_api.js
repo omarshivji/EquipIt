@@ -1,7 +1,7 @@
 // api.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'https://8000-omarshivji-equipit-fjpjc4oo06g.ws-eu92.gitpod.io';
 
 const login = async ({ email, password }) => {
   try {

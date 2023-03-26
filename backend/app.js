@@ -14,8 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 // Set up middleware to serve static files (e.g. CSS, images)
 app.use(express.static('public'));
 
-// Set up the view engine (EJS)
-app.set('view engine', 'ejs');
 
 // Import and use the routes
 const customersRoutes = require('./routes/customers');
@@ -25,13 +23,11 @@ const productsRoutes = require('./routes/products');
 const storesRoutes = require('./routes/stores');
 
 
-
 app.use('/customers', customersRoutes);
 app.use('/orders', ordersRoutes);
 app.use('/drivers', driversRoutes);
 app.use('/products', productsRoutes);
 app.use('/stores', storesRoutes);
-
 
 
 // Set up a default route for handling invalid requests
@@ -51,3 +47,4 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
+process.on('SIGINT', function() {process.exit()});

@@ -1,10 +1,12 @@
 // LoginPage.js
 import React, { useState } from 'react';
 import { login as apiLogin } from '../api/login_api'; // Import the login function from your API helper file
+import { BrowserRouter as Link } from 'react-router-dom';
+
 import './LoginPage.css';
 
 
-const apiLogin = () => {
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -44,10 +46,11 @@ const apiLogin = () => {
             required
           />
         </div>
-        <button type="submit">Login</button>
-        </form><Link className="btn btn-success" to={'/ProductsPage'} ></Link>
-        </div>
-      </form>
+        <div className="card-footer">
+        <button type="submit" className="btn btn-primary">Login</button>
+        <Link className="btn btn-success" to={'/ProductsPage'}>New User</Link>
+    </div>
+    </form>
     </div>
   );
 };

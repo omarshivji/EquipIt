@@ -21,10 +21,10 @@ function getProductById (req, res) {
 }
 
 function createProduct (req, res) {
-const { store_idx, name, description, price, quantity } = req.body;
+const { store_idx, name, description, price, quantity, product_image } = req.body;
   // Insert new product into MySQL database
-  const sql = 'INSERT INTO products (store_idx, name, description, price, quantity) VALUES (?, ?, ?, ?, ?)';
-  const values = [store_idx, name, description, price, quantity];
+  const sql = 'INSERT INTO products (store_idx, name, description, price, quantity. product_image) VALUES (?, ?, ?, ?, ?)';
+  const values = [store_idx, name, description, price, quantity, product_image];
   connection.query(sql, values, (err, result) => {
     if (err) {
       console.error(err);
@@ -37,9 +37,9 @@ const { store_idx, name, description, price, quantity } = req.body;
 
 function updateProduct (req, res){
    const productId = req.params.product_id;
-  const { store_idx, name, description, price, quantity } = req.body;
-  const query = `UPDATE products SET store_idx =?, name=?, description=?, price=?, quantity=? WHERE product_id=?`;
-  connection.query(query, [store_idx, name, description, price, quantity, productId], function(error, results, fields) {
+  const { store_idx, name, description, price, quantity, product_image } = req.body;
+  const query = `UPDATE products SET store_idx =?, name=?, description=?, price=?, quantity=?, product_image=? WHERE product_id=?`;
+  connection.query(query, [store_idx, name, description, price, quantity, product_image, productId], function(error, results, fields) {
     if (error) throw error;
     res.status(200).send(`Product ${productId} updated successfully`);
   });

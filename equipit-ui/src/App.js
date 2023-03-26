@@ -5,6 +5,7 @@ import Home from './pages/HomePage.jsx';
 import About from './pages/AboutPage.jsx';
 import LoginPage from './pages/LoginPage';
 import Contact from './pages/contact.jsx';
+import ProductsPage from './pages/ProductsPage';
 // import Customers from './api/customers_api'
 
 function App() {
@@ -25,13 +26,16 @@ function App() {
             <li>
               <Link to="/contact">Contact</Link>
             </li>
+            <li>
+              <Link to="/products">Products</Link>
+            </li>
           </ul>
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<LoginPage />} />
-         
+          <Route path="/products" element={<ProductsPage />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>

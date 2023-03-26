@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'https://8000-omarshivji-equipit-fjpjc4oo06g.ws-eu92.gitpod.io';
 
 // Helper function for handling errors
 const handleError = (error) => {
@@ -34,6 +34,7 @@ const customersAPI = {
    createCustomer, 
    updateCustomer, 
    deleteCustomer, 
-   login};
+   login
+  };
 
    export default customersAPI;
