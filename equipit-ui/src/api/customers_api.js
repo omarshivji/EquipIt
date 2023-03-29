@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const API_URL = 'https://8000-omarshivji-equipit-fjpjc4oo06g.ws-eu92.gitpod.io';
+const API_URL = 'https://8000-omarshivji-equipit-fjpjc4oo06g.ws-eu93.gitpod.io';
 
 // Helper function for handling errors
 const handleError = (error) => {

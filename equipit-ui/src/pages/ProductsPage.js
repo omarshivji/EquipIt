@@ -1,15 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import Card from 'react-bootstrap/Card';
 
-function ProductsPage() {
+const ProductsPage = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const getAllProducts = async () => {
+    try {
+      const response = await axios.get("/api/products");
+      console.log("Response data:", response.data);
+      setProducts(response.data);
+      setLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    fetch('/api/products_api')
-      .then(res => res.json())
-      .then(data => setProducts(data))
-      .catch(err => console.log(err));
+    getAllProducts();
   }, []);
+
+  if (loading) {
+    return <div><h1>Loading...</h1></div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div>
@@ -25,6 +45,6 @@ function ProductsPage() {
       ))}
     </div>
   );
-}
+};
 
 export default ProductsPage;
