@@ -1,39 +1,52 @@
 const mysql = require('mysql');
 const express = require('express');
-const connection = require('./dbconnection')
+const connection = require('./dbconnection');
+const { sequelize } = require('.');
+const { DataTypes } = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
 
-function getAllCustomers(callback) {
-  connection.query('SELECT * FROM customers', callback);
+  const customers = sequelize.define("customers", {
+    customers_id{
+      type: DataTypes.INT,
+      allowNull: false
+    }
+
+  })
+return customers
 }
 
-function getCustomerById(id, callback) {
-  connection.query('SELECT * FROM customers WHERE customer_id = ?', [id], callback);
-}
+  function getAllCustomers(callback) {
+    connection.query('SELECT * FROM customers', callback);
+  }
 
-function createCustomer(customer, callback) {
-  connection.query(
-    'INSERT INTO customers (name, email, address, phone, DOB, password) VALUES (?, ?, ?, ?, ?, ?)',
-    [customer.name, customer.email, customer.address, customer.phone, customer.DOB, customer.password],
-    callback
-  );
-}
+  function getCustomerById(id, callback) {
+    connection.query('SELECT * FROM customers WHERE customer_id = ?', [id], callback);
+  }
 
-function updateCustomer(id, customer, callback) {
-  connection.query(
-    'UPDATE customers SET name = ?, email = ?, address = ?, phone = ?, DOB = ?, password = ? WHERE customer_id = ?',
-    [customer.name, customer.email, customer.address, customer.phone, customer.DOB, customer.password, id],
-    callback
-  );
-}
+  function createCustomer(customer, callback) {
+    connection.query(
+      'INSERT INTO customers (name, email, address, phone, DOB, password) VALUES (?, ?, ?, ?, ?, ?)',
+      [customer.name, customer.email, customer.address, customer.phone, customer.DOB, customer.password],
+      callback
+    );
+  }
 
-function deleteCustomer(id, callback) {
-  connection.query('DELETE FROM customers WHERE customer_id = ?', [id], callback);
-}
+  function updateCustomer(id, customer, callback) {
+    connection.query(
+      'UPDATE customers SET name = ?, email = ?, address = ?, phone = ?, DOB = ?, password = ? WHERE customer_id = ?',
+      [customer.name, customer.email, customer.address, customer.phone, customer.DOB, customer.password, id],
+      callback
+    );
+  }
 
-module.exports = {
-  getAllCustomers,
-  getCustomerById,
-  createCustomer,
-  updateCustomer,
-  deleteCustomer
-};
+  function deleteCustomer(id, callback) {
+    connection.query('DELETE FROM customers WHERE customer_id = ?', [id], callback);
+  }
+
+  module.exports = {
+    getAllCustomers,
+    getCustomerById,
+    createCustomer,
+    updateCustomer,
+    deleteCustomer
+  };
