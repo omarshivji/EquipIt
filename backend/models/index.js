@@ -16,20 +16,26 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
-fs
-  .readdirSync(__dirname)
+fs.readdirSync(__dirname)
   .filter(file => {
     return (
       file.indexOf('.') !== 0 &&
       file !== basename &&
       file.slice(-3) === '.js' &&
-      file.indexOf('.test.js') === -1
+      file !== 'dbconnection.js'
     );
   })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
+  const customersModel = require('./customersModel.js')(sequelize, Sequelize.DataTypes);
+  const driversModel = require('./driversModel.js')(sequelize, Sequelize.DataTypes);
+  
+  db[customersModel.name] = customersModel;
+  db[driversModel.name] = driversModel;
+  
+
+  // .forEach(file => {
+  //   const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+  //   db[model.name] = model;
+  // });
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
@@ -37,7 +43,9 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 module.exports = db;
+

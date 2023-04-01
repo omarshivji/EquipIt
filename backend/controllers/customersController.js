@@ -1,9 +1,9 @@
 const express = require('express');
 const connection = require('../models/dbconnection');
 const mysql = require('mysql');
-const bcrypt = require('bcrypt'); 
+//const bcrypt = require('bcrypt'); 
 
-const saltRounds = 10; // Define the number of salt rounds for bcrypt
+//const saltRounds = 10; // Define the number of salt rounds for bcrypt
 
 
 // Controller function to retrieve a list of all customers
@@ -25,9 +25,9 @@ async function getCustomerById(req, res) {
 
 async function createCustomer(req, res) {
   const { name, email, address, phone, DOB, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
+ // const hashedPassword = await bcrypt.hash(password, saltRounds);
   const sql = "INSERT INTO customers (name, email, address, phone, DOB, password) VALUES (?, ?, ?, ?, ?, ?)";
-  const values = [name, email, address, phone, DOB, hashedPassword];
+  const values = [name, email, address, phone, DOB, password];
   connection.query(sql, values, (err, result) => {
     if (err) {
       console.error(err);
@@ -64,31 +64,31 @@ async function deleteCustomer(req, res) {
   });
 }
 
-// New controller function to handle the login
-async function login(req, res) {
-  const { email, password } = req.body;
+// // New controller function to handle the login
+// async function login(req, res) {
+//   const { email, password } = req.body;
 
-  connection.query('SELECT * FROM customers WHERE email = ?', [email], async (error, results, fields) => {
-    if (error) throw error;
+//   connection.query('SELECT * FROM customers WHERE email = ?', [email], async (error, results, fields) => {
+//     if (error) throw error;
 
-    const customer = results[0];
-    if (!customer) {
-      return res.status(400).json({ error: 'Invalid email or password' });
-    }
+//     const customer = results[0];
+//     if (!customer) {
+//       return res.status(400).json({ error: 'Invalid email or password' });
+//     }
 
-    const isPasswordValid = await bcrypt.compare(password, customer.password);
-    if (!isPasswordValid) {
-      return res.status(400).json({ error: 'Invalid email or password' });
-    }
+//     const isPasswordValid = await bcrypt.compare(password, customer.password);
+//     if (!isPasswordValid) {
+//       return res.status(400).json({ error: 'Invalid email or password' });
+//     }
 
-    // If the email and password are valid, generate a token or session for the customer
-    // You can use JWT, cookies, or any other method you prefer for managing authentication
-    const token = generateAuthToken(customer);
+//     // If the email and password are valid, generate a token or session for the customer
+//     // You can use JWT, cookies, or any other method you prefer for managing authentication
+//     const token = generateAuthToken(customer);
 
-    // Send the token back to the client
-    res.json({ token });
-  });
-}
+//     // Send the token back to the client
+//     res.json({ token });
+//   });
+// }
 
 
 module.exports = {
@@ -97,5 +97,5 @@ module.exports = {
   createCustomer,
   updateCustomer,
   deleteCustomer,
-  login
+  //login
 };

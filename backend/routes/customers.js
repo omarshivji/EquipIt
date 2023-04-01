@@ -1,14 +1,40 @@
 const express = require('express');
 const router = express.Router();
-const { getAllCustomers, getCustomerById, createCustomer, updateCustomer, deleteCustomer, login } = require('../controllers/customersController');
-const { logRequest } = require('../middleware/logger');
+const { customers } = require('../models/customersModel');
 
-// Routes for the customers endpoint
-router.get('/', logRequest, getAllCustomers);
-router.get('/:customers_id', logRequest, getCustomerById);
-router.post('/', logRequest, createCustomer);
-router.put('/:customers_id', logRequest, updateCustomer);
-router.delete('/:customers_id', logRequest, deleteCustomer);
-router.post('login', logRequest, login);
+
+
+router.get('/', (req, res) => {
+    res.json('Customers');
+});
+
+router.get('/:customers_id', (req, res) => {
+    res.json('Customers');
+});
+
+router.post('/', async (req, res) => {
+    const customer = req.body;
+    await customers.create(customer);
+    res.json(customer);
+});
+
+router.put('/:customers_id', async (req, res) => {
+    const customer = req.body;
+    await customers.update(customer, {
+        where: {
+            customers_id: req.params.customers_id
+        }
+    });
+    res.json(customer);
+});
+
+router.delete('/:customers_id', async (req, res) => {
+    await customers.destroy({
+        where: {
+            customers_id: req.params.customers_id
+        }
+    });
+    res.json('Customer deleted');
+});
 
 module.exports = router;

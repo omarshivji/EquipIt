@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const cors = require('cors');
+const sequelize = require('./models/dbconnection');
+const db = require('./models'); 
 
 app.use(cors({
   origin: '*'
@@ -79,10 +81,27 @@ app.use((err, req, res, next) => {
   res.status(500).send('Server error');
 });
 
-// Start the server
-const port = 8000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection to the database has been established successfully.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+  
+  (async () => {
+    await db.sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
+    await db.sequelize.sync({ force: true });
+    await db.sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
+    console.log("All models were synchronized successfully.");
+  })();
+  
+
+
+app.listen(8000, () => {
+  console.log(`Server is running on port 8000`);
 });
 
 process.on('SIGINT', function() {process.exit()});
