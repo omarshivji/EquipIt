@@ -27,9 +27,16 @@ fs.readdirSync(__dirname)
   })
   const customersModel = require('./customersModel.js')(sequelize, Sequelize.DataTypes);
   const driversModel = require('./driversModel.js')(sequelize, Sequelize.DataTypes);
+  const ordersModel = require('./ordersModel.js')(sequelize, Sequelize.DataTypes);
+  const productsModel = require('./productsModel.js')(sequelize, Sequelize.DataTypes);
+  const stores = require('./storesModel.js')(sequelize, Sequelize.DataTypes);
+  
   
   db[customersModel.name] = customersModel;
   db[driversModel.name] = driversModel;
+  db[ordersModel.name] = ordersModel;
+  db[productsModel.name] = productsModel;
+  db[stores.name] = stores;
   
 
   // .forEach(file => {

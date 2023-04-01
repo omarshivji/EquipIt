@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const delivery_drivers = sequelize.define("drivers", {
+    const drivers = sequelize.define("drivers", {
         driver_id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         });
-    return delivery_drivers
+    return drivers
     };
 
 

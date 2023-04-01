@@ -1,18 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-//import axios from 'axios';
-//import { useState, useEffect } from 'react';
 import './App.css'
 import Home from './pages/HomePage.jsx';
 import About from './pages/AboutPage.jsx';
 import LoginPage from './pages/LoginPage';
 import Contact from './pages/contact.jsx';
 import ProductsPage from './pages/ProductsPage';
-// import Customers from './api/customers_api'
 
 function App() {
   return (
-    <Router>
+    // Make sure you only have one <Router> component in your app
+    <Router> 
       <div className="App">
         <nav>
           <ul>
@@ -26,7 +24,7 @@ function App() {
               <Link to="/login">Login</Link>
             </li>
             <li>
-              <Link to="/contact">Contact</Link>
+              <Link to="/contact" element={<Contact />}>Contact</Link>
             </li>
             <li>
               <Link to="/products">Products</Link>

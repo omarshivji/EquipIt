@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       timestamps: false,
     },
-    },
     store_idx: {
       type: DataTypes.INTEGER,
       allowNull: false,
