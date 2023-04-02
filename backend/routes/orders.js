@@ -1,6 +1,7 @@
+module.exports = (orders) => {
 const express = require('express');
 const router = express.Router();
-const { orders } = require('../models/ordersModel');
+// const { orders } = require('../models/ordersModel');
 // const { getAllOrders, getOrderById, createOrder, updateOrder, deleteOrder } = require('../controllers/ordersController');
 // const { logRequest } = require('../middleware/logger');
 
@@ -45,4 +46,5 @@ router.delete('/:order_id', async (req, res) => {
     res.json('Order deleted');
 });
 
-module.exports = router;  
+return router;  
+};

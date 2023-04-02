@@ -1,7 +1,7 @@
 // LoginPage.js
 import React, { useState } from 'react';
 import { login as apiLogin } from '../api/login_api'; // Import the login function from your API helper file
-import { BrowserRouter as Link } from 'react-router-dom';
+
 
 import './LoginPage.css';
 
@@ -48,7 +48,6 @@ const LoginPage = () => {
         </div>
         <div className="card-footer">
         <button type="submit" className="btn btn-primary">Login</button>
-        <Link className="btn btn-success" to={'/ProductsPage'}>New User</Link>
     </div>
     </form>
     </div>

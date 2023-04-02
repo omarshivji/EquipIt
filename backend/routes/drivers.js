@@ -1,6 +1,7 @@
+module.exports = (drivers) => {
 const express = require('express');
 const router = express.Router();
-const { drivers } = require('../models/driversModel');
+// const { drivers } = require('../models/driversModel');
 
 
 router.get('/', (req, res) => {
@@ -38,4 +39,5 @@ router.delete('/:driver_id', async (req, res) => {
 
 
 
-module.exports = router;
+return router;
+};

@@ -1,6 +1,7 @@
+module.exports =  (customers) => {
 const express = require('express');
 const router = express.Router();
-const { customers } = require('../models/customersModel');
+// const { customers } = require('../models/customersModel.js');
 
 
 
@@ -37,4 +38,5 @@ router.delete('/:customers_id', async (req, res) => {
     res.json('Customer deleted');
 });
 
-module.exports = router;
+return router;
+};

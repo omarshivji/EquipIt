@@ -30,6 +30,14 @@ const sequelize = new Sequelize('equipit', 'admin', 'equipit123', {
   dialect: 'mysql'
 });
 
+// db.Sequelize = Sequelize;
+// db.sequelize = sequelize;
+
+// // import models
+// db.products = require('../models/productsModel')(sequelize, Sequelize);
+
+// module.exports = db;
+
 
 sequelize
   .authenticate()

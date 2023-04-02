@@ -9,7 +9,7 @@ const ProductsPage = () => {
 
   const getAllProducts = async () => {
     try {
-      const response = await axios.get("/api/products");
+      const response = await axios.get("localhost:8000/products");
       console.log("Response data:", response.data);
       setProducts(response.data);
       setLoading(false);

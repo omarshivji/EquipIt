@@ -1,5 +1,7 @@
-module.exports = (sequelize, DataTypes) => {
-  const stores = sequelize.define("stores", {
+const { DataTypes } = require('sequelize');
+
+module.exports = (sequelize) => {
+  const store = sequelize.define("store", {
     store_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -21,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     },
 
   });
-  return stores;
+  return store;
 };
     
 

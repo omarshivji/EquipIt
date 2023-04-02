@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const router = express.Router();
 const cors = require('cors');
 const sequelize = require('./models/dbconnection');
 const db = require('./models'); 
@@ -56,11 +55,25 @@ app.use(express.static('public'));
 
 
 // Import and use the routes
-const customersRoutes = require('./routes/customers');
-const ordersRoutes = require('./routes/orders');
-const driversRoutes = require('./routes/drivers');
-const productsRoutes = require('./routes/products');
-const storesRoutes = require('./routes/stores');
+const customersModel = require('./models/customersModel.js');
+const customers = customersModel(sequelize);
+const customersRoutes = require('./routes/customers')(customers);
+
+const ordersModel = require('./models/ordersModel.js');
+const orders = ordersModel(sequelize);
+const ordersRoutes = require('./routes/orders') (orders);
+
+const driversModel = require('./models/driversModel.js');
+const drivers = driversModel(sequelize);
+const driversRoutes = require('./routes/drivers')(drivers);
+
+const productsModel = require('./models/productsModel.js');
+const products = productsModel(sequelize);
+const productsRoutes = require('./routes/products')(products);
+
+const storesModel = require('./models/storesModel.js');
+const stores = storesModel(sequelize);
+const storesRoutes = require('./routes/stores')(stores);
 
 
 app.use('/customers', customersRoutes);
@@ -76,6 +89,7 @@ app.use((req, res, next) => {
 });
 
 // Set up a global error handler
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   console.log(err);
   res.status(500).send('Server error');
