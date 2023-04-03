@@ -59,13 +59,13 @@ const customersModel = require('./models/customersModel.js');
 const customers = customersModel(sequelize);
 const customersRoutes = require('./routes/customers')(customers);
 
-const ordersModel = require('./models/ordersModel.js');
-const orders = ordersModel(sequelize);
-const ordersRoutes = require('./routes/orders') (orders);
-
 const driversModel = require('./models/driversModel.js');
 const drivers = driversModel(sequelize);
 const driversRoutes = require('./routes/drivers')(drivers);
+
+const ordersModel = require('./models/ordersModel.js');
+const orders = ordersModel(sequelize);
+const ordersRoutes = require('./routes/orders') (orders);
 
 const productsModel = require('./models/productsModel.js');
 const products = productsModel(sequelize);

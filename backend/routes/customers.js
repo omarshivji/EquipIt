@@ -3,8 +3,6 @@ const express = require('express');
 const router = express.Router();
 // const { customers } = require('../models/customersModel.js');
 
-
-
 router.get('/', (req, res) => {
     res.json('Customers');
 });
@@ -31,12 +29,13 @@ router.put('/:customers_id', async (req, res) => {
 
 router.delete('/:customers_id', async (req, res) => {
     await customers.destroy({
-        where: {
-            customers_id: req.params.customers_id
-        }
+      where: {
+        customers_id: req.params.customers_id
+      }
     });
     res.json('Customer deleted');
-});
+  });
+  
 
 return router;
 };
