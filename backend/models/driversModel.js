@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         DOB: {
-            type: DataTypes.STRING,
+            type: DataTypes.DATE,
             allowNull: false,
         },
         });

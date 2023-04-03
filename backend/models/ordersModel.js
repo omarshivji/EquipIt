@@ -34,7 +34,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     order_date: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       allowNull: false,
     },
   });

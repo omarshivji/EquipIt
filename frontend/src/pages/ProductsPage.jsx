@@ -25,14 +25,23 @@ const ProductsPage = () => {
   // };
   
 
-
-
-  
   useEffect(() => {
     axios.get("http://localhost:8000/products").then((response) => {
-      setListProducts(response.data);
+      // Check if the response data is an array before setting the state
+      if (Array.isArray(response.data)) {
+        setListProducts(response.data);
+      } else {
+        console.error("Response data is not an array:", response.data);
+      }
     });
   }, []);
+
+  
+  // useEffect(() => {
+  //   axios.get("http://localhost:8000/products").then((response) => {
+  //     setListProducts(response.data);
+  //   });
+  // }, []);
   return (
     <div className="App">
       {listProducts.map((value, key) => {
