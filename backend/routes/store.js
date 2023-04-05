@@ -14,11 +14,11 @@ const router = express.Router();
 // module.exports = router;
 
 router.get('/', (req, res) => {
-    res.json('Stores');
+    res.json('Store');
 });
 
 router.get('/:store_id', (req, res) => {
-    res.json('Stores');
+    res.json('Store');
 });
 
 router.post('/', async (req, res) => {

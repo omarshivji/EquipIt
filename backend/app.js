@@ -72,8 +72,8 @@ const products = productsModel(sequelize);
 const productsRoutes = require('./routes/products')(products);
 
 const storesModel = require('./models/storesModel.js');
-const stores = storesModel(sequelize);
-const storesRoutes = require('./routes/stores')(stores);
+const store = storesModel(sequelize);
+const storesRoutes = require('./routes/store')(store);
 
 
 app.use('/customers', customersRoutes);
@@ -107,7 +107,7 @@ sequelize
   
   (async () => {
     await db.sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
-    await db.sequelize.sync({ force: true });
+    await db.sequelize.sync({ force: false });
     await db.sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
     console.log("All models were synchronized successfully.");
   })();

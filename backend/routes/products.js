@@ -3,9 +3,12 @@ const express = require('express');
 const router = express.Router();
 
 
-router.get('/', (req, res) => {
-    res.json('Products');
+
+router.get('/', async (req, res) => {
+    const listProducts = await products.findAll();
+    res.json(listProducts);
 });
+
 
 router.get('/:product_id', (req, res) => {  
     res.json('Products');
