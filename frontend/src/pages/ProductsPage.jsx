@@ -1,87 +1,71 @@
-import React, { useEffect, useState } from 'react';
-import axios from "axios";
-//import Card from 'react-bootstrap/Card';
+import './ProductsPage.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ProductsPage = () => {
-  const [listProducts, setListProducts] = useState([]);
-  //const [loading, setLoading] = useState(true);
-  //const [error, setError] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [hoveredCard, setHoveredCard] = useState(null);
 
-  // const getAllProducts = async () => {
-  //   try {
-  //     const response = await axios.get("http://localhost:8000/products");
-  //     console.log("Response data:", response.data); // Check the response data
-  //     if (Array.isArray(response.data)) { // Make sure response data is an array
-  //       setProducts(response.data);
-  //     } else {
-  //       console.error("Response data is not an array:", response.data);
-  //       setError("Unexpected response data format");
-  //     }
-  //     setLoading(false);
-  //   } catch (error) {
-  //     setError(error.message);
-  //     setLoading(false);
-  //   }
-  // };
   
-
   useEffect(() => {
-    axios.get("http://localhost:8000/products").then((response) => {
-      // Check if the response data is an array before setting the state
-      if (Array.isArray(response.data)) {
-        setListProducts(response.data);
-      } else {
-        console.error("Response data is not an array:", response.data);
-      }
-    });
+    fetchProducts();
   }, []);
 
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/products');
+      if (Array.isArray(response.data)) {
+        setProducts(response.data);
+      } else {
+        console.error('Unexpected API response format. Expected an array of products.');
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
   
-  // useEffect(() => {
-  //   axios.get("http://localhost:8000/products").then((response) => {
-  //     setListProducts(response.data);
-  //   });
-  // }, []);
   return (
-    <div className="App">
-      {listProducts.map((value, key) => {
-        return (
-          <div className="post">
-            <div className="title"> {value.name} </div>
-            <div className="body">{value.description}</div>
-            <div className="footer">{value.price}</div>
+    <div className="container">
+      <h1 className="text-center mt-5 mb-5">Products</h1>
+      {loading ? (
+        <div className="d-flex justify-content-center">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
-        );
-      })}
+        </div>
+      ) : (
+        <div className="row">
+          {products.map((product) => (
+            <div
+            key={product.product_id}
+            className="col-md-4 mb-4"
+            onMouseEnter={() => setHoveredCard(product)}
+            onMouseLeave={() => setHoveredCard(null)}
+          >
+          
+              <div className="card h-100">
+              <img
+                src={product.product_image}
+                alt={product.name}
+                className={`card-img-top ${hoveredCard === product ? 'expanded' : ''}`}
+                />
+                <div className="card-body">
+                  <h3 className="card-title">{product.name}</h3>
+                  <p className="card-text">{product.description}</p>
+                  <p>Price: £{product.price}</p>
+                  <p>Store ID: {product.store_idx}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
-}
-
-  
-
-  // if (loading) {
-  //   return <div><h1>Loading...</h1></div>;
-  // }
-
-  // if (error) {
-  //   return <div>{error}</div>;
-  // }
-
-  // return <div className="container"> {listProducts.map((value, key ) => {
-  //   return <Card style={{ width: '18rem' }}>
-  //   <Card.Img variant="top" src={value.product_image} />
-  //   <Card.Body>
-  //     <Card.Title>{value.name}</Card.Title>
-  //     <Card.Text>
-  //       {value.description}
-  //     </Card.Text>
-  //   </Card.Body>
-  //   <Card.Footer>
-  //     <small className="text-muted">Price: {value.price}</small>
-  //   </Card.Footer>
-  // </Card>
-  // })} </div>;
-
-  
+};
 
 export default ProductsPage;
