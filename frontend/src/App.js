@@ -6,6 +6,8 @@ import About from './pages/AboutPage.jsx';
 import LoginPage from './pages/LoginPage';
 import Contact from './pages/contact.jsx';
 import ProductsPage from './pages/ProductsPage';
+import RegisterPage from './pages/RegisterPage';
+
 
 function App() {
   return (
@@ -24,7 +26,10 @@ function App() {
               <Link to="/login">Login</Link>
             </li>
             <li>
-              <Link to="/contact" element={<Contact />}>Contact</Link>
+              <Link to="/register">Register</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact</Link>
             </li>
             <li>
               <Link to="/products">Products</Link>
@@ -35,6 +40,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>

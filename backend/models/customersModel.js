@@ -14,7 +14,11 @@ module.exports = (sequelize) => {
       allowNull: false,
       timestamps: false,
     },
-    name: {
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -32,9 +36,13 @@ module.exports = (sequelize) => {
     },
     DOB: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    passwordConfirm: {
       type: DataTypes.STRING,
       allowNull: false,
     },
