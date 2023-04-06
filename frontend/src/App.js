@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css'
 import Home from './pages/HomePage.jsx';
@@ -7,11 +8,17 @@ import LoginPage from './pages/LoginPage';
 import Contact from './pages/contact.jsx';
 import ProductsPage from './pages/ProductsPage';
 import RegisterPage from './pages/RegisterPage';
+import CartContextProvider from './components/CartContext';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 
 
 function App() {
+  const [cartItems, setCartItems] = useState([]);
+
+
   return (
-    // Make sure you only have one <Router> component in your app
+    <CartContextProvider>
     <Router> 
       <div className="App">
         <nav>
@@ -34,6 +41,10 @@ function App() {
             <li>
               <Link to="/products">Products</Link>
             </li>
+            <li>
+              <Link to="/cart">Cart</Link>
+            </li>
+            
           </ul>
         </nav>
         <Routes>
@@ -42,10 +53,13 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
     </Router>
+    </CartContextProvider>
   );
 }
 
