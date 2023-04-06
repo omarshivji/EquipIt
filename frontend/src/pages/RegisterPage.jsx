@@ -3,17 +3,17 @@ import axios from "axios";
 
 const RegisterPage = () => {
 
-    const [getFirstName, setFirstName] = useState('');
-    const [getLastName, setLastName] = useState('');
-    const [getAddress, setAddress] = useState('');
-    const [getDOB, setDOB] = useState('');
-    const [getPhone, setPhone] = useState('');
-    const [getEmail, setEmail] = useState('');
-    const [getPassword, setPassword] = useState('');
-    const [getPasswordConfirm, setPasswordConfirm] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [address, setAddress] = useState('');
+    const [dob, setDOB] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [passwordConfirm, setPasswordConfirm] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [getError, setError] = useState({});
+    const [errors, setErrors] = useState({});
 
     const togglePasswordVisibility = (field) => {
         if (field === 'password') {
@@ -37,102 +37,87 @@ const RegisterPage = () => {
         let isValid = true;
         let errors = {};
 
-        if (!getFirstName) {
+        if (!firstName) {
             isValid = false;
             errors.firstName = "First Name is required";
         }
 
-        if (!getLastName) {
+        if (!lastName) {
             isValid = false;
             errors.lastName = "Last Name is required";
         }
 
-        if (!getAddress) {
+        if (!address) {
             isValid = false;
             errors.address = "Address is required";
         }
 
-        if (!getDOB) {
+        if (!dob) {
             isValid = false;
             errors.dob = "Date of Birth is required";
         }
 
-        if (!getPhone) {
+        if (!phone) {
             isValid = false;
             errors.phone = "Phone is required";
         }
 
-        if (!getEmail) {
+        if (!email) {
             isValid = false;
             errors.email = "Email is required";
         }
 
-        if (!getPassword) {
+        if (!password) {
             isValid = false;
             errors.password = "Password is required";
         }
 
-        if (!getPasswordConfirm) {
+        if (!passwordConfirm) {
             isValid = false;
             errors.passwordConfirm = "Password Confirmation is required";
         }
 
         const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-        if (!passwordPattern.test(getPassword)) {
+        if (!passwordPattern.test(password)) {
             isValid = false;
             errors.password = "Password must have at least 8 characters, 1 uppercase letter, and 1 number";
         }
 
-        if (getPassword !== getPasswordConfirm) {
+        if (password !== passwordConfirm) {
             isValid = false;
             errors.passwordConfirm = "Passwords do not match";
         }
 
         const currentDate = new Date();
         const minAge = 18;
-        const dob = new Date(getDOB);
-        const age = currentDate.getFullYear() - dob.getFullYear();
-        const m = currentDate.getMonth() - dob.getMonth();
-
-        if (m < 0 || (m === 0 && currentDate.getDate() < dob.getDate())) {
-            age--;
-        }
-
-        if (age < minAge) {
-            isValid = false;
-            errors.dob = "You must be at least 18 years old to sign up";
-        }
-
-        if (Object.keys(errors).length > 0) {
-            for (const key in errors) {
-                if (errors.hasOwnProperty(key)) {
-                    alert(errors[key]);
-                }
-            }
-
+        const dobDate = new Date(dob);
+        const age = currentDate.getFullYear() - dobDate 
+        if (dobDate.getFullYear() > currentDate.getFullYear() - minAge ||
+        (dobDate.getFullYear() === currentDate.getFullYear() - minAge && dobDate.getMonth() > currentDate.getMonth()) ||
+        (dobDate.getFullYear() === currentDate.getFullYear() - minAge && dobDate.getMonth() === currentDate.getMonth() && dobDate.getDate() > currentDate.getDate())) {
+        isValid = false;
+        
+        errors.dob = "You must be at least 18 years old to sign up";
+        }     if (Object.keys(errors).length > 0) {
+            setErrors(errors);
             return;
-
         }
-
-        setError(errors);
-
-        if (isValid) {
-            axios.post("http://localhost:8000/customers", {
-                firstName: getFirstName,
-                lastName: getLastName,
-                address: getAddress,
-                email: getEmail,
-                dob: getDOB,
-                phone: getPhone,
-                password: getPassword,
-                passwordConfirm: getPasswordConfirm
-            }).then(() => {
-                console.log("success");
-            });
-        }
+    
+        axios.post("http://localhost:8000/customers", {
+            firstName: firstName,
+            lastName: lastName,
+            address: address,
+            email: email,
+            dob: dob,
+            phone: phone,
+            password: password,
+            passwordConfirm: passwordConfirm
+        }).then(() => {
+            console.log("success");
+        });
     }
-
+    
     return (
         <div className="register">
             <h1>Register</h1>
@@ -140,17 +125,17 @@ const RegisterPage = () => {
             <input type="text" onChange={(event) => {
                 setFirstName(event.target.value);
             }} />
-            {getError.firstName && <p className="error">{getError.firstName}</p>}
+            {errors.firstName && <p className="error">{errors.firstName}</p>}
             <label>Last Name</label>
             <input type="text" onChange={(event) => {
                 setLastName(event.target.value);
             }} />
-            {getError.lastName && <p className="error">{getError.lastName}</p>}
+            {errors.lastName && <p className="error">{errors.lastName}</p>}
             <label>Address</label>
             <input type="text" onChange={(event) => {
                 setAddress(event.target.value);
             }} />
-            {getError.address && <p className="error">{getError.address}</p>}
+            {errors.address && <p className="error">{errors.address}</p>}
             <label>Date of Birth</label>
             <input
                 type="date"
@@ -159,17 +144,17 @@ const RegisterPage = () => {
                     setDOB(event.target.value);
                 }}
             />
-            {getError.dob && <p className="error">{getError.dob}</p>}
+            {errors.dob && <p className="error">{errors.dob}</p>}
             <label>Phone</label>
             <input type="text" onChange={(event) => {
                 setPhone(event.target.value);
             }} />
-            {getError.phone && <p className="error">{getError.phone}</p>}
+            {errors.phone && <p className="error">{errors.phone}</p>}
             <label>Email</label>
             <input type="text" onChange={(event) => {
                 setEmail(event.target.value);
             }} />
-            {getError.email && <p className="error">{getError.email}</p>}        
+            {errors.email && <p className="error">{errors.email}</p>}        
             <label>Password</label>
             <input
                 type={showPassword ? "text" : "password"}
@@ -183,8 +168,8 @@ const RegisterPage = () => {
             >
                 {showPassword ? 'Hide' : 'Show'} Password
             </button>
-            {getError.password && <p className="error">{getError.password}</p>}
-
+            {errors.password && <p className="error">{errors.password}</p>}
+    
             <label>Confirm Password</label>
             <input
                 type={showConfirmPassword ? "text" : "password"}
@@ -198,13 +183,15 @@ const RegisterPage = () => {
             >
                 {showConfirmPassword ? 'Hide' : 'Show'} Password
             </button>
-            {getError.passwordConfirm && (
-                <p className="error">{getError.passwordConfirm}</p>
+            {errors.passwordConfirm && (
+                <p className="error">{errors.passwordConfirm}</p>
             )}
-
+    
             <button onClick={register}>Register</button>
         </div>
     );
-};
+
+}
 
 export default RegisterPage;
+    
