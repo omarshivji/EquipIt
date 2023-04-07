@@ -4,12 +4,14 @@ const router = express.Router();
 // const { drivers } = require('../models/driversModel');
 
 
-router.get('/', (req, res) => {
-    res.json('Drivers');
+router.get('/', async (req, res) => {
+    const listDrivers = await drivers.findAll();
+    res.json(listDrivers);
 });
 
 router.get('/:driver_id', (req, res) => {
-    res.json('drivers');
+    const driver_id = req.params.driver_id;
+    res.json(driver_id);
 });
 
 router.post('/', async (req, res) => {

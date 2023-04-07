@@ -20,33 +20,41 @@ function App() {
   return (
     <CartContextProvider>
     <Router> 
-      <div className="App">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
+    <div className="App">
+      <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: '#e3f2fd' }}>
+      <a className="navbar-brand" href="/">
+          <img src="\EquipIt-logos\EquipIt-logos_black.png" alt="EquipIt"  style={{ width: '100px', height: 'auto' }}/>
+        </a>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarText">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item active">
+              <Link className="nav-link" to="/">Home </Link>
             </li>
-            <li>
-              <Link to="/about">About</Link>
+            <li className="nav-item">
+              <Link className="nav-link" to="/about">About</Link>
             </li>
-            <li>
-              <Link to="/login">Login</Link>
+            <li className="nav-item">
+              <Link className="nav-link" to="/login">Login</Link>
             </li>
-            <li>
-              <Link to="/register">Register</Link>
+            <li className="nav-item">
+              <Link className="nav-link" to="/register">Register</Link>
             </li>
-            <li>
-              <Link to="/contact">Contact</Link>
+            <li className="nav-item">
+              <Link className="nav-link" to="/contact">Contact Us</Link>
             </li>
-            <li>
-              <Link to="/products">Products</Link>
+            <li className="nav-item">
+              <Link className="nav-link" to="/products">Products</Link>
             </li>
-            <li>
-              <Link to="/cart">Cart</Link>
+            <li className="nav-item">
+              <Link className="nav-link" to="/cart">Cart</Link>
             </li>
-            
           </ul>
-        </nav>
+          
+        </div>
+      </nav> 
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

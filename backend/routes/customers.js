@@ -3,12 +3,14 @@ const express = require('express');
 const router = express.Router();
 // const { customers } = require('../models/customersModel.js');
 
-router.get('/', (req, res) => {
-    res.json('Customers');
+router.get('/', async (req, res) => {
+    const listCustomers = await customers.findAll();
+    res.json(listCustomers);
 });
 
 router.get('/:customers_id', (req, res) => {
-    res.json('Customers');
+    const customers_id = req.params.customers_id;
+    res.json(customers_id);
 });
 
 router.post('/', async (req, res) => {

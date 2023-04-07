@@ -13,12 +13,14 @@ const router = express.Router();
 
 // module.exports = router;
 
-router.get('/', (req, res) => {
-    res.json('Store');
+router.get('/', async (req, res) => {
+    const listStores = await store.findAll();
+    res.json(listStores);
 });
 
 router.get('/:store_id', (req, res) => {
-    res.json('Store');
+    const store_id = req.params.store_id;
+    res.json(store_id);
 });
 
 router.post('/', async (req, res) => {

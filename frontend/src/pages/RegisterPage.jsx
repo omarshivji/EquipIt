@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios";
+import './RegisterPage.css';
 
 const RegisterPage = () => {
 
@@ -121,22 +122,22 @@ const RegisterPage = () => {
     return (
         <div className="register">
             <h1>Register</h1>
-            <label>First Name</label>
+            <label>First Name: </label>
             <input type="text" onChange={(event) => {
                 setFirstName(event.target.value);
             }} />
             {errors.firstName && <p className="error">{errors.firstName}</p>}
-            <label>Last Name</label>
+            <label>Last Name: </label>
             <input type="text" onChange={(event) => {
                 setLastName(event.target.value);
             }} />
             {errors.lastName && <p className="error">{errors.lastName}</p>}
-            <label>Address</label>
+            <label>Address: </label>
             <input type="text" onChange={(event) => {
                 setAddress(event.target.value);
             }} />
             {errors.address && <p className="error">{errors.address}</p>}
-            <label>Date of Birth</label>
+            <label>Date of Birth: </label>
             <input
                 type="date"
                 max={maxDate()}
@@ -145,17 +146,17 @@ const RegisterPage = () => {
                 }}
             />
             {errors.dob && <p className="error">{errors.dob}</p>}
-            <label>Phone</label>
+            <label>Phone: </label>
             <input type="text" onChange={(event) => {
                 setPhone(event.target.value);
             }} />
             {errors.phone && <p className="error">{errors.phone}</p>}
-            <label>Email</label>
+            <label>Email: </label>
             <input type="text" onChange={(event) => {
                 setEmail(event.target.value);
             }} />
             {errors.email && <p className="error">{errors.email}</p>}        
-            <label>Password</label>
+            <label>Password: </label>
             <input
                 type={showPassword ? "text" : "password"}
                 onChange={(event) => {
@@ -170,7 +171,7 @@ const RegisterPage = () => {
             </button>
             {errors.password && <p className="error">{errors.password}</p>}
     
-            <label>Confirm Password</label>
+            <label>Confirm Password: </label>
             <input
                 type={showConfirmPassword ? "text" : "password"}
                 onChange={(event) => {

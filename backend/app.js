@@ -11,47 +11,9 @@ app.use(cors({
 // Set up middleware to parse request body as JSON
 app.use(express.json());
 
-// Set up middleware to parse form data
-//app.use(express.urlencoded({ extended: true }));
-
 // Set up middleware to serve static files (e.g. CSS, images)
 app.use(express.static('public'));
 
-// const allowedOrigins = ['https://3000-omarshivji-equipit-fjpjc4oo06g.ws-eu93.gitpod.io'];
-
-//const corsOptions = {
- // origin: "https://3000-omarshivji-equipit-fjpjc4oo06g.ws-eu93.gitpod.io"
-//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   }
-//};
-
-// app.use(cors(corsOptions));
-
-// app.use(cors(corsOptions));
-//manual cors
-//const allowedOrigins = ['https://3000-omarshivji-equipit-fjpjc4oo06g.ws-eu93.gitpod.io'];
-
-// app.use((req, res, next) => {
-//   const origin = req.headers.origin;
-//   if (allowedOrigins.indexOf(origin) > -1 || !origin) {
-//     res.setHeader('Access-Control-Allow-Origin', origin);
-//   }
-
-//   //Set other CORS headers
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-//   res.setHeader('Access-Control-Allow-Credentials', true);
-
-//  if (req.method === 'OPTIONS') {
-//    res.sendStatus(200);
-//   } else {
-//    next();
-//   }
-// });
 
 
 // Import and use the routes
@@ -75,12 +37,23 @@ const storesModel = require('./models/storesModel.js');
 const store = storesModel(sequelize);
 const storesRoutes = require('./routes/store')(store);
 
+const transactionsModel = require('./models/transactionsModel.js');
+const transactions = transactionsModel(sequelize);
+const transactionRoutes = require('./routes/transactions')(transactions);
+
+const adminModel = require('./models/adminModel.js');
+const admin = adminModel(sequelize);
+const adminRoutes = require('./routes/admin')(admin);
+
 
 app.use('/customers', customersRoutes);
 app.use('/orders', ordersRoutes);
 app.use('/drivers', driversRoutes);
 app.use('/products', productsRoutes);
 app.use('/stores', storesRoutes);
+app.use('/transactions', transactionRoutes);
+app.use('/admin', adminRoutes);
+
 
 
 // Set up a default route for handling invalid requests

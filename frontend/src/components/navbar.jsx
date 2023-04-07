@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const nav = () => {
   return (
-    <nav>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
           <ul>
             <li>
               <Link to="/">Home</Link>

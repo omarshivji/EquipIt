@@ -1,24 +1,15 @@
 module.exports = (orders) => {
 const express = require('express');
 const router = express.Router();
-// const { orders } = require('../models/ordersModel');
-// const { getAllOrders, getOrderById, createOrder, updateOrder, deleteOrder } = require('../controllers/ordersController');
-// const { logRequest } = require('../middleware/logger');
 
-// router.get('/', logRequest, getAllOrders);
-// router.get('/:order_id', logRequest, getOrderById);
-// router.post('/', logRequest, createOrder);
-// router.put('/:order_id', logRequest, updateOrder);
-// router.delete('/:order_id', logRequest, deleteOrder);
-
-// module.exports = router;
-
-router.get('/', (req, res) => {
-    res.json('Orders');
+router.get('/', async (req, res) => {
+    const listOrders = await orders.findAll();
+    res.json(listOrders);
 });
 
 router.get('/:order_id', (req, res) => {
-    res.json('Orders');
+    const order_id = req.params.order_id;
+    res.json(order_id);
 });
 
 router.post('/', async (req, res) => {

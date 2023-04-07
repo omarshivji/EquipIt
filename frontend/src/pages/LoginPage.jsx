@@ -1,6 +1,7 @@
 // LoginPage.js
 import React, { useState } from 'react';
 //import { login as apiLogin } from '../api/login_api'; // Import the login function from your API helper file
+import axios from "axios";
 
 
 import './LoginPage.css';
@@ -23,12 +24,12 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <h1>Login</h1>
-      <label>Email</label>
+      <label>Email: </label>
       <input type="text" onChange={(event) => {
         setEmail(event.target.value);
       }
       } />
-      <label>Password</label>
+      <label>Password: </label>
       <input type="text" onChange={(event) => {
         setPassword(event.target.value);
       }

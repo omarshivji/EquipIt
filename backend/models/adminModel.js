@@ -1,15 +1,19 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    const drivers = sequelize.define("drivers", {
-        driver_id: {
+    const admin = sequelize.define("admin", {
+        admin_id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
             timestamps: false,
-    },
-        name: {
+        },
+        username: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        password: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -17,22 +21,15 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        vehicle_make: {
-            type: DataTypes.STRING,
+        store_id: {
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
-        vehicle_model: {
-            type: DataTypes.STRING,
+        product_id: {
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
-        vehicle_colour: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        DOB: {
-            type: DataTypes.DATE,
-            allowNull: false,
-        },
-        });
-    return drivers
-    };
+        
+    });
+    return admin;
+};

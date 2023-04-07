@@ -73,7 +73,7 @@ const ProductsPage = () => {
                   <h3 className="card-title">{product.name}</h3>
                   <p className="card-text">{product.description}</p>
                   <p>Price: £{product.price}</p>
-                  <p>Store ID: {product.store_idx}</p>
+                  <p>Store: {product.store_name}</p>
                   <button className="btn btn-primary" onClick={() => handleAddToCart(product)}>Add to Cart</button>
                 </div>
               </div>

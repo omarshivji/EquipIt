@@ -9,8 +9,8 @@ module.exports = (sequelize) => {
       allowNull: false,
       timestamps: false,
     },
-    store_idx: {
-      type: DataTypes.INTEGER,
+    store_name: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     name: { 

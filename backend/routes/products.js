@@ -11,14 +11,15 @@ router.get('/', async (req, res) => {
 
 
 router.get('/:product_id', (req, res) => {  
-    res.json('Products');
+    const product_id = req.params.product_id;
+    res.json(product_id);
 });
 
 
 router.post('/', async (req, res) => {
     try {
-      const { store_idx, name, description, price, quantity, product_image } = req.body;
-      const product = await products.create({ store_idx, name, description, price, quantity, product_image });
+      const { store_name, name, description, price, quantity, product_image } = req.body;
+      const product = await products.create({ store_name, name, description, price, quantity, product_image });
       res.json(product);
     } catch (error) {
       console.error(error);
