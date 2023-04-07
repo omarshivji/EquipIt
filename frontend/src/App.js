@@ -13,6 +13,7 @@ import Cart from './pages/Cart';
 import CartProvider from './components/CartContext';
 import AdminOrders from './pages/AdminOrders';
 import { CartContext } from './components/CartContext';
+import ProductContextProvider from './components/ProductContext';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <CartProvider>
+      <ProductContextProvider>
     <Router> 
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: '#e3f2fd' }}>
@@ -72,6 +74,7 @@ function App() {
         </Routes>
       </div>
     </Router>
+    </ProductContextProvider>
     </CartProvider>
   );
 }

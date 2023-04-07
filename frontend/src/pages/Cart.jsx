@@ -1,5 +1,8 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../components/CartContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
+
 
 const Cart = () => {
   const { cartItems, removeFromCart } = useContext(CartContext);
@@ -9,21 +12,28 @@ const Cart = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Cart</h1>
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        <div>
+        <div className="row">
           {cartItems.map((item) => (
-            <div key={item.product_id}>
-              <h3>{item.name}</h3>
-              <img src={item.product_image} alt={item.name} />
-              <p>{item.description}</p>
-              <p>Price: £{item.price}</p>
-              <button onClick={() => handleRemove(item.product_id)}>Remove from cart</button>
+            <div key={item.product_id} className="col-sm-12 col-md-6 col-lg-4">
+              <div className="card mb-4">
+                <img src={item.product_image} alt={item.name} className="card-img-top" />
+                <div className="card-body">
+                  <h3 className="card-title">{item.name}</h3>
+                  <p className="card-text">{item.description}</p>
+                  <p>Price: £{item.price}</p>
+                  <button className="btn btn-danger" onClick={() => handleRemove(item.product_id)}>Remove from cart</button>
+                </div>
+              </div>
             </div>
           ))}
+            <div className="col-12">
+            <Link to="/checkout" className="btn btn-primary">Continue to checkout</Link>
+          </div>
         </div>
       )}
     </div>

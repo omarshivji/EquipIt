@@ -26,12 +26,12 @@ const AdminOrders = () => {
 
   const handleEditOrder = async (orderId) => {
     try {
-      // First, fetch the order data from the API
+      
       const response = await axios.get(`http://localhost:8000/orders/${orderId}`);
       const orderData = response.data;
   
-      // Then, prompt the user for new data for the order
-      const newOrderData = { ...orderData }; // start with the original data and modify as necessary
+      
+      const newOrderData = { ...orderData }; 
       const newProductName = prompt('Enter new product name:', orderData.product_name);
       if (newProductName) {
         newOrderData.product_name = newProductName;
@@ -47,10 +47,10 @@ const AdminOrders = () => {
         newOrderData.price = newPrice;
       }
   
-      // Then, send the updated order data to the API
+      
       await axios.put(`http://localhost:8000/orders/${orderId}`, newOrderData);
   
-      // Finally, refresh the orders list
+      
       fetchOrders();
     } catch (error) {
       console.error('Error editing order:', error);
