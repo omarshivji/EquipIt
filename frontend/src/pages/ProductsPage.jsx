@@ -2,17 +2,19 @@ import './ProductsPage.css';
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { createContext } from 'react';
+import './ProductsPage.css';
 import { CartContext } from '../components/CartContext';
 
 
+
+
 const ProductsPage = () => {
-  const { cartItems, setCartItems } = useContext(CartContext);
+
+  const { cartItems, addToCart } = useContext(CartContext);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hoveredCard, setHoveredCard] = useState(null);
 
-  
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -33,18 +35,21 @@ const ProductsPage = () => {
   };
 
   const handleAddToCart = (product) => {
-    const newCartItems = [...cartItems];
-    const cartItemIndex = newCartItems.findIndex((item) => item.product_id === product.product_id);
-
-    if (cartItemIndex >= 0) {
-      newCartItems[cartItemIndex].quantity++;
+    const existingItem = cartItems.find((item) => item.product_id === product.product_id);
+  
+    if (existingItem) {
+      const updatedCartItems = cartItems.map((item) =>
+        item.product_id === product.product_id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+      addToCart(updatedCartItems);
     } else {
-      newCartItems.push({ ...product, quantity: 1 });
+      addToCart({ ...product, quantity: 1 });
     }
-
-    setCartItems(newCartItems);
   };
   
+
   return (
     <div className="container">
       <h1 className="text-center mt-5 mb-5">Products</h1>
@@ -74,7 +79,9 @@ const ProductsPage = () => {
                   <p className="card-text">{product.description}</p>
                   <p>Price: £{product.price}</p>
                   <p>Store: {product.store_name}</p>
-                  <button className="btn btn-primary" onClick={() => handleAddToCart(product)}>Add to Cart</button>
+                  <button onClick={() => handleAddToCart(product)} className="btn btn-primary mt-2">
+                      Add to Cart
+                 </button>
                 </div>
               </div>
             </div>

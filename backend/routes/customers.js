@@ -1,6 +1,8 @@
 module.exports =  (customers) => {
 const express = require('express');
 const router = express.Router();
+const sequelize = require('../models/dbconnection.js');
+const mysql = require('mysql');
 // const { customers } = require('../models/customersModel.js');
 
 router.get('/', async (req, res) => {
@@ -38,6 +40,39 @@ router.delete('/:customers_id', async (req, res) => {
     res.json('Customer deleted');
   });
   
+
+router.get('/', async (req, res) => {
+    const username = req.params.username;
+    const password = req.params.password;
+    const customer = await customers.findOne({
+        where: {
+            username: username,
+            password: password
+        }
+    });
+    res.json(customer);
+});
+
+router.post('/' , async (req, res) => {
+    const email = req.params.email;
+    const password = req.params.password;
+
+    sequelize.query('SELECT * FROM customers WHERE email = ? AND password = ?',
+    [email, password],
+    (err, result) => {
+        if (err) {
+            res.send(err);
+        } else {
+            if (result.length > 0) {
+                res.send(result);
+            } else {
+                res.send({ message: 'Wrong username/password combination' });
+            }
+        }
+    });
+});
+
+
 
 return router;
 };
