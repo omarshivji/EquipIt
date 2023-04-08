@@ -73,7 +73,7 @@ const AdminOrders = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center mt-5 mb-5">Orders</h1>
+      <h1 className="text-center mt-5 mb-5">Customer Orders</h1>
       {loading ? (
         <div className="d-flex justify-content-center">
           <div className="spinner-border" role="status">
@@ -86,10 +86,10 @@ const AdminOrders = () => {
             <thead>
               <tr>
                 <th>Order ID</th>
-                <th>Customer First Name</th>
-                <th>Customer Last Name</th>
-                <th>Customer Email</th>
-                <th>Customer Address</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Address</th>
                 <th>Store Name</th>
                 <th>Product ID</th>
                 <th>Product Name</th>

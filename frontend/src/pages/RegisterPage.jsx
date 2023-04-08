@@ -8,6 +8,7 @@ const RegisterPage = () => {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
   const [address, setAddress] = useState('');
   const [dob, setDOB] = useState('');
   const [phone, setPhone] = useState('');
@@ -44,6 +45,11 @@ const RegisterPage = () => {
   const register = () => {
     let isValid = true;
     let errors = {};
+
+    if (!username) {
+      isValid = false;
+      errors.username = "username is required";
+    }
 
     if (!firstName) {
       isValid = false;
@@ -114,8 +120,10 @@ const RegisterPage = () => {
             setErrors(errors);
             return;
           }
+
           
           axios.post("http://localhost:8000/customers", {
+            username: username,
             firstName: firstName,
             lastName: lastName,
             address: address,
@@ -135,13 +143,23 @@ const RegisterPage = () => {
             setPassword('');
             setPasswordConfirm('');
             setErrors({});
-            toast.success('Registration Successful')
+            toast.success('Registration Successful');
+          }).then(() => {
+            axios.post("http://localhost:8000/login", {
+              username: username,
+              password: password
+            }).then(() => {
+              console.log('Username and password posted to /logins');
+            }).catch(error => {
+              console.log('Error posting username and password to /logins:', error);
+            });
           }).catch(error => {
             console.log(error);
             setIsRegistrationSuccessful(false);
           });
-        }
-
+        };
+        
+      
         return (
         <div className="register">
             <h1>Register</h1>
@@ -156,6 +174,11 @@ const RegisterPage = () => {
         setLastName(event.target.value);
         }} />
         {errors.lastName && <p className="error">{errors.lastName}</p>}
+        <label>Username: </label>
+        <input type="text" onChange={(event) => {
+        setUsername(event.target.value);
+        }} />
+        {errors.lastName && <p className="error">{errors.username}</p>}
         <label>Address: </label>
         <input type="text" onChange={(event) => {
         setAddress(event.target.value);

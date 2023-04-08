@@ -32,6 +32,7 @@ fs.readdirSync(__dirname)
   const stores = require('./storesModel.js')(sequelize, Sequelize.DataTypes);
   const transactionsModel = require('./transactionsModel.js')(sequelize, Sequelize.DataTypes);
   const adminModel = require('./adminModel.js')(sequelize, Sequelize.DataTypes);
+  const loginModel = require('./loginModel.js')(sequelize, Sequelize.DataTypes);
 
   
   
@@ -42,6 +43,7 @@ fs.readdirSync(__dirname)
   db[stores.name] = stores;
   db[transactionsModel.name] = transactionsModel;
   db[adminModel.name] = adminModel;
+  db[loginModel.name] = loginModel;
   
 
   // .forEach(file => {

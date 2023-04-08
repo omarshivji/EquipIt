@@ -45,6 +45,10 @@ const adminModel = require('./models/adminModel.js');
 const admin = adminModel(sequelize);
 const adminRoutes = require('./routes/admin')(admin);
 
+const loginModel = require('./models/loginModel.js');
+const login = loginModel(sequelize);
+const loginRoutes = require('./routes/login')(login);
+
 
 app.use('/customers', customersRoutes);
 app.use('/orders', ordersRoutes);
@@ -53,6 +57,7 @@ app.use('/products', productsRoutes);
 app.use('/stores', storesRoutes);
 app.use('/transactions', transactionRoutes);
 app.use('/admin', adminRoutes);
+app.use('/login', loginRoutes);
 
 
 
