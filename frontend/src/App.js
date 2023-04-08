@@ -5,7 +5,7 @@ import './App.css'
 import Home from './pages/HomePage.jsx';
 import About from './pages/AboutPage.jsx';
 import LoginPage from './pages/LoginPage';
-import Contact from './pages/contact.jsx';
+import Contact from './pages/Contact.jsx';
 import ProductsPage from './pages/ProductsPage';
 import RegisterPage from './pages/RegisterPage';
 import Cart from './pages/Cart';
@@ -14,6 +14,7 @@ import CartProvider from './components/CartContext';
 import AdminOrders from './pages/AdminOrders';
 import { CartContext } from './components/CartContext';
 import ProductContextProvider from './components/ProductContext';
+import Checkout from './pages/Checkout';
 
 
 function App() {
@@ -71,6 +72,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/orders" element={<AdminOrders/>} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </div>
     </Router>

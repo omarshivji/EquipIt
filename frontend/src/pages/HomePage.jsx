@@ -5,14 +5,13 @@ function HomePage() {
   return (
     <div className="homePage">
       <header className="homePage-header">
-        <h1>EquipitDelivers</h1>
-        <p>Your trusted delivery partner</p>
+      <img src="\EquipIt-logos\EquipIt-logos_transparent.png" alt="EquipIt"  style={{ width: '300px', height: 'auto' }}/>
       </header>
       <main className="homePage-content">
         <section className="homePage-about">
           <h2>About Us</h2>
           <p>
-            EquipitDelivers is a leading delivery company providing fast, reliable, and secure services to cater to your personal and business needs.
+            Equipit is a leading delivery company providing fast, reliable, and secure services to cater to your personal and business needs.
           </p>
         </section>
         <section className="homePage-services">

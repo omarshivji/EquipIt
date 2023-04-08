@@ -4,12 +4,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 
 
+
 const Cart = () => {
   const { cartItems, removeFromCart } = useContext(CartContext);
 
   const handleRemove = (productId) => {
     removeFromCart(productId);
   };
+  
+
 
   return (
     <div className="container">
@@ -26,6 +29,7 @@ const Cart = () => {
                   <h3 className="card-title">{item.name}</h3>
                   <p className="card-text">{item.description}</p>
                   <p>Price: £{item.price}</p>
+                  <p>Store: {item.store_name}</p>
                   <button className="btn btn-danger" onClick={() => handleRemove(item.product_id)}>Remove from cart</button>
                 </div>
               </div>

@@ -6,48 +6,44 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-      allowNull: false,
-      timestamps: false,
+      allowNull: true,
+      timestamps: true,
     },
     customer_firstname: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     customer_lastname: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     customer_email: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
-    customer_adress: {
+    customer_address: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     store_name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     product_id: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     product_name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     quantity: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     price: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    order_date: {
-      type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
   });
   return orders;

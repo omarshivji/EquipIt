@@ -1,0 +1,11 @@
+tasks:
+  run-terminals:
+  steps:
+    - name: Terminal 1
+      run: | 
+      cd backend && npm install
+      npm start
+    - name: Terminal 2
+      run: |
+      cd frontend && npm install
+      npm start

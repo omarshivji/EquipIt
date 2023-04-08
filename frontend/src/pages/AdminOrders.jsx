@@ -83,13 +83,15 @@ const AdminOrders = () => {
             <thead>
               <tr>
                 <th>Order ID</th>
-                <th>Customer ID</th>
-                <th>Store ID</th>
+                <th>Customer First Name</th>
+                <th>Customer Last Name</th>
+                <th>Customer Email</th>
+                <th>Customer Address</th>
+                <th>Store Name</th>
                 <th>Product ID</th>
                 <th>Product Name</th>
                 <th>Quantity</th>
                 <th>Price</th>
-                <th>Order Date</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -97,13 +99,15 @@ const AdminOrders = () => {
             {orders.map((order) => (
                 <tr key={order.order_id}>
                 <td>{order.order_id}</td>
-                <td>{order.customer_id}</td>
-                <td>{order.store_id}</td>
+                <td>{order.customer_firstname}</td>
+                <td>{order.customer_lastname}</td>
+                <td>{order.customer_email}</td>
+                <td>{order.customer_address}</td>
+                <td>{order.store_name}</td>
                 <td>{order.product_id}</td>
                 <td>{order.product_name}</td>
                 <td>{order.quantity}</td>
                 <td>£{order.price}</td>
-                <td>{order.order_date}</td>
                 <td>
                     <button
                     className="btn btn-primary"
