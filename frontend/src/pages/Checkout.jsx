@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CartContext } from '../components/CartContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import './Checkout.css'
 
 const Checkout = () => {
@@ -12,14 +14,22 @@ const Checkout = () => {
   const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
   
 
+
+  
   const handleCheckout = async () => {
+    if (firstName === '' || lastName === '' || email === '' || address === '') {
+    toast.error('Please fill in all the required fields.');
+    return;
+  }
     const products = cartItems.map((item) => ({
       product_id: item.product_id.toString(),
       product_name: item.name,
       quantity: 1,
       price: item.price.toString(),
       store_name: item.store_name,
-    }));
+    })
+    
+    );
   
     const order = {
       customer_firstname: firstName,
@@ -44,10 +54,10 @@ const Checkout = () => {
       if (response.ok) {
         console.log('Order successfully placed');
         clearCart();
-        alert('Order successfully placed!');
+        toast.success('Order succesfully placed.')
       } else {
         console.error('Failed to place order');
-        alert('Failed to place order. Please try again later.')
+        toast.error('Failed to place order, please try again later')
       }
     } catch (error) {
       console.error('Failed to connect to server', error);
@@ -96,6 +106,7 @@ const Checkout = () => {
           <button onClick={handleCheckout}>Checkout</button>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

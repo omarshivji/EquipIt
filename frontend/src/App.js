@@ -2,6 +2,8 @@ import React from 'react';
 import { useState, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/HomePage.jsx';
 import About from './pages/AboutPage.jsx';
 import LoginPage from './pages/LoginPage';
@@ -9,7 +11,6 @@ import Contact from './pages/Contact.jsx';
 import ProductsPage from './pages/ProductsPage';
 import RegisterPage from './pages/RegisterPage';
 import Cart from './pages/Cart';
-// import Checkout from './pages/Checkout';
 import CartProvider from './components/CartContext';
 import AdminOrders from './pages/AdminOrders';
 import { CartContext } from './components/CartContext';

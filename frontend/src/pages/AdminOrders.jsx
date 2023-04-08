@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -49,6 +51,7 @@ const AdminOrders = () => {
   
       
       await axios.put(`http://localhost:8000/orders/${orderId}`, newOrderData);
+      toast.success('Order has been updated');
   
       
       fetchOrders();
@@ -57,12 +60,12 @@ const AdminOrders = () => {
     }
   };
   
-
   const handleDeleteOrder = async (orderId) => {
     try {
       await axios.delete(`http://localhost:8000/orders/${orderId}`);
       setOrders(orders.filter((order) => order.order_id !== orderId));
       console.log('Order deleted successfully.');
+      toast.success('Order has been deleted from database.')
     } catch (error) {
       console.error('Error deleting order:', error);
     }
@@ -128,6 +131,7 @@ const AdminOrders = () => {
     </table>
 </div>
 )}
+<ToastContainer/>
 </div>
 );
 };

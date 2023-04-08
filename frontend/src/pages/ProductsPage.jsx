@@ -4,8 +4,8 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ProductsPage.css';
 import { CartContext } from '../components/CartContext';
-
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const ProductsPage = () => {
@@ -46,6 +46,7 @@ const ProductsPage = () => {
       addToCart(updatedCartItems);
     } else {
       addToCart({ ...product, quantity: 1 });
+      toast.success('Products have been added to cart')
     }
   };
   
@@ -88,6 +89,7 @@ const ProductsPage = () => {
           ))}
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

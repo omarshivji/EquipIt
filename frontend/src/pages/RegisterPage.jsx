@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import './RegisterPage.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterPage = () => {
 
@@ -133,6 +135,7 @@ const RegisterPage = () => {
             setPassword('');
             setPasswordConfirm('');
             setErrors({});
+            toast.success('Registration Successful')
           }).catch(error => {
             console.log(error);
             setIsRegistrationSuccessful(false);
@@ -209,6 +212,7 @@ const RegisterPage = () => {
   )}
 
   <button onClick={register}>Register</button>
+  <ToastContainer/>
 </div>
 );
 };

@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { CartContext } from '../components/CartContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -10,10 +12,9 @@ const Cart = () => {
 
   const handleRemove = (productId) => {
     removeFromCart(productId);
+    toast.success('Product has been removed from cart')
   };
   
-
-
   return (
     <div className="container">
       <h1>Cart</h1>
@@ -40,6 +41,7 @@ const Cart = () => {
           </div>
         </div>
       )}
+      <ToastContainer/>
     </div>
   );
 };
