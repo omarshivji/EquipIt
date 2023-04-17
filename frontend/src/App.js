@@ -16,6 +16,8 @@ import AdminOrders from './pages/AdminOrders';
 import { CartContext } from './components/CartContext';
 import ProductContextProvider from './components/ProductContext';
 import Checkout from './pages/Checkout';
+import AdminCustomers from './pages/AdminCustomers';
+import AdminStores from './pages/AdminStores';
 
 
 function App() {
@@ -60,6 +62,13 @@ function App() {
             <li className="nav-item">
               <Link className="nav-link" to="/orders">Orders</Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/customers">Customers</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/stores">Stores</Link>
+            </li>
+
           </ul>
           
         </div>
@@ -74,6 +83,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/orders" element={<AdminOrders/>} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/customers" element={<AdminCustomers />} />
+          <Route path="/stores" element={<AdminStores />} />
         </Routes>
       </div>
     </Router>

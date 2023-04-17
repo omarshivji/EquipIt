@@ -1,6 +1,8 @@
 module.exports = (Login) => {
     const express = require('express');
     const router = express.Router();
+    const mysql = require('mysql');
+    const sequelize = require('../models/dbconnection');
   
     router.get('/', async (req, res) => {
       const listLogin = await Login.findAll();

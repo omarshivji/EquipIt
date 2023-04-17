@@ -2,20 +2,24 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import './LoginPage.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const LoginPage = () => {
-  const [getEmail, setEmail] = useState('');
-  const [getPassword, setPassword] = useState('');
+  const [username, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
   const [error, setError] = useState('');
 
   const login = () => {
-    axios.get("http://localhost:8000/customers", {
-      email: getEmail,
-      password: getPassword
+    axios.post("http://localhost:8000/login", {
+      username: username,
+      password: password
     }).then((response) => {
       console.log(response);
       setIsLoginSuccessful(true);
+      toast.success('Login successful!')
       setError('');
     }).catch(error => {
       console.log(error);
@@ -38,6 +42,7 @@ const LoginPage = () => {
         setPassword(event.target.value);
       }} />
       <button onClick={login}>Login</button>
+      <ToastContainer />
     </div>
   );
 };

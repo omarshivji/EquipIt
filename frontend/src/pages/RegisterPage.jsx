@@ -126,6 +126,7 @@ const RegisterPage = () => {
             username: username,
             firstName: firstName,
             lastName: lastName,
+            username: username,
             address: address,
             email: email,
             dob: dob,
