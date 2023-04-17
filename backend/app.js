@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const sequelize = require('./models/dbconnection');
 const db = require('./models'); 
+const session = require('express-session');
 
 app.use(cors({
   origin: '*'
@@ -13,6 +14,12 @@ app.use(express.json());
 
 // Set up middleware to serve static files (e.g. CSS, images)
 app.use(express.static('public'));
+
+app.use(session({
+  secret : 'webslesson',
+  resave : true,
+  saveUninitialized : true
+}));
 
 
 
