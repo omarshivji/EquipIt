@@ -4,7 +4,7 @@ const cors = require('cors');
 const sequelize = require('./models/dbconnection');
 const db = require('./models'); 
 const session = require('express-session');
-const nodemon = require('nodemon');
+// const nodemon = require('nodemon');
 
 app.use(cors({
   origin: '*'
@@ -96,10 +96,10 @@ const server = app.listen(8000, () => {
   console.log(`Server is running on port 8000`);
 });
 
-nodemon({
-  script: server,
-  ignore: ["node_modules/**", "public/**"],
-  ext: "js json"
-});
+// nodemon({
+//   script: server,
+//   ignore: ["node_modules/**", "public/**"],
+//   ext: "js json"
+// });
 
 process.on('SIGINT', function() {process.exit()});

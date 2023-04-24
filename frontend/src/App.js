@@ -18,6 +18,7 @@ import ProductContextProvider from './components/ProductContext';
 import Checkout from './pages/Checkout';
 import AdminCustomers from './pages/AdminCustomers';
 import AdminStores from './pages/AdminStores';
+import Error404 from './pages/Error404';
 
 
 function App() {
@@ -85,6 +86,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/customers" element={<AdminCustomers />} />
           <Route path="/stores" element={<AdminStores />} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </div>
     </Router>
