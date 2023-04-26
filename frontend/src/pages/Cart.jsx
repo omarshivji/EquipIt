@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CustomerNavbar from '../components/CustomerNavbar';
 
 
 
@@ -17,6 +18,7 @@ const Cart = () => {
   
   return (
     <div className="container">
+      <CustomerNavbar />
       <h1>Cart</h1>
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>

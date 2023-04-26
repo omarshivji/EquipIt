@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { CartContext } from '../components/CartContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CustomerNavbar from '../components/CustomerNavbar';
 // import './Checkout.css'
 
 const Checkout = () => {
@@ -68,6 +69,7 @@ const Checkout = () => {
   
   return (
     <div>
+      <CustomerNavbar />
       <h1>Checkout</h1>
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>

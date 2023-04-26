@@ -3,6 +3,7 @@ import axios from "axios";
 import './RegisterPage.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NormNavbar from '../components/NormNavbar';
 
 const RegisterPage = () => {
 
@@ -163,6 +164,7 @@ const RegisterPage = () => {
       
         return (
         <div className="register">
+            <NormNavbar />
             <h1>Register</h1>
             {isRegistrationSuccessful && <p>Registration successful!</p>}
             <label>First Name: </label>

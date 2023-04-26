@@ -1,11 +1,13 @@
 import React from 'react';
+import NormNavbar from '../components/NormNavbar';
 import './HomePage.css';
 
 function HomePage() {
   return (
     <div className="homePage">
+      <NormNavbar />
       <header className="homePage-header">
-      <img src="\EquipIt-logos\EquipIt-logos_transparent.png" alt="EquipIt"  style={{ width: '300px', height: 'auto' }}/>
+        <img src="\EquipIt-logos\EquipIt-logos_transparent.png" alt="EquipIt"  style={{ width: '300px', height: 'auto' }}/>
       </header>
       <main className="homePage-content">
         <section className="homePage-about">

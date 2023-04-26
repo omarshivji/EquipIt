@@ -1,8 +1,10 @@
 import React from 'react';
+import NormNavbar from '../components/NormNavbar';
 
 const Contact = () => {
   return (
     <div>
+      <NormNavbar />
       <h1>Contact EquipIt</h1>
       <p>Thank you for considering EquipIt for your delivery needs. If you have any questions or would like to learn more about our services, please feel free to contact us using the information below:</p>
       <ul>

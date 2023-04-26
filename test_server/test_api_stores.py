@@ -2,42 +2,51 @@ import pytest
 import requests
 import json
 
-# Change the URL as needed
-base_url = 'http://localhost:8000'
+
+STORE_URL = 'http://localhost:8000/stores'
 
 # Test getAllStores
 def test_get_all_stores():
-    response = requests.get(f'{base_url}/stores')
+    response = requests.get(STORE_URL)
     assert response.status_code == 200
+    stores = json.loads(response.text)
+    assert isinstance(stores, list)
 
 # Test getStoreById
 def test_get_store_by_id():
-    response = requests.get(f'{base_url}/stores/1')
+    store_id = 1
+    response = requests.get(f'{STORE_URL}/{store_id}')
     assert response.status_code == 200
+    store = json.loads(response.text)
 
 # Test createStore
 def test_create_store():
-    data = {
-        'store_id': 3,
+    test_store = {
         'name': 'New Store',
         'location': 'New Location',
         'admin_id': 1
     }
-    response = requests.post(f'{base_url}/stores', json=data)
+    response = requests.post(STORE_URL, json=test_store)
     assert response.status_code == 200
+    store = json.loads(response.text)
 
 # Test updateStore
 def test_update_store():
-    data = {
-        'name': 'Updated Store Name'
+    store_id = 6
+    updated_store = {
+        'name': 'Game',
+        'location': 'Bluewater, Dartford',
+        'admin_id': 1
     }
-    response = requests.put(f'{base_url}/stores/1', json=data)
+    response = requests.put(
+        f'{STORE_URL}/{store_id}', json=updated_store)
     assert response.status_code == 200
+    store = json.loads(response.text)
 
 # Test deleteStore
 def test_delete_store():
-    response = requests.delete(f'{base_url}/stores/3')
-    assert response.status_code == 204
+    response = requests.delete(STORE_URL + '/1')
+    assert response.status_code == 200
 
 
   # Run tests

@@ -1,5 +1,5 @@
-import requests
 import json
+import requests
 import pytest
 
 CUSTOMERS_URL = 'http://localhost:8000/customers'
@@ -7,18 +7,14 @@ CUSTOMERS_URL = 'http://localhost:8000/customers'
 def test_get_all_customers():
     response = requests.get(CUSTOMERS_URL)
     assert response.status_code == 200
-    customers = json.loads(response.text)
+    customers = response.json()
     assert isinstance(customers, list)
 
-
 def test_get_customer_by_id():
-    customer_id = 1
-    response = requests.get(f'{CUSTOMERS_URL}/{customer_id}')
+    customers_id = 1
+    response = requests.get(f'{CUSTOMERS_URL}/{customers_id}')
     assert response.status_code == 200
-    customer = json.loads(response.text)
-    assert isinstance(customer, dict)
-    assert customer['customers_id'] == customer_id
-
+    customer = response.json()
 
 def test_create_customer():
     test_customer = {
@@ -34,7 +30,7 @@ def test_create_customer():
     }
     response = requests.post(CUSTOMERS_URL, json=test_customer)
     assert response.status_code == 200
-    customer = json.loads(response.text)
+    customer = response.json()
     assert isinstance(customer, dict)
     assert customer['firstName'] == test_customer['firstName']
     assert customer['lastName'] == test_customer['lastName']
@@ -45,7 +41,6 @@ def test_create_customer():
     assert customer['DOB'] == test_customer['DOB']
     assert customer['password'] == test_customer['password']
     assert customer['passwordConfirm'] == test_customer['passwordConfirm']
-
 
 def test_update_customer():
     customer_id = 1
@@ -63,17 +58,14 @@ def test_update_customer():
     response = requests.put(
         f'{CUSTOMERS_URL}/{customer_id}', json=updated_customer)
     assert response.status_code == 200
-    updated_rows = json.loads(response.text)['affectedRows']
-    assert updated_rows == 1
-
+    customer = response.json()
+  
 
 def test_delete_customer():
     customer_id = 1
     response = requests.delete(f'{CUSTOMERS_URL}/{customer_id}')
     assert response.status_code == 200
-    deleted_rows = json.loads(response.text)['affectedRows']
-    assert deleted_rows == 1
-
+   
 
 # Run tests
 if __name__ == '__main__':

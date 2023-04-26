@@ -29,7 +29,7 @@ fs.readdirSync(__dirname)
   const driversModel = require('./driversModel.js')(sequelize, Sequelize.DataTypes);
   const ordersModel = require('./ordersModel.js')(sequelize, Sequelize.DataTypes);
   const productsModel = require('./productsModel.js')(sequelize, Sequelize.DataTypes);
-  const stores = require('./storesModel.js')(sequelize, Sequelize.DataTypes);
+  const storesModel = require('./storesModel.js')(sequelize, Sequelize.DataTypes);
   const transactionsModel = require('./transactionsModel.js')(sequelize, Sequelize.DataTypes);
   const adminModel = require('./adminModel.js')(sequelize, Sequelize.DataTypes);
   const loginModel = require('./loginModel.js')(sequelize, Sequelize.DataTypes);
@@ -40,7 +40,7 @@ fs.readdirSync(__dirname)
   db[driversModel.name] = driversModel;
   db[ordersModel.name] = ordersModel;
   db[productsModel.name] = productsModel;
-  db[stores.name] = stores;
+  db[storesModel.name] = storesModel;
   db[transactionsModel.name] = transactionsModel;
   db[adminModel.name] = adminModel;
   db[loginModel.name] = loginModel;

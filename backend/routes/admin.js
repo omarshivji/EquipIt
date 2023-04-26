@@ -15,11 +15,28 @@ router.get('/:admin_id', (req, res) => {
 );
 
 router.post('/', async (req, res) => {
-    const admin = req.body;
-    await admin.create(admin);
-    res.json(admin);
-}
-);
+    const { username, password } = req.body;
+    
+    try {
+      const adminlogin = await admin.findOne({
+        where: { username: username }
+      });
+      
+      if (!adminlogin) {
+        return res.status(401).send('Wrong username/password combination!');
+      }
+      
+      if (password !== adminlogin.password) {
+        return res.status(401).send('Wrong username/password combination!');
+      }
+  
+      // if the login credentials match, send a success response
+      res.status(200).send('Login successful!');
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
+  });
 
 router.put('/:admin_id', async (req, res) => {
     const admin = req.body;

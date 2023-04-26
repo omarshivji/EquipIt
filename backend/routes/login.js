@@ -14,10 +14,34 @@ module.exports = (Login) => {
       res.json(login_id);
     });
   
+    // router.post('/', async (req, res) => {
+    //   const login = req.body;
+    //   await Login.create(login);
+    //   res.json(login);
+    // });
+
     router.post('/', async (req, res) => {
-      const login = req.body;
-      await Login.create(login);
-      res.json(login);
+      const { username, password } = req.body;
+      
+      try {
+        const login = await Login.findOne({
+          where: { username: username }
+        });
+        
+        if (!login) {
+          return res.status(401).send('Wrong username/password combination!');
+        }
+        
+        if (password !== login.password) {
+          return res.status(401).send('Wrong username/password combination!');
+        }
+    
+        // if the login credentials match, send a success response
+        res.status(200).send('Login successful!');
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+      }
     });
   
     router.put('/:login_id', async (req, res) => {
@@ -38,6 +62,9 @@ module.exports = (Login) => {
       });
       res.json('Login deleted');
     });
+
+    
+    
   
     return router;
   };

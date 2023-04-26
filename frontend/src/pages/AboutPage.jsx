@@ -1,9 +1,11 @@
 import React from 'react';
 import './AboutPage.css';
+import NormNavbar from '../components/NormNavbar';
 
 function AboutPage() {
   return (
     <div className="aboutPage">
+      <NormNavbar />
       <header className="aboutPage-header">
         <h1>About EquipitDelivers</h1>
       </header>
