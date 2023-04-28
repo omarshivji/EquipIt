@@ -1,13 +1,15 @@
 import React from 'react';
-import './AboutPage.css';
+//import './AboutPage.css';
 import NormNavbar from '../components/NormNavbar';
+import Footer from '../components/Footer';
+
 
 function AboutPage() {
   return (
     <div className="aboutPage">
       <NormNavbar />
       <header className="aboutPage-header">
-        <h1>About EquipitDelivers</h1>
+      <img src="\EquipIt-logos\EquipIt-logos_black.png" alt="EquipIt" style={{ width: '300px', height: 'auto'}}/>
       </header>
       <main className="aboutPage-content">
         <section className="aboutPage-mission">
@@ -32,6 +34,7 @@ function AboutPage() {
           </ul>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

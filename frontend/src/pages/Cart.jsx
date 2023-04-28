@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CustomerNavbar from '../components/CustomerNavbar';
+import Footer from '../components/Footer';
 
 
 
@@ -44,6 +45,7 @@ const Cart = () => {
         </div>
       )}
       <ToastContainer/>
+      <Footer/>
     </div>
   );
 };

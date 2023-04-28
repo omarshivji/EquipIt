@@ -4,6 +4,7 @@ import './RegisterPage.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NormNavbar from '../components/NormNavbar';
+import Footer from '../components/Footer';
 
 const RegisterPage = () => {
 
@@ -20,6 +21,8 @@ const RegisterPage = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isRegistrationSuccessful, setIsRegistrationSuccessful] = useState(false);
   const [errors, setErrors] = useState({});
+
+  
 
   const togglePasswordVisibility = (field) => {
     if (field === 'password') {
@@ -163,7 +166,7 @@ const RegisterPage = () => {
         
       
         return (
-        <div className="register">
+        <div className="register-page">
             <NormNavbar />
             <h1>Register</h1>
             {isRegistrationSuccessful && <p>Registration successful!</p>}
@@ -239,6 +242,7 @@ const RegisterPage = () => {
 
   <button onClick={register}>Register</button>
   <ToastContainer/>
+  <Footer/>
 </div>
 );
 };

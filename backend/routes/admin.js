@@ -15,6 +15,13 @@ router.get('/:admin_id', (req, res) => {
 );
 
 router.post('/', async (req, res) => {
+  const admins = req.body;
+  await admin.create(admins);
+  res.json(admins);
+});
+
+
+router.post('/authenticate', async (req, res) => {
     const { username, password } = req.body;
     
     try {
@@ -39,24 +46,25 @@ router.post('/', async (req, res) => {
   });
 
 router.put('/:admin_id', async (req, res) => {
-    const admin = req.body;
-    await admin.update(admin, {
+    const admins = req.body;
+    await admin.update(admins, {
         where: {
             admin_id: req.params.admin_id
         }
     });
-    res.json(admin);
+    res.json(admins);
 }
 );
 
 router.delete('/:admin_id', async (req, res) => {
-    await admin.destroy({
-        where: {
-            admin_id: req.params.admin_id
-        }
-    });
-    res.json('Admin deleted');
+  await admin.destroy({
+    where: {
+      admin_id: req.params.admin_id
+    }
+  });
+  res.json('Admin deleted');
 });
+
 
 
 return router;

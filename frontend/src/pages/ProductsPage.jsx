@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import CustomerNavbar from '../components/CustomerNavbar';
+import Footer from '../components/Footer';
 
 
 const ProductsPage = () => {
@@ -93,6 +94,7 @@ const ProductsPage = () => {
         </div>
       )}
       <ToastContainer />
+      <Footer/>
     </div>
   );
 };

@@ -3,6 +3,29 @@ import requests
 import json
 
 LOGIN_URL = 'http://localhost:8000/login'
+AUTHCUST_URL = 'http://localhost:8000/login/authenticate'
+
+def test_authenticate_with_valid_credentials():
+    # create a test admin user for authentication
+    login = {'username': 'test_user', 'password': 'test_password'}
+    # make a POST request to the authentication endpoint with the test admin's credentials
+    response = requests.post(AUTHCUST_URL, json=login)
+    assert response.status_code == 200
+    assert response.text == 'Login successful!'
+
+def test_authenticate_with_invalid_username():
+    # create a test admin user for authentication
+    login = {'username': 'invalid_user', 'password': 'test_password'}
+    # make a POST request to the authentication endpoint with the test admin's credentials
+    response = requests.post(AUTHCUST_URL, json=login)
+    assert response.status_code == 401
+
+def test_authenticate_with_invalid_password():
+    # create a test admin user for authentication
+    login = {'username': 'test_user', 'password': 'invalid_password'}
+    # make a POST request to the authentication endpoint with the test admin's credentials
+    response = requests.post(AUTHCUST_URL, json=login)
+    assert response.status_code == 401
 
 def test_get_all_logins():
     response = requests.get(LOGIN_URL)

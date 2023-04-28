@@ -1,5 +1,6 @@
 import React from 'react';
 import NormNavbar from '../components/NormNavbar';
+import Footer from '../components/Footer';
 import './HomePage.css';
 
 function HomePage() {
@@ -31,6 +32,7 @@ function HomePage() {
           <p>Email: support@equipitdelivers.com</p>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

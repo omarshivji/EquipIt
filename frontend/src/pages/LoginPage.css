@@ -1,40 +1,50 @@
-.aboutPage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: Arial, sans-serif;
-  }
-  
-  .aboutPage-header {
-    background-color: #007bff;
-    color: white;
-    padding: 1.5rem;
-    text-align: center;
-    width: 100%;
-  }
-  
-  .aboutPage-content {
-    padding: 2rem;
-    width: 80%;
-  }
-  
-  .aboutPage-mission,
-  .aboutPage-history,
-  .aboutPage-values {
-    margin-bottom: 2rem;
-  }
-  
-  .aboutPage-mission p,
-  .aboutPage-history p {
-    line-height: 1.5;
-  }
-  
-  .aboutPage-values ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .aboutPage-values li {
-    margin-bottom: 0.5rem;
-  }
-  
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* h1 {
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: red;
+}
+
+label {
+  margin-top: 1rem;
+}
+
+input {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+}
+
+.btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #007bff;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0069d9;
+}
+
+p {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+a {
+  color: #007bff;
+} */

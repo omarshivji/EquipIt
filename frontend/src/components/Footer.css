@@ -1,0 +1,18 @@
+.pageLayout {
+    min-height: 100vh; /* ensures that the page is at least as tall as the viewport */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .aboutPage-content {
+    flex-grow: 1; /* ensures that the main content area fills the available space */
+    padding: 1rem;
+  }
+  
+  .footer {
+    border-top: 1px solid #ccc; /* adds a border at the top of the footer */
+    padding: 1rem;
+    margin-top: auto; /* positions the footer at the bottom of the page */
+    font-size: smaller;
+}
+  

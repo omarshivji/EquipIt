@@ -4,6 +4,7 @@ import { CartContext } from '../components/CartContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CustomerNavbar from '../components/CustomerNavbar';
+import Footer from '../components/Footer';
 // import './Checkout.css'
 
 const Checkout = () => {
@@ -59,9 +60,12 @@ const Checkout = () => {
       } else {
         console.error('Failed to place order');
         toast.error('Failed to place order, please try again later')
+        window.location.href = '/*';
+        
       }
     } catch (error) {
       console.error('Failed to connect to server', error);
+      window.location.href = '/*';
     }
   };
   
@@ -109,6 +113,7 @@ const Checkout = () => {
         </div>
       )}
       <ToastContainer />
+      <Footer />
     </div>
   );
 };

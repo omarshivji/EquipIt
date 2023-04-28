@@ -5,11 +5,11 @@
     gap: 16px;
   }
 
-  .container {
-    background-color: rgb(183, 181, 219);
+   .productcontainer {
+    background-color: rgb(174, 172, 191);
     color: white;
     padding: 20px;
-  }
+  } 
   .card-img-top {
     height: 200px;
     object-fit: cover;

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminNavbar from '../components/AdminNavbar';
+import Footer from '../components/Footer';
 
 const AdminStores = () => {
   const [stores, setStores] = useState([]);
@@ -64,11 +66,12 @@ const AdminStores = () => {
 
   return (
     <div className="container">
+      <AdminNavbar/>
       <h1 className="text-center mt-5 mb-5">Store List</h1>
       {loading ? (
-        <div className="text-center">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Loading...</span>
+        <div className="d-flex justify-content-center">
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
           </div>
         </div>
       ) : (
@@ -89,17 +92,17 @@ const AdminStores = () => {
                 <td>{store.location}</td>
                 <td>
                   <button
-                    className="btn btn-primary btn-sm"
+                    className="btn btn-primary"
                     onClick={() => handleEditStore(store.store_id)}
                   >
                     Edit
                   </button>{' '}
                   <button
-                    className="btn btn-danger btn-sm"
+                    className="btn btn-danger ms-2"
                     onClick={() => handleDeleteStore(store.store_id)}
-                  >
+                    >
                     Delete
-                  </button>
+                    </button>
                 </td>
               </tr>
             ))}
@@ -107,6 +110,7 @@ const AdminStores = () => {
         </table>
       )}
       <ToastContainer />
+      <Footer />
     </div>
   );
 };

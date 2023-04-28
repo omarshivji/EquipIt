@@ -1,5 +1,6 @@
 import React from 'react';
 import NormNavbar from '../components/NormNavbar';
+import Footer from '../components/Footer';
 
 const Contact = () => {
   return (
@@ -13,8 +14,12 @@ const Contact = () => {
         <li><strong>Address:</strong> 123 Main Street, Anytown USA 12345</li>
       </ul>
       <p>We look forward to hearing from you and helping you with your delivery needs.</p>
+      <Footer/>
     </div>
+    
+    
   );
+  
 };
 
 export default Contact;

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminNavbar from '../components/AdminNavbar';  
+import Footer from '../components/Footer';
+import './AdminOrders.css'
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -73,11 +76,12 @@ const AdminOrders = () => {
 
   return (
     <div className="container">
+      <AdminNavbar/>
       <h1 className="text-center mt-5 mb-5">Customer Orders</h1>
       {loading ? (
         <div className="d-flex justify-content-center">
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
           </div>
         </div>
       ) : (
@@ -132,6 +136,7 @@ const AdminOrders = () => {
 </div>
 )}
 <ToastContainer/>
+<Footer />
 </div>
 );
 };

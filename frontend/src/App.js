@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './App.css'
+// import './App.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/HomePage.jsx';
@@ -19,6 +19,8 @@ import Checkout from './pages/Checkout';
 import AdminCustomers from './pages/AdminCustomers';
 import AdminStores from './pages/AdminStores';
 import Error404 from './pages/Error404';
+
+
 
 
 function App() {
@@ -46,6 +48,8 @@ function App() {
     </Router>
     </ProductContextProvider>
     </CartProvider>
+    
+
   );
 }
 

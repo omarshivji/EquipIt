@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminNavbar from '../components/AdminNavbar';
+import Footer from '../components/Footer';
 
 const AdminCustomers = () => {
   const [customers, setCustomers] = useState([]);
@@ -103,11 +105,12 @@ const AdminCustomers = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center mt-5 mb-5">Customer List</h1>
+      <AdminNavbar/>
+      <h1 className="text-center mt-5 mb-5">Customers List</h1>
       {loading ? (
         <div className="d-flex justify-content-center">
         <div className="spinner-border" role="status">
-          <span className="sr-only">Loading...</span>
+          <span className="visually-hidden">Loading...</span>
         </div>
       </div>
     ) : (
@@ -139,23 +142,24 @@ const AdminCustomers = () => {
                 <td>{customer.DOB}</td>
                 <td>
                   <button
-                    className="btn btn-sm btn-warning mr-2"
+                    className="btn btn-primary"
                     onClick={() => handleEditCustomer(customer.customers_id)}
                   >
                     Edit
                   </button>
                   <button
-                    className="btn btn-sm btn-danger"
+                    className="btn btn-danger ms-2"
                     onClick={() => handleDeleteCustomer(customer.customers_id)}
-                  >
+                    >
                     Delete
-                  </button>
+                    </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
         <ToastContainer />
+        <Footer />
       </>
     )}
   </div>
