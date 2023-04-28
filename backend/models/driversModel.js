@@ -1,5 +1,7 @@
 const { DataTypes } = require('sequelize');
 
+
+// States that the drivers table in the database will have the following columns
 module.exports = (sequelize) => {
     const drivers = sequelize.define("drivers", {
         driver_id: {

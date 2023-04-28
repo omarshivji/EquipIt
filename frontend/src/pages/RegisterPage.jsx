@@ -167,83 +167,73 @@ const RegisterPage = () => {
       
         return (
         <div className="register-page">
-            <NormNavbar />
-            <h1>Register</h1>
-            {isRegistrationSuccessful && <p>Registration successful!</p>}
-            <label>First Name: </label>
-        <input type="text" onChange={(event) => {
-        setFirstName(event.target.value);
-        }} />
-        {errors.firstName && <p className="error">{errors.firstName}</p>}
-        <label>Last Name: </label>
-        <input type="text" onChange={(event) => {
-        setLastName(event.target.value);
-        }} />
-        {errors.lastName && <p className="error">{errors.lastName}</p>}
-        <label>Username: </label>
-        <input type="text" onChange={(event) => {
-        setUsername(event.target.value);
-        }} />
-        {errors.lastName && <p className="error">{errors.username}</p>}
-        <label>Address: </label>
-        <input type="text" onChange={(event) => {
-        setAddress(event.target.value);
-        }} />
-        {errors.address && <p className="error">{errors.address}</p>}
-        <label>Date of Birth: </label>
-        <input
-        type="date"
-        max={maxDate()}
-        onChange={(event) => {
-        setDOB(event.target.value);
-        }}
-        />
-        {errors.dob && <p className="error">{errors.dob}</p>}
-        <label>Phone: </label>
-        <input type="text" onChange={(event) => {
-        setPhone(event.target.value);
-        }} />
-        {errors.phone && <p className="error">{errors.phone}</p>}
-        <label>Email: </label>
-        <input type="text" onChange={(event) => {
-        setEmail(event.target.value);
-        }} />
-        {errors.email && <p className="error">{errors.email}</p>}
-        <label>Password: </label>
-        <input
-        type={showPassword ? "text" : "password"}
-        onChange={(event) => {
-        setPassword(event.target.value);
-        }}
-        />
-        <button
-        type="button"
-        onClick={() => togglePasswordVisibility('password')}
-        >
-        {showPassword ? 'Hide' : 'Show'} Password
-        </button>
-        {errors.password && <p className="error">{errors.password}</p>}
-        <label>Confirm Password: </label>
-  <input
-    type={showConfirmPassword ? "text" : "password"}
-    onChange={(event) => {
-      setPasswordConfirm(event.target.value);
-    }}
-  />
-  <button
-    type="button"
-    onClick={() => togglePasswordVisibility('confirmPassword')}
-  >
-    {showConfirmPassword ? 'Hide' : 'Show'} Password
-        </button>
-  {errors.passwordConfirm && (
-    <p className="error">{errors.passwordConfirm}</p>
-  )}
+        <NormNavbar />
+          <h1>Register</h1>
+          {isRegistrationSuccessful && <p>Registration successful!</p>}
+          <label>First Name: </label>
+          <input type="text" onChange={(event) => {
+          setFirstName(event.target.value);
+          }} />
+          {errors.firstName && <p className="error">{errors.firstName}</p>}
+          <label>Last Name: </label>
+          <input type="text" onChange={(event) => {
+          setLastName(event.target.value);
+          }} />
+          {errors.lastName && <p className="error">{errors.lastName}</p>}
+          <label>Username: </label>
+          <input type="text" onChange={(event) => {
+          setUsername(event.target.value);
+          }} />
+          {errors.lastName && <p className="error">{errors.username}</p>}
+          <label>Address: </label>
+          <input type="text" onChange={(event) => {
+          setAddress(event.target.value);
+          }} />
+          {errors.address && <p className="error">{errors.address}</p>}
+          <label>Date of Birth: </label>
+          <input
+          type="date"
+          max={maxDate()}
+          onChange={(event) => {
+          setDOB(event.target.value);
+          }}
+          />
+          {errors.dob && <p className="error">{errors.dob}</p>}
+          <label>Phone: </label>
+          <input type="text" onChange={(event) => {
+          setPhone(event.target.value);
+          }} />
+          {errors.phone && <p className="error">{errors.phone}</p>}
+          <label>Email: </label>
+          <input type="text" onChange={(event) => {
+          setEmail(event.target.value);
+          }} />
+          {errors.email && <p className="error">{errors.email}</p>}
+          <label>Password: </label>
+          <input
+          type={showPassword ? "text" : "password"}
+          onChange={(event) => {
+          setPassword(event.target.value);
+          }}
+          />
+          <button type="button" className="btn btn-primary" onClick={() => togglePasswordVisibility('password')}> {showPassword ? 'Hide' : 'Show'} Password</button>
+          {errors.password && <p className="error">{errors.password}</p>}
+          <label>Confirm Password: </label>
+          <input type={showConfirmPassword ? "text" : "password"} onChange={(event) => {setPasswordConfirm(event.target.value);
+          }}
+            />
+            <button type="button" className="btn btn-primary" onClick={() => togglePasswordVisibility('confirmPassword')}
+            >
+              {showConfirmPassword ? 'Hide' : 'Show'} Password
+                  </button>
+            {errors.passwordConfirm && (
+              <p className="error">{errors.passwordConfirm}</p>
+            )}
 
-  <button onClick={register}>Register</button>
-  <ToastContainer/>
-  <Footer/>
-</div>
+            <button className="btn btn-primary" onClick={register}>Register</button>
+        <ToastContainer/>
+      <Footer/>
+    </div>
 );
 };
 

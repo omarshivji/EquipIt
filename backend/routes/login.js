@@ -1,24 +1,28 @@
 module.exports = (Login) => {
     const express = require('express');
     const router = express.Router();
- 
-  
+
+
+    // Get all login
     router.get('/', async (req, res) => {
       const listLogin = await Login.findAll();
       res.json(listLogin);
     });
     
+    // Get login by id
     router.get('/:login_id', (req, res) => {
       const login_id = req.params.login_id;
       res.json(login_id);
     })
-  
+    
+    // Create a new login
     router.post('/', async (req, res) => {
       const login = req.body;
       await Login.create(login);
       res.json(login);
     });
 
+    // Authenticates a login
     router.post('/authenticate', async (req, res) => {
       const { username, password } = req.body;
       
@@ -43,6 +47,7 @@ module.exports = (Login) => {
       }
     });
   
+    // Update a login
     router.put('/:login_id', async (req, res) => {
       const login = req.body;
       await Login.update(login, {
@@ -53,6 +58,7 @@ module.exports = (Login) => {
       res.json(login);
     });
   
+    // Delete a login
     router.delete('/:login_id', async (req, res) => {
       await Login.destroy({
         where: {

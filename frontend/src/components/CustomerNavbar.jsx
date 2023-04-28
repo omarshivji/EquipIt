@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css';
+import './AdminNavbar.css';
+
+
+// Customer Navbar component for the customer pages of the website (Home, About, Contact, Products, Cart, Checkout)
 
 const CustomerNavbar = () => {
 const [isNavOpen, setIsNavOpen] = useState(false);
 
   const handleLogout = () => {
-    window.location.href = "/";
-    
-    console.log('User has been logged out');
-    
+    window.location.href = "/"; 
   };
 
 

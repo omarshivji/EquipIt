@@ -19,23 +19,5 @@
     width: 80%;
   }
   
-  .aboutPage-mission,
-  .aboutPage-history,
-  .aboutPage-values {
-    margin-bottom: 2rem;
-  }
   
-  .aboutPage-mission p,
-  .aboutPage-history p {
-    line-height: 1.5;
-  }
-  
-  .aboutPage-values ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .aboutPage-values li {
-    margin-bottom: 0.5rem;
-  }
   

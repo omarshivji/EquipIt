@@ -4,8 +4,9 @@ const cors = require('cors');
 const sequelize = require('./models/dbconnection');
 const db = require('./models'); 
 const session = require('express-session');
-// const nodemon = require('nodemon');
 
+
+// Set up middleware to enable CORS
 app.use(cors({
   origin: '*'
 }));
@@ -16,6 +17,7 @@ app.use(express.json());
 // Set up middleware to serve static files (e.g. CSS, images)
 app.use(express.static('public'));
 
+// Set up middleware to enable session support
 app.use(session({
   secret : 'webslesson',
   resave : true,
@@ -76,6 +78,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Server error');
 });
 
+// Test the database connection
 sequelize
   .authenticate()
   .then(() => {
@@ -85,6 +88,7 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
+  // Sync all defined models to the database
 (async () => {
   await db.sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
   await db.sequelize.sync({ force: false });
@@ -92,14 +96,11 @@ sequelize
   console.log("All models were synchronized successfully.");
 })();
 
+// Start listening on port 8000
 const server = app.listen(8000, () => {
   console.log(`Server is running on port 8000`);
 });
 
-// nodemon({
-//   script: server,
-//   ignore: ["node_modules/**", "public/**"],
-//   ext: "js json"
-// });
 
+// Gracefully shutdown the server when the process is terminated
 process.on('SIGINT', function() {process.exit()});

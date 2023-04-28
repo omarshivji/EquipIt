@@ -3,6 +3,7 @@ import axios from 'axios';
 
 export const ProductContext = createContext();
 
+
 const ProductContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
 
@@ -19,6 +20,7 @@ const ProductContextProvider = ({ children }) => {
     fetchProducts();
   }, []);
 
+  // The object that we pass to the Provider component is called the "value" prop. It allows products to be accessed from any component that subscribes to the context.
   return (
     <ProductContext.Provider value={{ products, setProducts }}>
       {children}

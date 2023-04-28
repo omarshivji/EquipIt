@@ -1,5 +1,5 @@
 import React from 'react';
-//import './AboutPage.css';
+import './AboutPage.css';
 import NormNavbar from '../components/NormNavbar';
 import Footer from '../components/Footer';
 
@@ -9,19 +9,19 @@ function AboutPage() {
     <div className="aboutPage">
       <NormNavbar />
       <header className="aboutPage-header">
-      <img src="\EquipIt-logos\EquipIt-logos_black.png" alt="EquipIt" style={{ width: '300px', height: 'auto'}}/>
+      <img src="\EquipIt-logos\EquipIt-logos_transparent.png" alt="EquipIt" style={{ width: '300px', height: 'auto'}}/>
       </header>
       <main className="aboutPage-content">
         <section className="aboutPage-mission">
           <h2>Our Mission</h2>
           <p>
-            At EquipitDelivers, our mission is to provide fast, reliable, and secure delivery services to meet the needs of individuals and businesses, ensuring complete customer satisfaction.
+            At EquipIt, our mission is to provide fast, reliable, and secure delivery services to meet the needs of individuals and businesses, ensuring complete customer satisfaction.
           </p>
         </section>
         <section className="aboutPage-history">
           <h2>Our History</h2>
           <p>
-            EquipitDelivers was founded in 20XX by a team of logistics experts who saw the need for a more efficient and customer-centric approach to delivery services. Over the years, we have expanded our operations to serve clients across the globe, offering a range of services tailored to their unique requirements.
+            EquipIt was founded in 2022 by a student from the Canterbury Christ Church University. The idea was to create a delivery service that would allow customers to get their goods delivered from local stores to their doorstep. The company has grown from a small start-up to a large company with over 100 employees.
           </p>
         </section>
         <section className="aboutPage-values">

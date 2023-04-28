@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
+// Normal Navbar component for the normal pages of the website (Home, About, Contact, Login and Register)
+
 const NormNavbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 

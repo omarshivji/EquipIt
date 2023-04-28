@@ -1,6 +1,8 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
+
+  // States that the orders table in the database will have the following columns
   const orders = sequelize.define("orders", {
     order_id: {
       type: DataTypes.INTEGER,

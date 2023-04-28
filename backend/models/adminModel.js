@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 
+// States that the admin table in the database will have the following columns
 module.exports = (sequelize) => {
     const admin = sequelize.define("admin", {
         admin_id: {

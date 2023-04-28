@@ -2,25 +2,28 @@ module.exports = (admin) => {
 const express = require('express');
 const router = express.Router();
 
+// Get all admins 
 router.get('/', async (req, res) => {
     const listAdmin = await admin.findAll();
     res.json(listAdmin);
 }
 );
 
+// Get admin by id
 router.get('/:admin_id', (req, res) => {
     const admin_id = req.params.admin_id;
     res.json(admin_id);
 }
 );
 
+// Create a new admin
 router.post('/', async (req, res) => {
   const admins = req.body;
   await admin.create(admins);
   res.json(admins);
 });
 
-
+// Authenticates a login
 router.post('/authenticate', async (req, res) => {
     const { username, password } = req.body;
     
@@ -45,6 +48,7 @@ router.post('/authenticate', async (req, res) => {
     }
   });
 
+// Update a admin
 router.put('/:admin_id', async (req, res) => {
     const admins = req.body;
     await admin.update(admins, {
@@ -56,6 +60,7 @@ router.put('/:admin_id', async (req, res) => {
 }
 );
 
+// Delete a admin
 router.delete('/:admin_id', async (req, res) => {
   await admin.destroy({
     where: {

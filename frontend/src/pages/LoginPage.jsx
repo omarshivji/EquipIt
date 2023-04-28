@@ -59,7 +59,7 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="login-page">
+    <div className="login-left">
     <NormNavbar />
     <h1>Admin Login</h1>
     {isLoginSuccessful && (
@@ -87,6 +87,7 @@ const LoginPage = () => {
       </>
     )}
     {error && <p className="error">{error}</p>}
+    <div className="login-right">
     <label>Username: </label>
     <input type="text" onChange={(event) => {
       setUsername(event.target.value);
@@ -98,10 +99,9 @@ const LoginPage = () => {
     <p>Haven't got an account? <Link to="/register">Register here</Link></p>
     <button className="btn btn-primary" onClick={login}>Login</button>
 
-
-    
     <ToastContainer />
     <Footer />
+  </div>
   </div>
   );
 }

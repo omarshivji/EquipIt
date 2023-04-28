@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 
+// States that the customers table in the database will have the following columns
 module.exports = (sequelize) => {
   const customers = sequelize.define("customers", {
     customers_id: { 

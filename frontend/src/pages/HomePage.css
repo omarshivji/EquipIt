@@ -18,23 +18,5 @@
     width: 80%;
   }
   
-  .homePage-about,
-  .homePage-services,
-  .homePage-contact {
-    margin-bottom: 2rem;
-  }
   
-  .homePage-about p,
-  .homePage-contact p {
-    line-height: 1.5;
-  }
-  
-  .homePage-services ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .homePage-services li {
-    margin-bottom: 0.5rem;
-  }
   

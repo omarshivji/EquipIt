@@ -10,9 +10,15 @@
   }
   
   .footer {
-    border-top: 1px solid #ccc; /* adds a border at the top of the footer */
-    padding: 1rem;
-    margin-top: auto; /* positions the footer at the bottom of the page */
-    font-size: smaller;
-}
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+    color: #666;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
   
