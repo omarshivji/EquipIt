@@ -9,7 +9,7 @@ const NormNavbar = () => {
     setIsNavOpen(!isNavOpen);
   };
 
-  return (
+   return (
     <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: '#e3f2fd' }}>
       <a className="navbar-brand" href="/">
         <img src="\EquipIt-logos\EquipIt-logos_black.png" alt="EquipIt" style={{ width: '125px', height: 'auto' }} />

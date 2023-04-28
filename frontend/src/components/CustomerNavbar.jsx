@@ -17,7 +17,7 @@ const [isNavOpen, setIsNavOpen] = useState(false);
   const handleNavClick = () => {
     setIsNavOpen(!isNavOpen);
   };
-
+ 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#e3f2fd' }}>
       <a className="navbar-brand" href="/">
