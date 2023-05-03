@@ -106,7 +106,7 @@ const AdminCustomers = () => {
   return (
     <div className="container">
       <AdminNavbar/>
-      <h1 className="text-center mt-5 mb-5">Customers List</h1>
+      <h1 className="text-center">Customers List</h1>
       {loading ? (
         <div className="d-flex justify-content-center">
         <div className="spinner-border" role="status">
@@ -126,7 +126,7 @@ const AdminCustomers = () => {
               <th scope="col">Address</th>
               <th scope="col">Phone</th>
               <th scope="col">DOB</th>
-              <th scope="col"></th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>

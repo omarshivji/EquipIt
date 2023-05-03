@@ -1,22 +1,71 @@
 .homePage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: Arial, sans-serif;
-  }
-  
-  .homePage-header {
-    background-color: #515f6d;
-    color: white;
-    padding: 1.5rem;
-    text-align: center;
-    width: 100%;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.homePage-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  background-color: #4f5d6b;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.homePage-header img {
+  margin-top: 50px;
+}
+
+.homePage-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  padding: 50px 0;
+}
+
+.homePage-about,
+.homePage-services,
+.homePage-contact {
+  max-width: 800px;
+  margin-bottom: 30px;
+}
+
+.homePage-about h2,
+.homePage-services h2,
+.homePage-contact h2 {
+  font-size: 2rem;
+  margin-bottom: 0px;
+}
+
+.homePage-about p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.homePage-services ul {
+  list-style-type: none;
+  padding-left: 0;
+  font-size: 1.2rem;
+}
+
+.homePage-services li {
+  padding: 5px 0;
+}
+
+.homePage-contact p {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 767px) {
   .homePage-content {
-    padding: 2rem;
-    width: 80%;
+    padding: 90px 0;
   }
-  
-  
-  
+
+  .homePage-about h2,
+  .homePage-services h2,
+  .homePage-contact h2 {
+    font-size: 1.5rem;
+  }
+}

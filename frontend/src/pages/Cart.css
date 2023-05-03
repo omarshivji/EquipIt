@@ -1,0 +1,17 @@
+.cart-heading {
+    margin-top: 4rem;
+    text-align: center;
+  }
+  
+  .cart-empty {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .cart-content {
+    flex-grow: 1;
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+  }
+  

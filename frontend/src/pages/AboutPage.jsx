@@ -21,16 +21,14 @@ function AboutPage() {
         <section className="aboutPage-history">
           <h2>Our History</h2>
           <p>
-            EquipIt was founded in 2022 by a student from the Canterbury Christ Church University. The idea was to create a delivery service that would allow customers to get their goods delivered from local stores to their doorstep. The company has grown from a small start-up to a large company with over 100 employees.
+            EquipIt was founded in 2022 by a student from the Canterbury Christ Church University. The idea was to create a delivery service that would allow customers to get their goods delivered from local stores to their doorstep. 
           </p>
         </section>
         <section className="aboutPage-values">
           <h2>Our Values</h2>
           <ul>
-            <li>Integrity</li>
-            <li>Reliability</li>
-            <li>Innovation</li>
-            <li>Customer focus</li>
+            <li>Integrity, Reliability, Innovation, Customer focus</li>
+          
           </ul>
         </section>
       </main>

@@ -1,19 +1,38 @@
-
-.login-left {
+.login-container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  height: 100vh;
-  padding-left: 50px;
-  color: #97a7e6;
+  min-height: 100vh;
 }
 
+.main-content {
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+  width: 100%;
+}
 
+.login-left,
 .login-right {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 100vh;
-  padding-right: 50px;
-} 
+  flex-direction: column;
+  width: 45%;
+  margin: 0.5rem; 
+}
 
+label {
+  margin-top: 0.5rem;
+}
+
+input {
+  margin-bottom: 0.5rem;
+}
+
+button {
+  margin-top: 0.5rem;
+}
+
+.error {
+  color: red;
+  font-size: 0.875rem;
+}

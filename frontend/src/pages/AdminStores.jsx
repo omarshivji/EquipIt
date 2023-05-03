@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminNavbar from '../components/AdminNavbar';
 import Footer from '../components/Footer';
+import './AdminStores.css'
 
 const AdminStores = () => {
   const [stores, setStores] = useState([]);
@@ -67,7 +68,7 @@ const AdminStores = () => {
   return (
     <div className="container">
       <AdminNavbar/>
-      <h1 className="text-center mt-5 mb-5">Store List</h1>
+      <h1 className="text-center">Store List</h1>
       {loading ? (
         <div className="d-flex justify-content-center">
         <div className="spinner-border" role="status">

@@ -77,7 +77,7 @@ const AdminOrders = () => {
   return (
     <div className="container">
       <AdminNavbar/>
-      <h1 className="text-center mt-5 mb-5">Customer Orders</h1>
+      <h1 className="text-center">Customer Orders</h1>
       {loading ? (
         <div className="d-flex justify-content-center">
         <div className="spinner-border" role="status">

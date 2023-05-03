@@ -14,6 +14,8 @@ const LoginPage = () => {
   const [adminusername, setAdminUsername] = useState('');
   const [adminpassword, setAdminPassword] = useState('');
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showAdminPassword, setShowAdminPassword] = useState(false);
   const [error, setError] = useState('');
 
 
@@ -58,53 +60,96 @@ const LoginPage = () => {
     });
   }
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleAdminPasswordVisibility = () => {
+    setShowAdminPassword(!showAdminPassword);
+  };
+
   return (
-    <div className="login-left">
-    <NormNavbar />
-    <h1>Admin Login</h1>
-    {isLoginSuccessful && (
-      <>
-        <p>Login successful!</p>
-        <Link to="/stores"></Link>
-      </>
-    )}
-    {error && <p className="error">{error}</p>}
-    <label>Admin Username: </label>
-    <input type="text" onChange={(event) => {
-      setAdminUsername(event.target.value);
-    }} />
-    <label>Password: </label>
-    <input type="password" onChange={(event) => {
-      setAdminPassword(event.target.value);
-    }} />
-    <button className="btn btn-primary" onClick={adminlogin}>Login</button>
-
-    <h1>Login</h1>
-    {isLoginSuccessful && (
-      <>
-        <p>Login successful!</p>
-        <Link to="/products"></Link>
-      </>
-    )}
-    {error && <p className="error">{error}</p>}
-    <div className="login-right">
-    <label>Username: </label>
-    <input type="text" onChange={(event) => {
-      setUsername(event.target.value);
-    }} />
-    <label>Password: </label>
-    <input type="password" onChange={(event) => {
-      setPassword(event.target.value);
-    }} />
-    <p>Haven't got an account? <Link to="/register">Register here</Link></p>
-    <button className="btn btn-primary" onClick={login}>Login</button>
-
-    <ToastContainer />
-    <Footer />
+    <div className="login-container">
+      
+        <NormNavbar />
+        <div className="main-content">
+        <div className="login-right">
+        <h1>Admin Login</h1>
+        {isLoginSuccessful && (
+          <>
+            <p>Login successful!</p>
+            <Link to="/stores"></Link>
+          </>
+        )}
+        {error && <p className="error">{error}</p>}
+        <label>Username: </label>
+        <input
+          type="text"
+          onChange={(event) => {
+            setAdminUsername(event.target.value);
+          }}
+        />
+        <label>Password: </label>
+        <input
+          type={showAdminPassword ? "text" : "password"}
+          onChange={(event) => {
+            setAdminPassword(event.target.value);
+          }}
+        />
+        <button
+          className="btn btn-secondary"
+          onClick={toggleAdminPasswordVisibility}
+        >
+          {showAdminPassword ? "Hide Password" : "Show Password"}
+        </button>
+        <button className="btn btn-primary" onClick={adminlogin}>
+          Login
+        </button>
+      </div>
+      <div className="login-left">
+        <h1>Login</h1>
+        {isLoginSuccessful && (
+          <>
+            <p>Login successful!</p>
+            <Link to="/products"></Link>
+          </>
+        )}
+        {error && <p className="error">{error}</p>}
+        <label>Username: </label>
+        <input
+          type="text"
+          onChange={(event) => {
+            setUsername(event.target.value);
+          }}
+        />
+        <label>Password: </label>
+        <input
+          type={showPassword ? "text" : "password"}
+          onChange={(event) => {
+            setPassword(event.target.value);
+          }}
+        />
+        <button
+          className="btn btn-secondary"
+          onClick={togglePasswordVisibility}
+        >
+          {showPassword ? "Hide Password" : "Show Password"}
+        </button>
+        <button className="btn btn-primary" onClick={login}>
+          Login
+        </button>
+        <p>
+          Haven't got an account? <Link to="/register">Register here</Link>
+        </p>
+        <ToastContainer />
+        <Footer />
+      </div>
+      
+    </div>
   </div>
-  </div>
+
   );
-}
+};
   
 
 export default LoginPage;

@@ -19,7 +19,7 @@ const [isNavOpen, setIsNavOpen] = useState(false);
   };
  
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#e3f2fd' }}>
+    <nav className="navbar navbar-expand-lg navbar-light  fixed-top" style={{ backgroundColor: '#e3f2fd' }}>
       <a className="navbar-brand" href="/">
         <img src="\EquipIt-logos\EquipIt-logos_black.png" alt="EquipIt" style={{ width: '125px', height: 'auto' }} />
       </a>

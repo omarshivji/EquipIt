@@ -166,49 +166,61 @@ const RegisterPage = () => {
         
       
         return (
-        <div className="register-page">
-        <NormNavbar />
+          <div className="register-container">
+          <NormNavbar />
+          <div className="main-content">
+          <div className="register-left">
           <h1>Register</h1>
           {isRegistrationSuccessful && <p>Registration successful!</p>}
+          <div className='FirstName'>
           <label>First Name: </label>
           <input type="text" onChange={(event) => {
           setFirstName(event.target.value);
           }} />
           {errors.firstName && <p className="error">{errors.firstName}</p>}
+          </div>
+          <div className='LastName'>
           <label>Last Name: </label>
           <input type="text" onChange={(event) => {
           setLastName(event.target.value);
           }} />
           {errors.lastName && <p className="error">{errors.lastName}</p>}
+          </div>
+          <div className='Username'>
           <label>Username: </label>
           <input type="text" onChange={(event) => {
           setUsername(event.target.value);
           }} />
           {errors.lastName && <p className="error">{errors.username}</p>}
+          </div>
+          <div className='Address'>
           <label>Address: </label>
           <input type="text" onChange={(event) => {
           setAddress(event.target.value);
           }} />
           {errors.address && <p className="error">{errors.address}</p>}
+          </div>
+          <div className='DOB'>
           <label>Date of Birth: </label>
-          <input
-          type="date"
-          max={maxDate()}
-          onChange={(event) => {
-          setDOB(event.target.value);
-          }}
-          />
-          {errors.dob && <p className="error">{errors.dob}</p>}
+          <input type="date"max={maxDate()}onChange={(event) => {setDOB(event.target.value);
+          }}/>{
+          errors.dob && <p className="error">{errors.dob}</p>}
+          </div>
+          <div className='Phone'>
           <label>Phone: </label>
           <input type="text" onChange={(event) => {
           setPhone(event.target.value);
           }} />
           {errors.phone && <p className="error">{errors.phone}</p>}
+          </div>
+          <div className='Email'>
           <label>Email: </label>
           <input type="text" onChange={(event) => {
           setEmail(event.target.value);
           }} />
           {errors.email && <p className="error">{errors.email}</p>}
+          </div>
+          <div className='Password'>
           <label>Password: </label>
           <input
           type={showPassword ? "text" : "password"}
@@ -216,24 +228,27 @@ const RegisterPage = () => {
           setPassword(event.target.value);
           }}
           />
-          <button type="button" className="btn btn-primary" onClick={() => togglePasswordVisibility('password')}> {showPassword ? 'Hide' : 'Show'} Password</button>
+          <button type="button" className="btn btn-primary" onClick={() => togglePasswordVisibility('password')}> {showPassword ? 'Hide' : 'Show'}</button>
           {errors.password && <p className="error">{errors.password}</p>}
+          </div> 
+          <div className='ConfirmPassword'>
           <label>Confirm Password: </label>
           <input type={showConfirmPassword ? "text" : "password"} onChange={(event) => {setPasswordConfirm(event.target.value);
           }}
             />
             <button type="button" className="btn btn-primary" onClick={() => togglePasswordVisibility('confirmPassword')}
             >
-              {showConfirmPassword ? 'Hide' : 'Show'} Password
-                  </button>
+              {showConfirmPassword ? 'Hide' : 'Show'}</button>
             {errors.passwordConfirm && (
               <p className="error">{errors.passwordConfirm}</p>
             )}
-
+          </div>
             <button className="btn btn-primary" onClick={register}>Register</button>
         <ToastContainer/>
       <Footer/>
     </div>
+  </div>
+</div>
 );
 };
 

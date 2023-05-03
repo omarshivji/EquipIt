@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CustomerNavbar from '../components/CustomerNavbar';
 import Footer from '../components/Footer';
-// import './Checkout.css'
+import './Checkout.css'
 
 const Checkout = () => {
   const { cartItems, clearCart } = useContext(CartContext);
@@ -68,18 +68,16 @@ const Checkout = () => {
       window.location.href = '/*';
     }
   };
-  
-  
-  
-  return (
-    <div>
-      <CustomerNavbar />
-      <h1>Checkout</h1>
+return (
+  <div className="checkout-container">
+    <CustomerNavbar />
+    <div className="checkout-content">
+      <h1 className="checkout-heading">Checkout</h1>
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <p className="cart-empty">Your cart is empty.</p>
       ) : (
         <div>
-          {cartItems.map((item) => (
+           {cartItems.map((item) => (
              <div key={item.product_id} className="col-sm-12 col-md-6 col-lg-4">
                <div className="card mb-4">
                  <img src={item.product_image} alt={item.name} className="card-img-top" />
@@ -92,30 +90,34 @@ const Checkout = () => {
                </div>
              </div>
           ))}
-          <p>Total price: £{totalPrice}</p>
-          <div>
-            <label htmlFor="firstName" className="label-right">First Name:</label>
-            <input type="text" id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+          <p className="checkout-total">Total price: £{totalPrice}</p>
+          <div className="checkout-form">
+            <div className="form-row">
+
+              <label htmlFor="firstName" className="label-right">First Name:</label>
+              <input type="text" id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+            </div>
+            <div className="form-row">
+              <label htmlFor="lastName" className="label-right">Last Name:</label>
+              <input type="text" id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            </div>
+            <div className="form-row">
+              <label htmlFor="email" className="label-right">Email:</label>
+              <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </div>
+            <div className="form-row">
+              <label htmlFor="address" className="label-right">Address:</label>
+              <input type="text" id="address" value={address} onChange={(e) => setAddress(e.target.value)} />
+            </div>
+            <button className="checkout-button" onClick={handleCheckout}>Checkout</button>
           </div>
-          <div>
-            <label htmlFor="lastName" className="label-right">Last Name:</label>
-            <input type="text" id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-          </div>
-          <div>
-            <label htmlFor="email" className="label-right">Email:</label>
-            <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          </div>
-          <div>
-            <label htmlFor="address" className="label-right">Address:</label>
-            <input type="text" id="address" value={address} onChange={(e) => setAddress(e.target.value)} />
-          </div>
-          <button onClick={handleCheckout}>Checkout</button>
         </div>
       )}
-      <ToastContainer />
-      <Footer />
     </div>
-  );
+    <ToastContainer />
+    <Footer />
+  </div>
+);
 };
 
 export default Checkout;
