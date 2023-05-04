@@ -4,21 +4,27 @@
 
 Frontend
 
+```console
 cd frontend
 npm install
 npm start
+```
 
 Backend
 
+```console
 cd backend
 npm install
 npm start
+```
 
 Test server
 
+```console
 cd test_server
 pip install -r requirements.txt requests pytest pytest-html
 pytest
+```
 
 
 
