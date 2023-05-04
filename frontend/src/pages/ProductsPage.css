@@ -11,7 +11,7 @@
     padding: 20px;
   } 
   .card-img-top {
-    height: 200px;
+    height: 00px;
     object-fit: cover;
     transition: height 0.2s ease-in-out;
   }

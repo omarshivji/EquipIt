@@ -6,7 +6,6 @@ import './ProductsPage.css';
 import { CartContext } from '../components/CartContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link } from 'react-router-dom';
 import CustomerNavbar from '../components/CustomerNavbar';
 import Footer from '../components/Footer';
 
@@ -57,7 +56,8 @@ const ProductsPage = () => {
   return (
     <div className="products-page">
       <CustomerNavbar />
-      <h1 className="text-center mt-5 mb-5">Products</h1>
+      <h1 className="text-center">Products</h1>
+      
       {loading ? (
         <div className="d-flex justify-content-center">
           <div className="spinner-border" role="status">
