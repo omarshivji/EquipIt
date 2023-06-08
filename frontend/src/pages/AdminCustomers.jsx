@@ -46,22 +46,12 @@ const AdminCustomers = () => {
         newCustomerData.lastName = newLastName;
       }
 
-      const newUsername = prompt('Enter new username:', customerData.username);
-      if (newUsername) {
-        newCustomerData.username = newUsername;
-      }
-
-      const newEmail = prompt('Enter new email:', customerData.email);
-      if (newEmail) {
-        newCustomerData.email = newEmail;
-      }
-
       const newAddress = prompt('Enter new address:', customerData.houseroadname);
       if (newAddress) {
         newCustomerData.houseroadname = newAddress;
       }
 
-      const newPostcode = prompt('Enter new city:', customerData.postcode);
+      const newPostcode = prompt('Enter new postcode:', customerData.postcode);
       if (newPostcode) {
         newCustomerData.postcode = newPostcode;
       }
@@ -76,15 +66,6 @@ const AdminCustomers = () => {
         newCustomerData.country = newCountry;
       }
 
-      const newPhone = prompt('Enter new phone number:', customerData.phone);
-      if (newPhone) {
-        newCustomerData.phone = newPhone;
-      }
-
-      const newDOB = prompt('Enter new date of birth (YYYY-MM-DD):', customerData.DOB);
-      if (newDOB) {
-        newCustomerData.DOB = newDOB;
-      }
 
       const newPassword = prompt('Enter new password:', customerData.password);
       if (newPassword) {
