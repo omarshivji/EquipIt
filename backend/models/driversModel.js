@@ -11,30 +11,85 @@ module.exports = (sequelize) => {
             allowNull: false,
             timestamps: false,
     },
-        name: {
+        driverfname: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        email: {
+        driverlname: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        vehicle_make: {
+        driveremail: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        vehicle_model: {
+        driverpassword: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        vehicle_colour: {
+        driverpasswordconfirm: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        DOB: {
-            type: DataTypes.DATE,
+        driverphone: {
+            type: DataTypes.STRING,
             allowNull: false,
         },
-        });
-    return drivers
-    };
+        driveraddressline: {   
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        driverpostcode: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        drivercity: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        drivercountry: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        driverlicense: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        driverlicenseexpiry: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        driverdob: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        drivervehicle: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        drivervehiclemodel: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        drivervehiclereg: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        drivervehiclecolour: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        drivervehiclemake: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        drivervehicleyear: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+
+    });
+    return drivers;
+};
+
+
