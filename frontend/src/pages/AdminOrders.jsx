@@ -93,7 +93,10 @@ const AdminOrders = () => {
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
-                <th>Address</th>
+                <th>Address Line</th>
+                <th>Postcode</th>
+                <th>City</th>
+                <th>Country</th>
                 <th>Store Name</th>
                 <th>Product ID</th>
                 <th>Product Name</th>
@@ -109,7 +112,10 @@ const AdminOrders = () => {
                 <td>{order.customer_firstname}</td>
                 <td>{order.customer_lastname}</td>
                 <td>{order.customer_email}</td>
-                <td>{order.customer_address}</td>
+                <td>{order.customer_housename}</td>
+                <td>{order.customer_postcode}</td>
+                <td>{order.customer_city}</td>
+                <td>{order.customer_country}</td>
                 <td>{order.store_name}</td>
                 <td>{order.product_id}</td>
                 <td>{order.product_name}</td>

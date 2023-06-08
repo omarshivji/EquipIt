@@ -23,7 +23,19 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    customer_address: {
+    customer_housename: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    customer_postcode: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    customer_city: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    customer_country: {
       type: DataTypes.STRING,
       allowNull: true,
     },

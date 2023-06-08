@@ -12,14 +12,17 @@ const Checkout = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
+  const [houseroadname, setHouseroadname] = useState('');
+  const [postcode, setPostcode] = useState('');
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
   const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
   
 
 
   
   const handleCheckout = async () => {
-    if (firstName === '' || lastName === '' || email === '' || address === '') {
+    if (firstName === '' || lastName === '' || email === '' || houseroadname === '' || postcode === '' || city === '' || country === '') {
     toast.error('Please fill in all the required fields.');
     return;
   }
@@ -37,7 +40,10 @@ const Checkout = () => {
       customer_firstname: firstName,
       customer_lastname: lastName,
       customer_email: email,
-      customer_address: address,
+      customer_addressline: houseroadname,
+      customer_postcode: postcode,
+      customer_city: city,
+      customer_country: country,
       product_id: products.map((p) => p.product_id).join(','),
       product_name: products.map((p) => p.product_name).join(','),
       quantity: products.map((p) => p.quantity).join(','),
@@ -106,8 +112,20 @@ return (
               <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className="form-row">
-              <label htmlFor="address" className="label-right">Address:</label>
-              <input type="text" id="address" value={address} onChange={(e) => setAddress(e.target.value)} />
+              <label htmlFor="address" className="label-right">Address Line:</label>
+              <input type="text" id="address" value={houseroadname} onChange={(e) => setHouseroadname(e.target.value)} />
+            </div>
+            <div className="form-row">
+              <label htmlFor="postcode" className="label-right">Postcode:</label>
+              <input type="text" id="postcode" value={postcode} onChange={(e) => setPostcode(e.target.value)} />
+            </div>
+            <div className="form-row">
+              <label htmlFor="city" className="label-right">City:</label>
+              <input type="text" id="city" value={city} onChange={(e) => setCity(e.target.value)} />
+            </div>
+            <div className="form-row">
+              <label htmlFor="country" className="label-right">Country:</label>
+              <input type="text" id="country" value={country} onChange={(e) => setCountry(e.target.value)} />
             </div>
             <button className="checkout-button" onClick={handleCheckout}>Checkout</button>
           </div>

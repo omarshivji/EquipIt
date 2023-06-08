@@ -11,7 +11,10 @@ const RegisterPage = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
-  const [address, setAddress] = useState('');
+  const [houseroadname, setHouseroadname] = useState('');
+  const [postcode, setPostcode] = useState('');
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
   const [dob, setDOB] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -65,9 +68,9 @@ const RegisterPage = () => {
       errors.lastName = "Last Name is required";
     }
 
-    if (!address) {
+    if (!houseroadname) {
       isValid = false;
-      errors.address = "Address is required";
+      errors.houseroadname = "Address is required";
     }
 
     if (!dob) {
@@ -131,7 +134,10 @@ const RegisterPage = () => {
             firstName: firstName,
             lastName: lastName,
             username: username,
-            address: address,
+            houseroadname: houseroadname,
+            postcode: postcode,
+            city: city,
+            country: country,
             email: email,
             dob: dob,
             phone: phone,
@@ -141,7 +147,10 @@ const RegisterPage = () => {
             setIsRegistrationSuccessful(true);
             setFirstName('');
             setLastName('');
-            setAddress('');
+            setHouseroadname('');
+            setPostcode('');
+            setCity('');
+            setCountry('');
             setDOB('');
             setPhone('');
             setEmail('');
@@ -193,12 +202,33 @@ const RegisterPage = () => {
           }} />
           {errors.lastName && <p className="error">{errors.username}</p>}
           </div>
-          <div className='Address'>
-          <label>Address: </label>
+          <div className='House Address'>
+          <label>Address Line:</label>
           <input type="text" onChange={(event) => {
-          setAddress(event.target.value);
+          setHouseroadname(event.target.value);
           }} />
-          {errors.address && <p className="error">{errors.address}</p>}
+          {errors.houseroadname && <p className="error">{errors.houseroadname}</p>}
+          </div>
+          <div className='Postcode'>
+          <label>Postcode: </label>
+          <input type="text" onChange={(event) => {
+          setPostcode(event.target.value);
+          }} />
+          {errors.postcode && <p className="error">{errors.postcode}</p>}
+          </div>
+          <div className='City'>
+          <label>City: </label>
+          <input type="text" onChange={(event) => {
+          setCity(event.target.value);
+          }} />
+          {errors.city && <p className="error">{errors.city}</p>}
+          </div>
+          <div className='Country'>
+          <label>Country: </label>
+          <input type="text" onChange={(event) => {
+          setCountry(event.target.value);
+          }} />
+          {errors.country && <p className="error">{errors.country}</p>}
           </div>
           <div className='DOB'>
           <label>Date of Birth: </label>

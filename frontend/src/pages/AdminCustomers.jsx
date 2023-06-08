@@ -56,9 +56,24 @@ const AdminCustomers = () => {
         newCustomerData.email = newEmail;
       }
 
-      const newAddress = prompt('Enter new address:', customerData.address);
+      const newAddress = prompt('Enter new address:', customerData.houseroadname);
       if (newAddress) {
-        newCustomerData.address = newAddress;
+        newCustomerData.houseroadname = newAddress;
+      }
+
+      const newPostcode = prompt('Enter new city:', customerData.postcode);
+      if (newPostcode) {
+        newCustomerData.postcode = newPostcode;
+      }
+
+      const newCity = prompt('Enter new city:', customerData.city);
+      if (newCity) {
+        newCustomerData.city = newCity;
+      }
+
+      const newCountry = prompt('Enter new country:', customerData.country);
+      if (newCountry) {
+        newCustomerData.country = newCountry;
       }
 
       const newPhone = prompt('Enter new phone number:', customerData.phone);
@@ -123,7 +138,10 @@ const AdminCustomers = () => {
               <th scope="col">Last Name</th>
               <th scope="col">Username</th>
               <th scope="col">Email</th>
-              <th scope="col">Address</th>
+              <th scope="col">Address Line</th>
+              <th scope="col">Postcode</th>
+              <th scope="col">City</th>
+              <th scope="col">Country</th>
               <th scope="col">Phone</th>
               <th scope="col">DOB</th>
               <th scope="col">Actions</th>
@@ -137,7 +155,10 @@ const AdminCustomers = () => {
                 <td>{customer.lastName}</td>
                 <td>{customer.username}</td>
                 <td>{customer.email}</td>
-                <td>{customer.address}</td>
+                <td>{customer.houseroadname}</td>
+                <td>{customer.postcode}</td>
+                <td>{customer.city}</td>
+                <td>{customer.country}</td>
                 <td>{customer.phone}</td>
                 <td>{customer.DOB}</td>
                 <td>
